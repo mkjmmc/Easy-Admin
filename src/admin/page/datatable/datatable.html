@@ -1,0 +1,173 @@
+<div class="modal-header">
+    <h3 class="modal-title">
+        数据源</h3>
+</div>
+<div class="modal-body">
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">
+                数据源名称</label>
+            <div class="col-sm-9">
+                <input type="text" ng-model="data.name" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">
+                类型</label>
+            <div class="col-sm-9">
+                <select ng-model="data.type" class="form-control">
+                    <option value="select">查询</option>
+                    <option value="insert">插入</option>
+                    <option value="update">更新</option>
+                    <option value="remove">删除</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">
+                连接</label>
+            <div class="col-sm-9">
+                <select ng-model="data.connectid" ng-options="connect.ID as connect.Name for connect in connects" class="form-control">
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">
+                数据库</label>
+            <div class="col-sm-9">
+                <select ng-model="data.database" ng-options="tablename for tablename in databases" class="form-control">
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">
+                表</label>
+            <div class="col-sm-9">
+                <select ng-model="data.table" ng-options="table.table as table.table for table in tablelist" class="form-control">
+                </select>
+                <div ng-repeat="tb in data.join">
+                    <div class="row no-margins">
+                        <div class="col-sm-4 no-padding">
+                            <select ng-model="tb.type" class="form-control">
+                                <option value="inner">inner join</option>
+                                <option value="left">left join</option>
+                                <option value="right">right join</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-6 no-padding">
+                            <select ng-model="tb.table" ng-options="table.table as table.table for table in tablelist" class="form-control" ng-change="getcolumnlist(data.connectid, data.database, tb.table)">
+                            </select>
+                        </div>
+                        <div class="col-sm-2 no-padding">
+                            <a ng-click="data.join.splice($index,1)" class="btn btn-default"><i class="fa fa-close"></i></a>
+                        </div>
+                        <div class="col-sm-2 no-padding">
+                            <select class="form-control">
+                                <option selected="selected">ON</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-4 no-padding">
+                            <select ng-model="tb.on[0]" ng-options="column as column.table+'.'+column.column_name for column in columnlist" class="form-control">
+                            </select>
+                        </div>
+                        <div class="col-sm-2 no-padding">
+                            <select ng-model="tb.opt" class="form-control">
+                                <option value="=">=</option>
+                                <option value="<>">&lt;&gt;</option>
+                                <option value="&lt;">&lt;</option>
+                                <option value="&lt;=">&lt;=</option>
+                                <option value="&gt;">&gt;</option>
+                                <option value="&gt;=">&gt;=</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-4 no-padding">
+                            <select ng-model="tb.on[1]" ng-options="column as column.table+'.'+column.column_name for column in columnlist" class="form-control">
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <a ng-click="data.join.push({type:'inner',table:'',on:['','']})" class="btn btn-default"><i class="fa fa-plus"></i></a>
+           
+            </div>
+        </div>
+        <div ng-if="data.type == 'select' && data.table">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">
+                    字段</label>
+                <div class="col-sm-9">
+                    <div ng-repeat="column in columnlist">
+                        <label>
+                            <input type="checkbox" ng-model="column.display" />
+                            {{column.table}}.{{column.column_name}} <span class="badge">{{column.data_type}}</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">
+                    条件</label>
+                <div class="col-sm-9">
+                    <div ng-repeat="item in data.condition">
+                        <div class="row no-margins">
+                            <div class="col-sm-3 no-padding">
+                                <select ng-model="item.column" ng-options="column as column.table+'.'+column.column_name for column in columnlist" class="form-control">
+                                </select>
+                            </div>
+                            <div class="col-sm-3 no-padding">
+                                <select ng-model="item.opt" class="form-control">
+                                    <option value="等于">等于</option>
+                                    <option value="不等于">不等于</option>
+                                    <option value="小于">小于</option>
+                                    <option value="小于或等于">小于或等于</option>
+                                    <option value="大于">大于</option>
+                                    <option value="大于或等于">大于或等于</option>
+                                    <option value="包含">包含</option>
+                                    <option value="不包含">不包含</option>
+                                    <option value="开始以">开始以</option>
+                                    <option value="结束以">结束以</option>
+                                    <option value="是空的">是空的</option>
+                                    <option value="不是空的">不是空的</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-4 no-padding">
+                                <input ng-model="item.value" class="form-control" ng-if="item.opt != '是空的' && item.opt != '不是空的'" />
+                            </div>
+                            <div class="col-sm-2 no-padding">
+                                <a ng-click="data.condition.splice($index,1)" class="btn btn-default"><i class="fa fa-close"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <a ng-click="data.condition.push({column_name:'',opt:'等于',value:''})" class="btn btn-default"><i class="fa fa-plus"></i></a>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">
+                    排序</label>
+                <div class="col-sm-9">
+                    <div ng-repeat="item in data.sort">
+                        <div class="row no-margins">
+                            <div class="col-sm-3 no-padding">
+                                <select ng-model="item.column" ng-options="column as column.table+'.'+column.column_name for column in columnlist" class="form-control">
+                                </select>
+                            </div>
+                            <div class="col-sm-3 no-padding">
+                                <select ng-model="item.order" class="form-control">
+                                    <option value="1">正序</option>
+                                    <option value="-1">倒序</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-3 no-padding">
+                                <a ng-click="data.sort.splice($index,1)" class="btn btn-default"><i class="fa fa-close"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <a ng-click="data.sort.push({column_name:'',order:'1'})" class="btn btn-default"><i class="fa fa-plus"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{data}}
+<br />
+<br />
+{{tablelist}}

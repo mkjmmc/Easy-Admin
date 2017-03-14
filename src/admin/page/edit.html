@@ -1,0 +1,89 @@
+﻿<div ng-controller="PageEditController">
+    <div class="ibox">
+        <div class="ibox-title">
+            <h5>
+                {{config.title}}</h5>
+            <div class="ibox-tools">
+            </div>
+        </div>
+        <div class="ibox-content">
+
+            <div class="clearfix">
+                <input type="checkbox" ng-model="editable"/>
+                <a ng-click="savequery()" class="btn btn-success pull-right">保存</a>
+            </div>
+        </div>
+    </div>
+        <design component="Component" editable="editable"></design>
+
+</div>
+<style>
+    .toolbox{}
+    .nav-tabs > li .close {
+			    margin: -2px 0 0 10px;
+			    font-size: 18px;
+			}
+    .layout{ padding-bottom: 100px;}
+    .active{}
+    .layout-container .layout-active:before {content: ""; display: block; position: absolute; top: 0; left: 0; right: 0; bottom: 0; border: solid 1px #ee6723; -webkit-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.15); box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.15); }
+    
+    .layout-container .layout-hover:before {content: ""; display: block; position: absolute; top: 0; left: 0; right: 0; bottom: 0; border: solid 1px #419bf9; }
+    
+    .row-fluid {
+        width: 100%;
+    }
+    .row-fluid {
+        position: relative;
+        
+    }
+    .component {
+        border: 2px dashed #eeeeee;
+        border-radius: 4px 4px 4px 4px;
+    }
+    .component.hover {
+        border-color: #9da0a4;
+    }
+    .component > div > .toolbar > .btn {
+        color: #eee;
+    }
+     .component.hover > div > .toolbar > .btn {
+        color: #666;
+    }
+    .row-fluid:before, .row-fluid:after {
+        display: table;
+        content: "";
+        line-height: 0;
+    }
+    .row-fluid:before {
+    }
+    .row-fluid:after {
+        clear: both;
+    }
+
+    .column {
+        background-color: #FFFFFF;
+        border: 1px dashed #eeeeee;
+        margin: 0;
+        padding: 39px 0px 24px;
+        position: relative;
+    }
+
+    .row-fluid .column {
+        min-height: 30px;
+    }
+    .column:after {
+        background-color: #F5F5F5;
+        border: 1px solid #DDDDDD;
+        border-radius: 4px 0 4px 0;
+        color: #9DA0A4;
+        content: "Column";
+        font-size: 12px;
+        font-weight: bold;
+        left: -1px;
+        padding: 3px 7px;
+        position: absolute;
+        top: -1px;
+    }
+    .selected{ background-color: #00ced1}
+    .dd-handle{ float: right;}
+</style>

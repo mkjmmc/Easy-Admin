@@ -1,0 +1,51 @@
+<div class="ibox" ng-controller="PageListController">
+    <div class="ibox-title">
+        <h5>
+            页面</h5>
+        <div class="ibox-tools">
+            <a ui-sref="page.edit({id:0})">新建页面</a>
+        </div>
+    </div>
+    <div class="ibox-content">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>
+                            ID
+                        </th>
+                        <th>
+                            Title
+                        </th>
+                        <th>
+                            Config
+                        </th>
+                    </tr>
+                </thead>
+                <tr ng-repeat="item in data.data">
+                    <td>
+                        {{item.ID}}
+                    </td>
+                    <td>
+                        {{item.Title}}
+                    </td>
+                    <td>
+                        <a ui-sref="page.edit({id:item.ID})">修改</a>
+                        |
+                        <a ui-sref="page.page({id:item.ID})">查看</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <footer class="">
+            <div class="row">
+                <div class="col-sm-4 text-left">
+                    <small class="text-muted inline m-t-sm m-b-sm"> {{'总条数' | translate}}: {{data.totalItems}}</small>
+                </div>
+                <div class="col-sm-8 text-right text-center-xs">
+                    <ul uib-pagination total-items="totalItems" items-per-page="itemsPerPage" previous-text="{{'上一页' | translate}}" next-text="{{'下一页' | translate}}" ng-model="currentPage" ng-change="pageChanged()" class="m-t-none m-b"></ul>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
