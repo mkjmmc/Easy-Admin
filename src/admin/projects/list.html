@@ -1,0 +1,12 @@
+<div class="container">
+    <div class="ibox" ng-controller="ProjectsController">
+        <a ng-click="showcreatedialog()">创建</a>
+
+        <div class="row">
+            <div ng-repeat="project in projects" class="col-sm-3">
+                <a ng-bind="project.Name" ui-sref="app.project.index({id:project.ID})"></a>
+            </div>
+            {{projects}}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,10 @@
+#:C:\Users\mao_kejia\Documents\GitHub\Easy-Admin\src\services\EasyAdmin.Api\EasyAdmin.Api.xproj
+C:\Users\mao_kejia\Documents\GitHub\Easy-Admin\src\services\EasyAdmin.Api\EasyAdmin.Api.xproj|C:\Users\mao_kejia\Documents\GitHub\Easy-Admin\src\services\EasyAdmin.Dao\EasyAdmin.Dao.csproj
+C:\Users\mao_kejia\Documents\GitHub\Easy-Admin\src\services\EasyAdmin.Api\EasyAdmin.Api.xproj|C:\Users\mao_kejia\Documents\GitHub\Easy-Admin\src\services\EasyAdmin.Dao.Models\EasyAdmin.Dao.Models.csproj
+C:\Users\mao_kejia\Documents\GitHub\Easy-Admin\src\services\EasyAdmin.Api\EasyAdmin.Api.xproj|C:\Users\mao_kejia\Documents\GitHub\Easy-Admin\src\services\EasyAdmin.Service\EasyAdmin.Service.csproj
+C:\Users\mao_kejia\Documents\GitHub\Easy-Admin\src\services\EasyAdmin.Dao\EasyAdmin.Dao.csproj|C:\Users\mao_kejia\Documents\GitHub\Easy-Admin\src\services\EasyAdmin.Dao.Models\EasyAdmin.Dao.Models.csproj
+C:\Users\mao_kejia\Documents\GitHub\Easy-Admin\src\services\EasyAdmin.Dao\EasyAdmin.Dao.csproj|C:\Users\mao_kejia\Documents\GitHub\Easy-Admin\src\services\EasyAdmin.Dao.Interface\EasyAdmin.Dao.Interface.csproj
+C:\Users\mao_kejia\Documents\GitHub\Easy-Admin\src\services\EasyAdmin.Service\EasyAdmin.Service.csproj|C:\Users\mao_kejia\Documents\GitHub\Easy-Admin\src\services\EasyAdmin.Dao\EasyAdmin.Dao.csproj
+C:\Users\mao_kejia\Documents\GitHub\Easy-Admin\src\services\EasyAdmin.Service\EasyAdmin.Service.csproj|C:\Users\mao_kejia\Documents\GitHub\Easy-Admin\src\services\EasyAdmin.Dao.Models\EasyAdmin.Dao.Models.csproj
+C:\Users\mao_kejia\Documents\GitHub\Easy-Admin\src\services\EasyAdmin.Service\EasyAdmin.Service.csproj|C:\Users\mao_kejia\Documents\GitHub\Easy-Admin\src\services\EasyAdmin.Service.Interface\EasyAdmin.Service.Interface.csproj
+C:\Users\mao_kejia\Documents\GitHub\Easy-Admin\src\services\EasyAdmin.Service.Interface\EasyAdmin.Service.Interface.csproj|C:\Users\mao_kejia\Documents\GitHub\Easy-Admin\src\services\EasyAdmin.Dao.Models\EasyAdmin.Dao.Models.csproj

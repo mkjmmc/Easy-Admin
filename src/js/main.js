@@ -11,7 +11,7 @@ angular.module('app')
             isSmartDevice($window) && angular.element($window.document.body).addClass('smart');
 
             // config
-            app.host = "api";// "http://adminapi.yys.ren:8011/api";// "http://localhost:65030/api"; //"http://adminapi.yys.ren/api";
+            app.host = "http://localhost:3595/api";// "http://adminapi.yys.ren:8011/api";// "http://localhost:65030/api"; //"http://adminapi.yys.ren/api";
             $scope.app = {
                 host: app.host,
                 name: 'Easy Admin',
@@ -40,17 +40,7 @@ angular.module('app')
                 }
             };
 
-            // 接口地址
-            $scope.app.resource = {
-                login: $scope.app.host + '/Account/Login',
-                signup: $scope.app.host + '/Account/Register',
-                userinfo: $scope.app.host + '/Account/UserInfo',
-                logout: $scope.app.host + '/Account/Logout',
-                changepassword: $scope.app.host + '/Account/changepassword',
-                getcheckcode: $scope.app.host + '/Account/getcheckcode'
-            }
-
-            // save settings to local storage
+                   // save settings to local storage
             if (angular.isDefined($localStorage.settings)) {
                 $scope.app.settings = $localStorage.settings;
             } else {

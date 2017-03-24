@@ -47,10 +47,43 @@ app
                 url: '/signup',
                 templateUrl: 'admin/access/signup.html'
             })
+
             .state('app', {
                 abstract: true,
-                url: '/app',
+                //url: '/app',
                 templateUrl: 'admin/app.html',
+            })
+            .state('app.projects', {
+                //abstract: true,
+                url: '/projects',
+                templateUrl: 'admin/projects/list.html',
+                resolve: {
+                    deps: ['$ocLazyLoad',
+                        function ($ocLazyLoad) {
+                            return $ocLazyLoad.load('admin/projects/ctrl.js');
+                        }]
+                }
+            })
+            .state('app.project', {
+                //abstract: true,
+                url: '/project',
+                template: '<div ui-view class="fade-in"></div>',
+                resolve: {
+                    deps: ['$ocLazyLoad',
+                        function ($ocLazyLoad) {
+                            return $ocLazyLoad.load('admin/projects/ctrl.js');
+                        }]
+                }
+            })
+            .state('app.project.index', {
+                //abstract: true,
+                url: '/{projectid}',
+                templateUrl: 'admin/projects/index.html',
+            })
+            .state('app.project.index.module', {
+                //abstract: true,
+                url: '/{moduleid}',
+                templateUrl: 'admin/projects/index.html',
             })
             .state('app.dashboard', {
                 url: '/dashboard',

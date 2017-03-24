@@ -1,17 +1,17 @@
 ﻿// 加载
-app.controller('LoadingController', function ($scope, $resource, $state, $localStorage,rest_access) {
+app.controller('LoadingController', function ($scope, $resource, $state, $localStorage, rest_access) {
 
     if (!$scope.session_user) {
         $state.go('access.signin');
         return;
     }
     // get user info
-    rest_access.get().then(function(data){
+    rest_access.get().then(function (data) {
         switch (data.code) {
             case 0:
                 $scope.session_user = data.data;
                 $localStorage.user = data.data;
-                $state.go('app.dashboard');
+                $state.go('app.projects');
                 break;
             default :
                 $state.go('access.signin');
@@ -22,116 +22,74 @@ app.controller('LoadingController', function ($scope, $resource, $state, $localS
     });
 });
 // 登录
-app.controller('SigninFormController', function ($scope, $state, $http, $resource, Base64, $localStorage, md5) {
+app.controller('SigninFormController', function ($scope, $state, $http, $resource, Base64, $localStorage, md5, rest_access) {
     $scope.login = function () {
         // 对密码进行md5加密
         var password = md5.createHash($scope.user.password || '');
         $scope.authError = "";
-        var $com = $resource($scope.app.resource.login);
-        $com.save({username: $scope.user.username, password: password}, function (data) {
-            switch (data.Code) {
-                case 0:
-                    // 登录成功处理
-                    var user = data.Data;
-                    $scope.session_user = user;
-                    $localStorage.user = user;
-                    $localStorage.auth = user.Token;
-                    $http.defaults.headers.common['Authorization'] = $localStorage.auth;
-                    $state.go('app.dashboard');
-                    break;
-                default:
-                    // 异常处理
-                    $scope.authError = data.Message;
-                    break;
-            }
-        }, function () {
-            $scope.authError = "服务器登录错误"
-        })
+        rest_access
+            .signin({username: $scope.user.email, password: password})
+            .then(function (data) {
+                switch (data.Result) {
+                    case 0:
+                        // 登录成功处理
+                        var user = data.Data;
+                        $scope.session_user = user;
+                        $localStorage.user = user;
+                        $localStorage.auth = user.LoginKey;
+                        $http.defaults.headers.common['Authorization'] = $localStorage.auth;
+                        $state.go('app.projects');
+                        break;
+                    default:
+                        // 异常处理
+                        $scope.authError = data.Message;
+                        break;
+                }
+            }, function () {
+                $scope.authError = "服务器登录错误"
+            });
     }
 });
 
 // 注册
-app.controller('SignupFormController', function ($scope, $http, $state, $resource, Base64, $localStorage, md5,$timeout ) {
+app.controller('SignupFormController', function ($scope, $http, $state, $resource, Base64, $localStorage, md5, $timeout, rest_access) {
     $scope.user = {};
     $scope.authError = null;
 
     $scope.checkcodetime = 0;
 
-    // 开启倒计时
-    $scope.beginchecktime = function () {
-        if($scope.checkcodetime==0)
-        {
-            return;
-        }
-        $timeout(function() {
-            $scope.checkcodetime--;
-            $scope.beginchecktime();
-        }, 1000);
-    };
-
-    // 获取验证码
-    $scope.getcheckcode = function(){
+    $scope.signup = function () {
 
         //alert('内测阶段，注册暂时不可用')
         //return;
 
-        var $com = $resource($scope.app.resource.getcheckcode);
-        $com.get({MobilePhone: $scope.user.mobilephone}, function (data) {
-            switch (data.Code) {
-                case 0:
-                    $scope.checkcodetime = 60;
-                    $scope.beginchecktime();
-                    // 登录成功处理
-                    //var user = data.Data;
-                    //$scope.session_user = user;
-                    //$localStorage.user = user;
-                    //$localStorage.auth = user.Token;
-                    //$http.defaults.headers.common['Authorization'] = $localStorage.auth;
-                    //$state.go('app.dashboard');
-                    break;
-                default:
-                    // 异常处理
-                    $scope.authError = data.Message;
-                    break;
-            }
-        }, function () {
-            $scope.authError = "服务器登录错误"
-        });
-    };
-
-    $scope.signup = function () {
-
-         //alert('内测阶段，注册暂时不可用')
-         //return;
-        
-        if($scope.user.password!=$scope.user.password1){
-            $scope.authError = "两次密码输入不一致";
-            return;
-        }
+        //if ($scope.user.password != $scope.user.password1) {
+        //    $scope.authError = "两次密码输入不一致";
+        //    return;
+        //}
 
         // 对密码进行md5加密
         var password = md5.createHash($scope.user.password || '');
         $scope.authError = "";
-        var $com = $resource($scope.app.resource.signup);
-        $com.save({MobilePhone: $scope.user.mobilephone, Password: password, CheckCode:$scope. user.checkcode}, function (data) {
-            switch (data.Code) {
-                case 0:
-                    // 登录成功处理
-                    var user = data.Data;
-                    $scope.session_user = user;
-                    $localStorage.user = user;
-                    $localStorage.auth = user.Token;
-                    $http.defaults.headers.common['Authorization'] = $localStorage.auth;
-                    $state.go('app.dashboard');
-                    break;
-                default:
-                    // 异常处理
-                    $scope.authError = data.Message;
-                    break;
-            }
-        }, function () {
-            $scope.authError = "服务器登录错误"
-        });
+        rest_access
+            .signup({name: $scope.user.name, email: $scope.user.email, password: password})
+            .then(function (data) {
+                switch (data.Result) {
+                    case 0:
+                        // 登录成功处理
+                        //var user = data.Data;
+                        //$scope.session_user = user;
+                        //$localStorage.user = user;
+                        //$localStorage.auth = user.Token;
+                        //$http.defaults.headers.common['Authorization'] = $localStorage.auth;
+                        $state.go('access.signin');
+                        break;
+                    default:
+                        // 异常处理
+                        $scope.authError = data.Message;
+                        break;
+                }
+            });
     };
 });
 // 修改密码
@@ -144,7 +102,7 @@ app.controller('ChangePasswordController', function ($scope, $http, $state, $res
         var newpassword = md5.createHash($scope.user.NewPassword || '');
         $scope.authError = "";
         var $com = $resource($scope.app.resource.changepassword);
-        $com.save({OldPassword: oldpassword, NewPassword:newpassword}, function (data) {
+        $com.save({OldPassword: oldpassword, NewPassword: newpassword}, function (data) {
             switch (data.Code) {
                 case 0:
                     // 修改成功处理

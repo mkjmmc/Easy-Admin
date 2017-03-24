@@ -1,0 +1,7 @@
+C:\Users\mao_kejia\Documents\GitHub\Easy-Admin\src\services\EasyAdmin.Service.Interface\bin\Debug\EasyAdmin.Service.Interface.dll
+C:\Users\mao_kejia\Documents\GitHub\Easy-Admin\src\services\EasyAdmin.Service.Interface\bin\Debug\EasyAdmin.Service.Interface.pdb
+C:\Users\mao_kejia\Documents\GitHub\Easy-Admin\src\services\EasyAdmin.Service.Interface\bin\Debug\EasyAdmin.Dao.Models.dll
+C:\Users\mao_kejia\Documents\GitHub\Easy-Admin\src\services\EasyAdmin.Service.Interface\bin\Debug\EasyAdmin.Dao.Models.pdb
+C:\Users\mao_kejia\Documents\GitHub\Easy-Admin\src\services\EasyAdmin.Service.Interface\obj\Debug\EasyAdmin.Service.Interface.csprojResolveAssemblyReference.cache
+C:\Users\mao_kejia\Documents\GitHub\Easy-Admin\src\services\EasyAdmin.Service.Interface\obj\Debug\EasyAdmin.Service.Interface.dll
+C:\Users\mao_kejia\Documents\GitHub\Easy-Admin\src\services\EasyAdmin.Service.Interface\obj\Debug\EasyAdmin.Service.Interface.pdb
