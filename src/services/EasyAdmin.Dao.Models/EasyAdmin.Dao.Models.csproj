@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DBConnect.cs" />
+    <Compile Include="Page.cs" />
     <Compile Include="Module.cs" />
     <Compile Include="UserProject.cs" />
     <Compile Include="Project.cs" />

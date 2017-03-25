@@ -30,10 +30,10 @@ app.controller('SigninFormController', function ($scope, $state, $http, $resourc
         rest_access
             .signin({username: $scope.user.email, password: password})
             .then(function (data) {
-                switch (data.Result) {
+                switch (data.result) {
                     case 0:
                         // 登录成功处理
-                        var user = data.Data;
+                        var user = data.data;
                         $scope.session_user = user;
                         $localStorage.user = user;
                         $localStorage.auth = user.LoginKey;
@@ -42,7 +42,7 @@ app.controller('SigninFormController', function ($scope, $state, $http, $resourc
                         break;
                     default:
                         // 异常处理
-                        $scope.authError = data.Message;
+                        $scope.authError = data.message;
                         break;
                 }
             }, function () {
@@ -74,10 +74,10 @@ app.controller('SignupFormController', function ($scope, $http, $state, $resourc
         rest_access
             .signup({name: $scope.user.name, email: $scope.user.email, password: password})
             .then(function (data) {
-                switch (data.Result) {
+                switch (data.result) {
                     case 0:
                         // 登录成功处理
-                        //var user = data.Data;
+                        //var user = data.data;
                         //$scope.session_user = user;
                         //$localStorage.user = user;
                         //$localStorage.auth = user.Token;
@@ -86,7 +86,7 @@ app.controller('SignupFormController', function ($scope, $http, $state, $resourc
                         break;
                     default:
                         // 异常处理
-                        $scope.authError = data.Message;
+                        $scope.authError = data.message;
                         break;
                 }
             });
@@ -110,7 +110,7 @@ app.controller('ChangePasswordController', function ($scope, $http, $state, $res
                     break;
                 default:
                     // 异常处理
-                    $scope.authError = data.Message;
+                    $scope.authError = data.message;
                     break;
             }
         }, function () {

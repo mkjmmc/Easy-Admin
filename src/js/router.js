@@ -21,8 +21,18 @@ app
 )
     .config(
     function ($stateProvider, $urlRouterProvider) {
+        /*
+        路由规则
+
+         #/loading
+         #/signin
+         #/signup
+         #/projects
+         #/project/{projectid}
+         #/project/{projectid}/{pageid}
+         */
         $urlRouterProvider
-            .otherwise('/access/loading');
+            .otherwise('/loading');
         $stateProvider
             .state('access', {
                 abstract: true,
@@ -36,15 +46,15 @@ app
                 }
             })
             .state('access.loading', {
-                url: '/loading',
+                url: '^/loading',
                 templateUrl: 'admin/access/loading.html',
             })
             .state('access.signin', {
-                url: '/signin',
+                url: '^/signin',
                 templateUrl: 'admin/access/signin.html',
             })
             .state('access.signup', {
-                url: '/signup',
+                url: '^/signup',
                 templateUrl: 'admin/access/signup.html'
             })
 
@@ -53,10 +63,11 @@ app
                 //url: '/app',
                 templateUrl: 'admin/app.html',
             })
+            // projects
             .state('app.projects', {
                 //abstract: true,
                 url: '/projects',
-                templateUrl: 'admin/projects/list.html',
+                templateUrl: 'admin/projects/index.html',
                 resolve: {
                     deps: ['$ocLazyLoad',
                         function ($ocLazyLoad) {
@@ -64,27 +75,101 @@ app
                         }]
                 }
             })
-            .state('app.project', {
+
+
+            .state('app.pages', {
                 //abstract: true,
-                url: '/project',
+                url: '/pages',
+                templateUrl: 'admin/page/list.html',
+                resolve: {
+                    deps: ['$ocLazyLoad',
+                        function ($ocLazyLoad) {
+                            return $ocLazyLoad.load('admin/page/ctrl.js');
+                        }]
+                }
+            })
+            .state('app.page', {
+                //abstract: true,
+                url: '/page',
                 template: '<div ui-view class="fade-in"></div>',
                 resolve: {
                     deps: ['$ocLazyLoad',
                         function ($ocLazyLoad) {
-                            return $ocLazyLoad.load('admin/projects/ctrl.js');
+                            return $ocLazyLoad.load([
+                                'admin/page/ctrl.js',
+                                'admin/page/design.js',
+                                'admin/page/filter.js',
+                                'admin/page/datatable/datatable.js',
+                                'admin/page/datasource/datasource.js',
+                            ]);
                         }]
                 }
             })
-            .state('app.project.index', {
+
+
+            // .state('app.project', {
+            //     //abstract: true,
+            //     url: '/project',
+            //     template: '<div ui-view class="fade-in"></div>',
+            //     resolve: {
+            //         deps: ['$ocLazyLoad',
+            //             function ($ocLazyLoad) {
+            //                 return $ocLazyLoad.load('admin/projects/ctrl.js');
+            //             }]
+            //     }
+            // })
+            .state('app.project', {
                 //abstract: true,
-                url: '/{projectid}',
-                templateUrl: 'admin/projects/index.html',
+                url: '/project/{projectid}',
+                templateUrl: 'admin/project/index.html',
+                    resolve: {
+                        deps: ['$ocLazyLoad',
+                            function ($ocLazyLoad) {
+                                return $ocLazyLoad.load('admin/project/ctrl.js');
+                            }]
+                    }
             })
-            .state('app.project.index.module', {
+            // .state('app.project.index.module', {
+            //     //abstract: true,
+            //     url: '/{moduleid}',
+            //     templateUrl: 'admin/projects/index.html',
+            // })
+            .state('app.project.page', {
                 //abstract: true,
-                url: '/{moduleid}',
-                templateUrl: 'admin/projects/index.html',
+                url: '/{pageid}',
+                templateUrl: 'admin/page/page.html',
+                resolve: {
+                    deps: ['$ocLazyLoad',
+                        function ($ocLazyLoad) {
+                            return $ocLazyLoad.load([
+                                'admin/page/ctrl.js',
+                                'admin/page/design.js',
+                                'admin/page/filter.js',
+                                'admin/page/datatable/datatable.js',
+                                'admin/page/datasource/datasource.js',
+                            ]);
+                        }]
+                }
             })
+
+            .state('app.project.design', {
+                //abstract: true,
+                url: '/{pageid}/design',
+                templateUrl: 'admin/page/edit.html',
+                resolve: {
+                    deps: ['$ocLazyLoad',
+                        function ($ocLazyLoad) {
+                            return $ocLazyLoad.load([
+                                'admin/page/ctrl.js',
+                                'admin/page/design.js',
+                                'admin/page/filter.js',
+                                'admin/page/datatable/datatable.js',
+                                'admin/page/datasource/datasource.js',
+                            ]);
+                        }]
+                }
+            })
+
             .state('app.dashboard', {
                 url: '/dashboard',
                 templateUrl: 'admin/dashboard/dashboard.html',

@@ -1,4 +1,4 @@
-// rest·þÎñ
+// restï¿½ï¿½ï¿½ï¿½
 app.factory('rest', function ($rootScope, $http, $q, $resource) {
     return {
         get: function (url, params) {
@@ -89,6 +89,35 @@ app.factory('rest_modules', function ($rootScope, rest) {
         },
         create:function(data){
             return rest.save(app.host + "/modules/create",{},data);
+        }
+    }
+});
+
+app.factory('rest_pages', function ($rootScope, rest) {
+    return {
+        list: function (data) {
+            return rest.save(app.host + "/pages/list",  data);
+        },
+        detail: function (data) {
+            return rest.save(app.host + "/pages/detail",  data);
+        },
+        connects: function (data) {
+            return rest.save(app.host + "/pages/connects",  data);
+        },
+        databases: function (data) {
+            return rest.save(app.host + "/pages/databases",  data);
+        },
+        tables: function (data) {
+            return rest.save(app.host + "/pages/tables",  data);
+        },
+        columns: function (data) {
+            return rest.save(app.host + "/pages/columns",  data);
+        },
+        executedatasource: function (projectid, data) {
+            return rest.save(app.host + "/pages/executedatasource", {projectid:projectid}, data);
+        },
+        create:function(data){
+            return rest.save(app.host + "/pages/create",{},data);
         }
     }
 });

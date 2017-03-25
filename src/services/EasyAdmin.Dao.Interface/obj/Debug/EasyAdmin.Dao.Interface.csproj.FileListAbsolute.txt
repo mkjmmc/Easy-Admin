@@ -2,3 +2,8 @@ C:\Users\mao_kejia\Documents\GitHub\Easy-Admin\src\services\EasyAdmin.Dao.Interf
 C:\Users\mao_kejia\Documents\GitHub\Easy-Admin\src\services\EasyAdmin.Dao.Interface\bin\Debug\EasyAdmin.Dao.Interface.pdb
 C:\Users\mao_kejia\Documents\GitHub\Easy-Admin\src\services\EasyAdmin.Dao.Interface\obj\Debug\EasyAdmin.Dao.Interface.dll
 C:\Users\mao_kejia\Documents\GitHub\Easy-Admin\src\services\EasyAdmin.Dao.Interface\obj\Debug\EasyAdmin.Dao.Interface.pdb
+D:\github\Easy-Admin\src\services\EasyAdmin.Dao.Interface\bin\Debug\EasyAdmin.Dao.Interface.dll
+D:\github\Easy-Admin\src\services\EasyAdmin.Dao.Interface\bin\Debug\EasyAdmin.Dao.Interface.pdb
+D:\github\Easy-Admin\src\services\EasyAdmin.Dao.Interface\obj\Debug\EasyAdmin.Dao.Interface.dll
+D:\github\Easy-Admin\src\services\EasyAdmin.Dao.Interface\obj\Debug\EasyAdmin.Dao.Interface.pdb
+D:\github\Easy-Admin\src\services\EasyAdmin.Dao.Interface\obj\Debug\EasyAdmin.Dao.Interface.csprojResolveAssemblyReference.cache

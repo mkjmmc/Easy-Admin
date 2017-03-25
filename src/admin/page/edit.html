@@ -14,8 +14,8 @@
             </div>
         </div>
     </div>
-        <design component="Component" editable="editable"></design>
-
+        <design config="Component" editable="editable"></design>
+    <span class="text-danger">{{Component}}</span>
 </div>
 <style>
     .toolbox{}
@@ -86,4 +86,19 @@
     }
     .selected{ background-color: #00ced1}
     .dd-handle{ float: right;}
+
+    .design .modal {
+        position: relative;
+        top: auto;
+        right: auto;
+        bottom: auto;
+        left: auto;
+        z-index: 1;
+        display: block;
+    }
+    .design .modal-dialog {
+        left: auto;
+        margin-right: auto;
+        margin-left: auto;
+    }
 </style>

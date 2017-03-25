@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.ComponentModel;
 using System.Reflection;
 
@@ -32,11 +33,13 @@ namespace EasyAdmin.Api.Models
         /// <summary>
         /// 返回结果状态
         /// </summary>
+        [JsonProperty(PropertyName = "result")]
         public MessageResult Result { get; private set; }
 
         /// <summary>
         /// 消息说明
         /// </summary>
+        [JsonProperty(PropertyName = "message")]
         public string Message { get; private set; }
 
         /// <summary>
@@ -47,6 +50,7 @@ namespace EasyAdmin.Api.Models
         /// <summary>
         /// 数据
         /// </summary>
+        [JsonProperty(PropertyName = "data")]
         public object Data { get; private set; }
 
         public static String GetEnumDesc(MessageResult e)

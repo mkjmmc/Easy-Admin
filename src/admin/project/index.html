@@ -1,0 +1,22 @@
+<div class="container">
+    <div class="ibox" ng-controller="ProjectDashboardController">
+        <a ng-click="showcreatedialog()">创建</a>
+
+        <div class="row">
+            <div ng-repeat="module in modules" class="col-sm-3">
+                <a ui-sref="app.project.index.module({projectid:module.ProjectID, moduleid:module.ID})">
+                    {{module}}
+                </a>
+            </div>
+
+        </div>
+        <div class="row">
+            <div ng-repeat="page in pages" class="col-sm-3">
+                <a ui-sref="app.project.page({projectid:page.ProjectID, pageid:page.ID})">
+                    {{page.Title}}
+                </a>
+            </div>
+        </div>
+        <div ui-view></div>
+    </div>
+</div>

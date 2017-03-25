@@ -49,6 +49,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DBConnectManage.cs" />
+    <Compile Include="PageManage.cs" />
     <Compile Include="ModuleManage.cs" />
     <Compile Include="ProjectManage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

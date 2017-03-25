@@ -40,6 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IDBConnectManage.cs" />
+    <Compile Include="IPageManage.cs" />
     <Compile Include="IModuleManage.cs" />
     <Compile Include="ITenantManage.cs" />
     <Compile Include="IProjectManage.cs" />
