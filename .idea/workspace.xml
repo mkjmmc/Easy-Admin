@@ -1,340 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a80a7da6-2dcf-48d4-be6d-ffdc561b75da" name="Default" comment="add files">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/EasyAdmin.Api.exe" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/EasyAdmin.Api.pdb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/EasyAdmin.Dao.Interface.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/EasyAdmin.Dao.Interface.pdb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/EasyAdmin.Dao.Models.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/EasyAdmin.Dao.Models.pdb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/EasyAdmin.Dao.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/EasyAdmin.Dao.pdb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/EasyAdmin.Service.Interface.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/EasyAdmin.Service.Interface.pdb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/EasyAdmin.Service.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/EasyAdmin.Service.pdb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/EntityFramework.SqlServer.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/EntityFramework.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.AI.Agent.Intercept.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.AI.DependencyCollector.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.AI.PerfCounterCollector.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.AI.ServerTelemetryChannel.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.ApplicationInsights.AspNetCore.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.ApplicationInsights.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.AspNetCore.Antiforgery.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.AspNetCore.Authorization.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.AspNetCore.Cors.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.AspNetCore.Cryptography.Internal.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.AspNetCore.DataProtection.Abstractions.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.AspNetCore.DataProtection.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.AspNetCore.Diagnostics.Abstractions.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.AspNetCore.Diagnostics.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.AspNetCore.Hosting.Abstractions.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.AspNetCore.Hosting.Server.Abstractions.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.AspNetCore.Hosting.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.AspNetCore.Html.Abstractions.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.AspNetCore.Http.Abstractions.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.AspNetCore.Http.Extensions.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.AspNetCore.Http.Features.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.AspNetCore.Http.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.AspNetCore.HttpOverrides.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.AspNetCore.JsonPatch.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.AspNetCore.Localization.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.AspNetCore.Mvc.Abstractions.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.AspNetCore.Mvc.ApiExplorer.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.AspNetCore.Mvc.Core.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.AspNetCore.Mvc.Cors.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.AspNetCore.Mvc.DataAnnotations.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.AspNetCore.Mvc.Formatters.Json.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.AspNetCore.Mvc.Localization.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.AspNetCore.Mvc.Razor.Host.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.AspNetCore.Mvc.Razor.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.AspNetCore.Mvc.TagHelpers.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.AspNetCore.Mvc.ViewFeatures.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.AspNetCore.Mvc.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.AspNetCore.Razor.Runtime.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.AspNetCore.Razor.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.AspNetCore.Routing.Abstractions.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.AspNetCore.Routing.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.AspNetCore.Server.IISIntegration.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.AspNetCore.Server.Kestrel.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.AspNetCore.WebUtilities.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.CodeAnalysis.CSharp.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.CodeAnalysis.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.DotNet.InternalAbstractions.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.EntityFrameworkCore.Relational.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.EntityFrameworkCore.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.Extensions.Caching.Abstractions.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.Extensions.Caching.Memory.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.Extensions.Configuration.Abstractions.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.Extensions.Configuration.Binder.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.Extensions.Configuration.EnvironmentVariables.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.Extensions.Configuration.FileExtensions.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.Extensions.Configuration.Json.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.Extensions.Configuration.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.Extensions.DependencyInjection.Abstractions.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.Extensions.DependencyInjection.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.Extensions.DependencyModel.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.Extensions.DiagnosticAdapter.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.Extensions.FileProviders.Abstractions.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.Extensions.FileProviders.Composite.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.Extensions.FileProviders.Physical.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.Extensions.FileSystemGlobbing.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.Extensions.Globalization.CultureInfoCache.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.Extensions.Localization.Abstractions.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.Extensions.Localization.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.Extensions.Logging.Abstractions.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.Extensions.Logging.Console.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.Extensions.Logging.Debug.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.Extensions.Logging.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.Extensions.ObjectPool.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.Extensions.Options.ConfigurationExtensions.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.Extensions.Options.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.Extensions.PlatformAbstractions.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.Extensions.Primitives.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.Extensions.WebEncoders.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.Net.Http.Headers.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Microsoft.VisualStudio.Web.BrowserLink.Loader.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/MySql.Data.Entity.EF6.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/MySql.Data.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Newtonsoft.Json.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/Remotion.Linq.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/System.Buffers.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/System.Collections.Immutable.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/System.ComponentModel.Primitives.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/System.ComponentModel.TypeConverter.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/System.Diagnostics.DiagnosticSource.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/System.Interactive.Async.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/System.Numerics.Vectors.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/System.Reflection.Metadata.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/System.Runtime.CompilerServices.Unsafe.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/System.Runtime.InteropServices.RuntimeInformation.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/System.Text.Encodings.Web.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/System.Threading.Tasks.Extensions.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/en/EasyAdmin.Api.resources.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/libuv.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/zh/EasyAdmin.Api.resources.dll" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Dao.Interface/obj/Debug/EasyAdmin.Dao.Interface.csprojResolveAssemblyReference.cache" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Dao.Models/obj/Debug/EasyAdmin.Dao.Models.csprojResolveAssemblyReference.cache" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Dao/obj/Debug/DesignTimeResolveAssemblyReferences.cache" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/admin/page/datasource/datasource.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/admin/page/filter.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/admin/project/ctrl.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/admin/project/index.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/Code/DbHelperMySql.cs" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/Code/JsonToSql.cs" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/Controllers/PagesController.cs" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x86/EasyAdmin.Api.exe.config" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Dao.Models/DBConnect.cs" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Dao.Models/Page.cs" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Service.Interface/IDBConnectManage.cs" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Service.Interface/IPageManage.cs" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Service/DBConnectManage.cs" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Service/PageManage.cs" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/admin/page/datasource/ctrl.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/admin/page/datasource/edit.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/admin/page/datatable/datatable.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/admin/projects/list.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/EasyAdmin.Api.exe" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/EasyAdmin.Api.exe.config" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/EasyAdmin.Api.pdb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/EasyAdmin.Dao.Interface.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/EasyAdmin.Dao.Interface.pdb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/EasyAdmin.Dao.Models.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/EasyAdmin.Dao.Models.pdb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/EasyAdmin.Dao.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/EasyAdmin.Dao.pdb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/EasyAdmin.Service.Interface.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/EasyAdmin.Service.Interface.pdb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/EasyAdmin.Service.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/EasyAdmin.Service.pdb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/EntityFramework.SqlServer.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/EntityFramework.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.AI.Agent.Intercept.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.AI.DependencyCollector.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.AI.PerfCounterCollector.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.AI.ServerTelemetryChannel.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.ApplicationInsights.AspNetCore.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.ApplicationInsights.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.AspNetCore.Antiforgery.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.AspNetCore.Authorization.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.AspNetCore.Cors.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.AspNetCore.Cryptography.Internal.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.AspNetCore.DataProtection.Abstractions.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.AspNetCore.DataProtection.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.AspNetCore.Diagnostics.Abstractions.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.AspNetCore.Diagnostics.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.AspNetCore.Hosting.Abstractions.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.AspNetCore.Hosting.Server.Abstractions.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.AspNetCore.Hosting.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.AspNetCore.Html.Abstractions.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.AspNetCore.Http.Abstractions.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.AspNetCore.Http.Extensions.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.AspNetCore.Http.Features.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.AspNetCore.Http.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.AspNetCore.HttpOverrides.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.AspNetCore.JsonPatch.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.AspNetCore.Localization.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.AspNetCore.Mvc.Abstractions.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.AspNetCore.Mvc.ApiExplorer.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.AspNetCore.Mvc.Core.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.AspNetCore.Mvc.Cors.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.AspNetCore.Mvc.DataAnnotations.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.AspNetCore.Mvc.Formatters.Json.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.AspNetCore.Mvc.Localization.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.AspNetCore.Mvc.Razor.Host.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.AspNetCore.Mvc.Razor.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.AspNetCore.Mvc.TagHelpers.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.AspNetCore.Mvc.ViewFeatures.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.AspNetCore.Mvc.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.AspNetCore.Razor.Runtime.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.AspNetCore.Razor.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.AspNetCore.Routing.Abstractions.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.AspNetCore.Routing.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.AspNetCore.Server.IISIntegration.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.AspNetCore.Server.Kestrel.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.AspNetCore.WebUtilities.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.CodeAnalysis.CSharp.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.CodeAnalysis.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.DotNet.InternalAbstractions.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.EntityFrameworkCore.Relational.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.EntityFrameworkCore.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.Extensions.Caching.Abstractions.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.Extensions.Caching.Memory.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.Extensions.Configuration.Abstractions.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.Extensions.Configuration.Binder.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.Extensions.Configuration.EnvironmentVariables.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.Extensions.Configuration.FileExtensions.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.Extensions.Configuration.Json.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.Extensions.Configuration.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.Extensions.DependencyInjection.Abstractions.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.Extensions.DependencyInjection.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.Extensions.DependencyModel.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.Extensions.DiagnosticAdapter.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.Extensions.FileProviders.Abstractions.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.Extensions.FileProviders.Composite.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.Extensions.FileProviders.Physical.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.Extensions.FileSystemGlobbing.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.Extensions.Globalization.CultureInfoCache.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.Extensions.Localization.Abstractions.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.Extensions.Localization.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.Extensions.Logging.Abstractions.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.Extensions.Logging.Console.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.Extensions.Logging.Debug.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.Extensions.Logging.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.Extensions.ObjectPool.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.Extensions.Options.ConfigurationExtensions.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.Extensions.Options.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.Extensions.PlatformAbstractions.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.Extensions.Primitives.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.Extensions.WebEncoders.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.Net.Http.Headers.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Microsoft.VisualStudio.Web.BrowserLink.Loader.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/MySql.Data.Entity.EF6.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/MySql.Data.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Newtonsoft.Json.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/Remotion.Linq.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/System.Buffers.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/System.Collections.Immutable.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/System.ComponentModel.Primitives.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/System.ComponentModel.TypeConverter.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/System.Diagnostics.DiagnosticSource.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/System.Interactive.Async.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/System.Numerics.Vectors.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/System.Reflection.Metadata.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/System.Runtime.CompilerServices.Unsafe.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/System.Runtime.InteropServices.RuntimeInformation.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/System.Text.Encodings.Web.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/System.Threading.Tasks.Extensions.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/en/EasyAdmin.Api.resources.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/libuv.dll" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/win7-x64/zh/EasyAdmin.Api.resources.dll" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/.vs/EasyAdmin/v14/.suo" afterPath="$PROJECT_DIR$/src/services/.vs/EasyAdmin/v14/.suo" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/EasyAdmin.Api.exe" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/EasyAdmin.Api.exe" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/EasyAdmin.Api.pdb" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/EasyAdmin.Api.pdb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/en/EasyAdmin.Api.resources.dll" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/en/EasyAdmin.Api.resources.dll" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/zh/EasyAdmin.Api.resources.dll" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/bin/Debug/net452/zh/EasyAdmin.Api.resources.dll" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Dao.Interface/bin/Debug/EasyAdmin.Dao.Interface.dll" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Dao.Interface/bin/Debug/EasyAdmin.Dao.Interface.dll" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Dao.Interface/bin/Debug/EasyAdmin.Dao.Interface.pdb" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Dao.Interface/bin/Debug/EasyAdmin.Dao.Interface.pdb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Dao.Interface/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Dao.Interface/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Dao.Interface/obj/Debug/EasyAdmin.Dao.Interface.dll" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Dao.Interface/obj/Debug/EasyAdmin.Dao.Interface.dll" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Dao.Interface/obj/Debug/EasyAdmin.Dao.Interface.pdb" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Dao.Interface/obj/Debug/EasyAdmin.Dao.Interface.pdb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Dao.Models/bin/Debug/EasyAdmin.Dao.Models.dll" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Dao.Models/bin/Debug/EasyAdmin.Dao.Models.dll" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Dao.Models/bin/Debug/EasyAdmin.Dao.Models.pdb" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Dao.Models/bin/Debug/EasyAdmin.Dao.Models.pdb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Dao.Models/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Dao.Models/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Dao.Models/obj/Debug/EasyAdmin.Dao.Models.dll" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Dao.Models/obj/Debug/EasyAdmin.Dao.Models.dll" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Dao.Models/obj/Debug/EasyAdmin.Dao.Models.pdb" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Dao.Models/obj/Debug/EasyAdmin.Dao.Models.pdb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Dao/bin/Debug/EasyAdmin.Dao.Interface.dll" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Dao/bin/Debug/EasyAdmin.Dao.Interface.dll" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Dao/bin/Debug/EasyAdmin.Dao.Interface.pdb" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Dao/bin/Debug/EasyAdmin.Dao.Interface.pdb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Dao/bin/Debug/EasyAdmin.Dao.Models.dll" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Dao/bin/Debug/EasyAdmin.Dao.Models.dll" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Dao/bin/Debug/EasyAdmin.Dao.Models.pdb" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Dao/bin/Debug/EasyAdmin.Dao.Models.pdb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Dao/bin/Debug/EasyAdmin.Dao.dll" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Dao/bin/Debug/EasyAdmin.Dao.dll" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Dao/bin/Debug/EasyAdmin.Dao.pdb" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Dao/bin/Debug/EasyAdmin.Dao.pdb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Dao/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Dao/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Dao/obj/Debug/EasyAdmin.Dao.csprojResolveAssemblyReference.cache" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Dao/obj/Debug/EasyAdmin.Dao.csprojResolveAssemblyReference.cache" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Dao/obj/Debug/EasyAdmin.Dao.dll" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Dao/obj/Debug/EasyAdmin.Dao.dll" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Dao/obj/Debug/EasyAdmin.Dao.pdb" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Dao/obj/Debug/EasyAdmin.Dao.pdb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Service.Interface/bin/Debug/EasyAdmin.Dao.Models.dll" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Service.Interface/bin/Debug/EasyAdmin.Dao.Models.dll" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Service.Interface/bin/Debug/EasyAdmin.Dao.Models.pdb" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Service.Interface/bin/Debug/EasyAdmin.Dao.Models.pdb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Service.Interface/bin/Debug/EasyAdmin.Service.Interface.dll" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Service.Interface/bin/Debug/EasyAdmin.Service.Interface.dll" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Service.Interface/bin/Debug/EasyAdmin.Service.Interface.pdb" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Service.Interface/bin/Debug/EasyAdmin.Service.Interface.pdb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Service.Interface/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Service.Interface/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Service.Interface/obj/Debug/EasyAdmin.Service.Interface.csprojResolveAssemblyReference.cache" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Service.Interface/obj/Debug/EasyAdmin.Service.Interface.csprojResolveAssemblyReference.cache" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Service.Interface/obj/Debug/EasyAdmin.Service.Interface.dll" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Service.Interface/obj/Debug/EasyAdmin.Service.Interface.dll" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Service.Interface/obj/Debug/EasyAdmin.Service.Interface.pdb" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Service.Interface/obj/Debug/EasyAdmin.Service.Interface.pdb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Service/bin/Debug/EasyAdmin.Dao.Interface.dll" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Service/bin/Debug/EasyAdmin.Dao.Interface.dll" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Service/bin/Debug/EasyAdmin.Dao.Interface.pdb" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Service/bin/Debug/EasyAdmin.Dao.Interface.pdb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Service/bin/Debug/EasyAdmin.Dao.Models.dll" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Service/bin/Debug/EasyAdmin.Dao.Models.dll" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Service/bin/Debug/EasyAdmin.Dao.Models.pdb" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Service/bin/Debug/EasyAdmin.Dao.Models.pdb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Service/bin/Debug/EasyAdmin.Dao.dll" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Service/bin/Debug/EasyAdmin.Dao.dll" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Service/bin/Debug/EasyAdmin.Dao.pdb" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Service/bin/Debug/EasyAdmin.Dao.pdb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Service/bin/Debug/EasyAdmin.Service.Interface.dll" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Service/bin/Debug/EasyAdmin.Service.Interface.dll" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Service/bin/Debug/EasyAdmin.Service.Interface.pdb" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Service/bin/Debug/EasyAdmin.Service.Interface.pdb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Service/bin/Debug/EasyAdmin.Service.dll" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Service/bin/Debug/EasyAdmin.Service.dll" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Service/bin/Debug/EasyAdmin.Service.pdb" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Service/bin/Debug/EasyAdmin.Service.pdb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Service/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Service/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Service/obj/Debug/EasyAdmin.Service.csprojResolveAssemblyReference.cache" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Service/obj/Debug/EasyAdmin.Service.csprojResolveAssemblyReference.cache" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Service/obj/Debug/EasyAdmin.Service.dll" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Service/obj/Debug/EasyAdmin.Service.dll" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Service/obj/Debug/EasyAdmin.Service.pdb" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Service/obj/Debug/EasyAdmin.Service.pdb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+    <list default="true" id="a80a7da6-2dcf-48d4-be6d-ffdc561b75da" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/admin/access/ctrl.js" afterPath="$PROJECT_DIR$/src/admin/access/ctrl.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/admin/page/ctrl.js" afterPath="$PROJECT_DIR$/src/admin/page/ctrl.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/admin/page/datatable/datatable.js" afterPath="$PROJECT_DIR$/src/admin/page/datatable/datatable.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/admin/page/design.js" afterPath="$PROJECT_DIR$/src/admin/page/design.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/admin/page/edit.html" afterPath="$PROJECT_DIR$/src/admin/page/edit.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/admin/page/list.html" afterPath="$PROJECT_DIR$/src/admin/page/list.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/admin/page/page.html" afterPath="$PROJECT_DIR$/src/admin/page/page.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/admin/projects/ctrl.js" afterPath="$PROJECT_DIR$/src/admin/projects/ctrl.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/admin/projects/index.html" afterPath="$PROJECT_DIR$/src/admin/projects/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/main.js" afterPath="$PROJECT_DIR$/src/js/main.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/restservice.js" afterPath="$PROJECT_DIR$/src/js/restservice.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/router.js" afterPath="$PROJECT_DIR$/src/js/router.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/.vs/config/applicationhost.config" afterPath="$PROJECT_DIR$/src/services/.vs/config/applicationhost.config" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/.vs/restore.dg" afterPath="$PROJECT_DIR$/src/services/.vs/restore.dg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/EasyAdmin.Api.xproj.user" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/EasyAdmin.Api.xproj.user" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/Models/ResponseMessage.cs" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/Models/ResponseMessage.cs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/Startup.cs" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/Startup.cs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/obj/Debug/net452/.IncrementalCache" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/obj/Debug/net452/.IncrementalCache" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/obj/Debug/net452/.SDKVersion" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/obj/Debug/net452/.SDKVersion" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/obj/Debug/net452/EasyAdmin.Apidotnet-compile.deps.json" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/obj/Debug/net452/EasyAdmin.Apidotnet-compile.deps.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/obj/Debug/net452/dotnet-compile-csc.rsp" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/obj/Debug/net452/dotnet-compile-csc.rsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/obj/Debug/net452/dotnet-compile.rsp" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/obj/Debug/net452/dotnet-compile.rsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/project.json" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/project.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Api/project.lock.json" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Api/project.lock.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Dao.Interface/obj/Debug/EasyAdmin.Dao.Interface.csproj.FileListAbsolute.txt" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Dao.Interface/obj/Debug/EasyAdmin.Dao.Interface.csproj.FileListAbsolute.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Dao.Models/EasyAdmin.Dao.Models.csproj" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Dao.Models/EasyAdmin.Dao.Models.csproj" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Dao.Models/obj/Debug/EasyAdmin.Dao.Models.csproj.FileListAbsolute.txt" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Dao.Models/obj/Debug/EasyAdmin.Dao.Models.csproj.FileListAbsolute.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Dao/CloudDbContext.cs" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Dao/CloudDbContext.cs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Dao/obj/Debug/EasyAdmin.Dao.csproj.FileListAbsolute.txt" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Dao/obj/Debug/EasyAdmin.Dao.csproj.FileListAbsolute.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Service.Interface/EasyAdmin.Service.Interface.csproj" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Service.Interface/EasyAdmin.Service.Interface.csproj" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Service.Interface/obj/Debug/EasyAdmin.Service.Interface.csproj.FileListAbsolute.txt" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Service.Interface/obj/Debug/EasyAdmin.Service.Interface.csproj.FileListAbsolute.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Service/EasyAdmin.Service.csproj" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Service/EasyAdmin.Service.csproj" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/EasyAdmin.Service/obj/Debug/EasyAdmin.Service.csproj.FileListAbsolute.txt" afterPath="$PROJECT_DIR$/src/services/EasyAdmin.Service/obj/Debug/EasyAdmin.Service.csproj.FileListAbsolute.txt" />
     </list>
     <ignored path="Easy-Admin.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -883,7 +551,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1489458345932</updated>
-      <workItem from="1490447650722" duration="10599000" />
+      <workItem from="1490447650722" duration="10816000" />
     </task>
     <task id="LOCAL-00001" summary="1">
       <created>1489458918129</created>
@@ -913,11 +581,18 @@
       <option name="project" value="LOCAL" />
       <updated>1489571090414</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="add files">
+      <created>1490461638279</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1490461638279</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="10599000" />
+    <option name="totallyTimeSpent" value="10816000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -926,7 +601,7 @@
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19866072" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32925472" sideWeight="0.5021075" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32626426" sideWeight="0.49789253" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3267974" sideWeight="0.49789253" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32962137" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
