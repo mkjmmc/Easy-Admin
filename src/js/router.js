@@ -170,6 +170,19 @@ app
                 }
             })
 
+            .state('app.project.connects', {
+                //abstract: true,
+                url: '/connects',
+                templateUrl: 'admin/connects/index.html',
+                resolve: {
+                    deps: ['$ocLazyLoad',
+                        function ($ocLazyLoad) {
+                            return $ocLazyLoad.load('admin/connects/ctrl.js');
+                        }]
+                }
+            })
+
+
             .state('app.dashboard', {
                 url: '/dashboard',
                 templateUrl: 'admin/dashboard/dashboard.html',

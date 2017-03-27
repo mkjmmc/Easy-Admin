@@ -19,5 +19,6 @@ namespace EasyAdmin.Service.Interface
         List<DBConnect> GetListByProjectID(long ProjectID);
 
         DBConnect GetModel(long ID);
+        bool Update(DBConnect model);
     }
 }

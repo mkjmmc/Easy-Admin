@@ -121,3 +121,16 @@ app.factory('rest_pages', function ($rootScope, rest) {
         }
     }
 });
+app.factory('rest_connects', function ($rootScope, rest) {
+    return {
+        list: function (data) {
+            return rest.save(app.host + "/connects/list",  data);
+        },
+        update: function (data) {
+            return rest.save(app.host + "/connects/update",  data);
+        },
+        create: function (data) {
+            return rest.save(app.host + "/connects/create",  data);
+        },
+    }
+});

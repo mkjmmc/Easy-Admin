@@ -1,22 +1,47 @@
-<div class="container">
-    <div class="ibox" ng-controller="ProjectDashboardController">
-        <a ng-click="showcreatedialog()">创建</a>
+<div ng-controller="ProjectDashboardController">
+    <div class="project-navigation sub-nav sub-navigator">
+        <div class="row-flex">
+            <div class="nav-footer">
 
-        <div class="row">
-            <div ng-repeat="module in modules" class="col-sm-3">
-                <a ui-sref="app.project.index.module({projectid:module.ProjectID, moduleid:module.ID})">
-                    {{module}}
-                </a>
+                <div class="nav-menu-handler " uib-dropdown>
+                    <a href class="dropdown-toggle clear" uib-dropdown-toggle>
+                        <i class="fa fa-bars"></i>
+                        菜单
+                    </a>
+                    <!-- dropdown -->
+                    <ul class="dropdown-menu animated fadeInRight w">
+                        <li>
+                            <a href ng-click="showconnectsmodal()">
+                                <span>数据库连接</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a ui-sref="app.page.profile">菜单设置</a>
+                        </li>
+                    </ul>
+                    <!-- / dropdown -->
+                </div>
             </div>
+        </div>
+    </div>
+    <div class="project-view on-pin-pagelist-bar">
+        <div class="pagelist-view">
+            <div class="list-group">
+                <a class="list-group-item" ng-repeat="page in pages" ui-sref="app.project.page({projectid:page.ProjectID, pageid:page.ID})">{{page.Title}}</a>
+            </div>
+        </div>
+        <div class="page-view">
+            <a ng-click="showcreatedialog()">创建</a>
 
-        </div>
-        <div class="row">
-            <div ng-repeat="page in pages" class="col-sm-3">
-                <a ui-sref="app.project.page({projectid:page.ProjectID, pageid:page.ID})">
-                    {{page.Title}}
-                </a>
+            <div class="row">
+                <div ng-repeat="module in modules" class="col-sm-3">
+                    <a ui-sref="app.project.index.module({projectid:module.ProjectID, moduleid:module.ID})">
+                        {{module}}
+                    </a>
+                </div>
+
             </div>
+            <div ui-view></div>
         </div>
-        <div ui-view></div>
     </div>
 </div>

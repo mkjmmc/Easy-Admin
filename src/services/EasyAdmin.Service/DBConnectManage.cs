@@ -42,5 +42,10 @@ namespace EasyAdmin.Service
         {
             return base.Get(m => m.ID == ID);
         }
+
+        public bool Update(DBConnect model)
+        {
+            return base.Update(model);
+        }
     }
 }
