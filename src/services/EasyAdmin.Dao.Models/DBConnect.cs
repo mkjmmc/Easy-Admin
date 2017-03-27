@@ -16,5 +16,6 @@ namespace EasyAdmin.Dao.Models
         public long ProjectID { get; set; }
         public string Name { get; set; }
         public string ConnectString { get; set; }
+        public int IsDelete { get; set; }
     }
 }

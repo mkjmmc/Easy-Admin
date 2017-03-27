@@ -262,7 +262,7 @@ app.directive('datatable', function () {
                 <a ng-click="config.condition.push({name:\'\',opt:\'=\',value:\'\'})" class="btn btn-default"><i class="fa fa-plus"></i></a>\
             </div>\
         </div>\
-        <div ng-show="!showsearchpanel" style="margin-bottom: 10px;">\
+        <div ng-show="!showsearchpanel" style="margin-bottom: 10px;" class="clearfix">\
             <div class="pull-left">\
                 <div ng-repeat="item in config.condition" class="label label-default gray-bg" style="margin-right: 5px">\
                     <span ng-click="$parent.showsearchpanel=!$parent.showsearchpanel" ng-bind="getcolumn(item.name).displayname" class="text-warning"></span>\

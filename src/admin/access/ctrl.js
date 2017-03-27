@@ -7,7 +7,7 @@ app.controller('LoadingController', function ($scope, $resource, $state, $localS
     }
     // get user info
     rest_access.get().then(function (data) {
-        switch (data.code) {
+        switch (data.result) {
             case 0:
                 $scope.session_user = data.data;
                 $localStorage.user = data.data;

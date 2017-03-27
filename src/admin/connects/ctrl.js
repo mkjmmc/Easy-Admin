@@ -38,6 +38,20 @@ $scope.newconnect={};
                 }
             });
     };
+    $scope.deleteconnect = function (connect) {
+        rest_connects
+            .delete({
+                ID: connect.ID,
+            })
+            .then(function (data) {
+                if (data.result == 0) {
+                    $scope.loadconnects();
+                }
+                else {
+                    alert(data.message)
+                }
+            });
+    };
     $scope.createconnect = function (connect) {
         rest_connects
             .create({
@@ -48,6 +62,8 @@ $scope.newconnect={};
             .then(function (data) {
                 if (data.result == 0) {
                     $scope.loadconnects();
+                    $scope.addnew = false;
+                    $scope.newconnect={};
                 }
                 else {
                     alert(data.message)

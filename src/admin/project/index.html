@@ -2,11 +2,28 @@
     <div class="project-navigation sub-nav sub-navigator">
         <div class="row-flex">
             <div class="nav-footer">
-
                 <div class="nav-menu-handler " uib-dropdown>
                     <a href class="dropdown-toggle clear" uib-dropdown-toggle>
                         <i class="fa fa-bars"></i>
                         菜单
+                    </a>
+                    <!-- dropdown -->
+                    <ul class="dropdown-menu animated fadeInRight w">
+                        <li>
+                            <a href ng-click="showconnectsmodal()">
+                                <span>数据库连接</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a ui-sref="app.page.profile">菜单设置</a>
+                        </li>
+                    </ul>
+                    <!-- / dropdown -->
+                </div>
+                <div class="nav-menu-handler " uib-dropdown>
+                    <a href class="dropdown-toggle clear" uib-dropdown-toggle>
+                        <i class="fa fa-users"></i>
+                        12
                     </a>
                     <!-- dropdown -->
                     <ul class="dropdown-menu animated fadeInRight w">
@@ -26,8 +43,10 @@
     </div>
     <div class="project-view on-pin-pagelist-bar">
         <div class="pagelist-view">
+            <div class="panel-layer">
             <div class="list-group">
                 <a class="list-group-item" ng-repeat="page in pages" ui-sref="app.project.page({projectid:page.ProjectID, pageid:page.ID})">{{page.Title}}</a>
+            </div>
             </div>
         </div>
         <div class="page-view">

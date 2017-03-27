@@ -132,5 +132,8 @@ app.factory('rest_connects', function ($rootScope, rest) {
         create: function (data) {
             return rest.save(app.host + "/connects/create",  data);
         },
+        delete: function (data) {
+            return rest.save(app.host + "/connects/delete",  data);
+        },
     }
 });
