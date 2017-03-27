@@ -7,3 +7,4 @@ D:\github\Easy-Admin\src\services\EasyAdmin.Dao.Models\bin\Debug\EasyAdmin.Dao.M
 D:\github\Easy-Admin\src\services\EasyAdmin.Dao.Models\obj\Debug\EasyAdmin.Dao.Models.dll
 D:\github\Easy-Admin\src\services\EasyAdmin.Dao.Models\obj\Debug\EasyAdmin.Dao.Models.pdb
 D:\github\Easy-Admin\src\services\EasyAdmin.Dao.Models\obj\Debug\EasyAdmin.Dao.Models.csprojResolveAssemblyReference.cache
+C:\Users\mao_kejia\Documents\GitHub\Easy-Admin\src\services\EasyAdmin.Dao.Models\obj\Debug\EasyAdmin.Dao.Models.csprojResolveAssemblyReference.cache
