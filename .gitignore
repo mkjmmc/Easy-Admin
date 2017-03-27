@@ -10,3 +10,4 @@
 *.nuget.props
 *.nuget.targets
 .idea/workspace.xml
+**/obj/Debug/*
