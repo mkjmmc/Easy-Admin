@@ -9,7 +9,7 @@
       "TRACE",
       "NET452"
     ],
-    "platform": "anycpu32bitpreferred",
+    "platform": "x64",
     "optimize": false,
     "emitEntryPoint": true
   },
