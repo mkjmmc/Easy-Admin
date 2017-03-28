@@ -1,6 +1,26 @@
 <div ng-controller="ProjectDashboardController">
     <div class="project-navigation sub-nav sub-navigator">
         <div class="row-flex">
+
+            <div class="nav-header">
+                <span uib-dropdown>
+                    <a href id="simple-dropdown" uib-dropdown-toggle>
+                        {{getcurrentpage().Title}} <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
+                        <!--<li ng-repeat="choice in items">-->
+                          <!--<a href>{{choice}}</a>-->
+                        <!--</li>-->
+                        <li ng-repeat="page in pages" >
+                        <a  ui-sref="app.project.page({projectid:page.ProjectID, pageid:page.ID})">{{page.Title}}</a>
+                    </li>
+                        <li>
+
+                <a ng-click="pinpagelistbar=true">固定</a>
+                        </li>
+                    </ul>
+                </span>
+            </div>
             <div class="nav-footer">
                 <div class="nav-menu-handler " uib-dropdown>
                     <a href class="dropdown-toggle clear" uib-dropdown-toggle>
@@ -41,29 +61,29 @@
             </div>
         </div>
     </div>
-    <div class="project-view on-pin-pagelist-bar">
-        <div class="pagelist-view">
+    <div class="project-view " ng-class="{'on-pin-pagelist-bar':pinpagelistbar}">
+        <div class="pagelist-view" ng-show="pinpagelistbar">
             <div class="panel-layer">
-            <div class="list-group">
-                <a class="list-group-item" ng-repeat="page in pages" ui-sref="app.project.page({projectid:page.ProjectID, pageid:page.ID})">{{page.Title}}</a>
-            </div>
+                <div class="list-group">
+                    <a class="list-group-item" ng-repeat="page in pages" ui-sref="app.project.page({projectid:page.ProjectID, pageid:page.ID})">{{page.Title}}</a>
+                </div>
+                <a ng-click="pinpagelistbar=false">取消固定</a>
             </div>
         </div>
-        <div class="page-view">
-            <a ng-click="showcreatedialog()">创建</a>
+        <div class="page-view" ui-view>
+            <!--<a ng-click="showcreatedialog()">创建</a>-->
 
-            <div class="row">
-                <div ng-repeat="module in modules" class="col-sm-3">
-                    <a ui-sref="app.project.index.module({projectid:module.ProjectID, moduleid:module.ID})">
-                        {{module}}
-                    </a>
-                </div>
+            <!--<div class="row">-->
+                <!--<div ng-repeat="module in modules" class="col-sm-3">-->
+                    <!--<a ui-sref="app.project.index.module({projectid:module.ProjectID, moduleid:module.ID})">-->
+                        <!--{{module}}-->
+                    <!--</a>-->
+                <!--</div>-->
 
-            </div>
-            <div ng-repeat="user in users">
-                {{user}}
-            </div>
-            <div ui-view></div>
+            <!--</div>-->
+            <!--<div ng-repeat="user in users">-->
+                <!--{{user}}-->
+            <!--</div>-->
         </div>
     </div>
 </div>

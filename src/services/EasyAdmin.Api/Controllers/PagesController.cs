@@ -49,7 +49,12 @@ namespace EasyAdmin.Api.Controllers
             // 获取项目列表
             var list = _PageManage.GetListByProjectID(ProjectID);
             //return new string[] { "value1", "value2" };
-            return new ResponseMessage(MessageResult.Success, "", list);
+            return new ResponseMessage(MessageResult.Success, "", list.Select(m=> new
+            {
+                m.ID,
+                m.ProjectID,
+                m.Title,
+            }));
         }
 
         /// <summary>

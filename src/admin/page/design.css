@@ -1,0 +1,57 @@
+.design-container{
+    display: block;
+    position: relative;
+    width:100%;
+    height: 100%;
+    overflow: hidden;
+    padding-right: 240px;
+}
+.design-panels{
+    position: absolute;
+    top:0;
+    right: 0;
+    bottom:0;
+    width:240px;
+    z-index: 20000;
+    overflow: scroll;
+    background-color: #ffffff;
+}
+.design-body{
+    position: relative;
+    width:100%;
+    height: 100%;
+    z-index: 10000;
+    overflow: hidden;
+
+    background-color: #0a1015;
+
+}
+/*.design-container{*/
+    /*background-image: linear-gradient(transparent 0px, transparent 2px, rgb(255, 255, 255) 2px, rgb(255, 255, 255) 20px), linear-gradient(to right, rgb(200, 195, 199) 0px, rgb(200, 195, 199) 2px, rgb(255, 255, 255) 2px, rgb(255, 255, 255) 20px);*/
+    /*background-size: 20px 20px;*/
+    /*background-position: 344.5px -2px;*/
+/*}*/
+.design-page{
+    background-image: linear-gradient(transparent 0px, transparent 2px, rgb(255, 255, 255) 2px, rgb(255, 255, 255) 20px), linear-gradient(to right, rgb(200, 195, 199) 0px, rgb(200, 195, 199) 2px, rgb(255, 255, 255) 2px, rgb(255, 255, 255) 20px);
+    background-size: 20px 20px;
+    background-position: 0px 0px;
+
+    width:100%;
+    height: 100%;
+    overflow: auto;
+}
+.layout-container{
+    /*border:solid 1px #eeeeee;*/
+    background-color: #ffffff;
+    /*transform:scale(1,1);*/
+    margin: 0 auto;
+    transform-origin:top center;
+    box-shadow:0 0 5px #999999;
+    margin-top: 50px;
+}
+.design-toolbar-topcenter{
+    position: absolute;
+    left: 30px;
+    bottom: 30px;
+    z-index: 20001;
+}

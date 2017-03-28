@@ -24,4 +24,5 @@ angular.module('app', [
     //'sc.twemoji',
     //'rzModule',
     //'colorpicker.module'
+    'ng-sortable',
 ]);

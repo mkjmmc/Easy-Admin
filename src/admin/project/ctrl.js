@@ -2,6 +2,19 @@
 app.controller('ProjectDashboardController', function ($scope, $resource, $state, $stateParams, $localStorage, rest_projects, rest_modules, rest_pages, $uibModal) {
 
     $scope.projectid = $stateParams.projectid;
+    $scope.pinpagelistbar= false;
+    // $scope.currentpage = null;
+
+    $scope.getcurrentpage=function () {
+        if($stateParams.pageid && $stateParams.pageid > 0 && $scope.pages){
+            for(var i=0;i<$scope.pages.length;i++){
+                if($scope.pages[i].ID== $stateParams.pageid){
+                    return $scope.pages[i];
+                }
+            }
+        }
+        return null;
+    };
 
     // 获取所有的页面列表
     $scope.loadpages = function () {

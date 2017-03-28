@@ -99,6 +99,7 @@ app.controller('PageEditController', function ($scope, $resource, $stateParams, 
                 if (data.result == 0) {
                     $scope.Component = angular.extend($scope.Component, JSON.parse(data.data.Config));
 //                $scope.getdata($stateParams.page, $stateParams.search);
+//                     $scope.$parent.$parent.selectedpage = $scope.Component.name;
                 }
                 else {
                     alert(data.message);
@@ -144,6 +145,7 @@ app.controller('PagePageController', function ($scope, $resource, $stateParams,r
                 if (data.result == 0) {
                     $scope.Component = angular.extend($scope.Component, JSON.parse(data.data.Config));
 //                $scope.getdata($stateParams.page, $stateParams.search);
+//                     $scope.$parent.$parent.selectedpage = $scope.Component.name;
                 }
                 else {
                     alert(data.message);

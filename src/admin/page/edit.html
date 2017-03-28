@@ -1,21 +1,20 @@
-﻿<div ng-controller="PageEditController">
-    <div class="ibox">
-        <div class="ibox-title">
-            <h5>
-                {{config.title}}</h5>
-            <div class="ibox-tools">
-            </div>
-        </div>
-        <div class="ibox-content">
+﻿<div ng-controller="PageEditController" class="page-view">
+    <!--<div class="ibox">-->
+        <!--<div class="ibox-title">-->
+            <!--<h5>-->
+                <!--{{config.title}}</h5>-->
+            <!--<div class="ibox-tools">-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="ibox-content">-->
 
-            <div class="clearfix">
-                <input type="checkbox" ng-model="editable"/>
-                <a ng-click="savequery()" class="btn btn-success pull-right">保存</a>
-            </div>
-        </div>
-    </div>
+            <!--<div class="clearfix">-->
+                <!--<input type="checkbox" ng-model="editable"/>-->
+                <!--<a ng-click="savequery()" class="btn btn-success pull-right">保存</a>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
         <design config="Component" editable="editable"></design>
-    <span class="text-danger">{{Component}}</span>
 </div>
 <style>
     .toolbox{}

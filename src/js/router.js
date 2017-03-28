@@ -162,6 +162,7 @@ app
                             return $ocLazyLoad.load([
                                 'admin/page/ctrl.js',
                                 'admin/page/design.js',
+                                'admin/page/design.css',
                                 'admin/page/filter.js',
                                 'admin/page/datatable/datatable.js',
                                 'admin/page/datasource/datasource.js',

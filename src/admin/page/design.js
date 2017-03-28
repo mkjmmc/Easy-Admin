@@ -3,57 +3,7 @@ angular.module('app')
     .directive('design', function () {
         return {
             restrict: 'E',
-            template: '' +
-            '<div class="row" ng-init="editable=true">' +
-            '<div class="col-xs-12" ng-if="editable"><input type="text" ng-model="config.name" class="form-control" /></div>' +
-            '<div class=" col-xs-3" ng-if="editable">' +
-            '   <div class="ibox">' +
-            '       <div class="ibox-title">' +
-            '           <h5>组件库</h5>' +
-            '       </div>' +
-            '       <div class="ibox-content">' +
-            '           <div class="cell scrollable hover">' +
-            '               <div class="cell-inner">' +
-            '                   <div ng-sortable="sortableConfigtoolbox" class=" list-group no-radius no-border  m-b-none">' +
-            '                       <div ng-repeat="item in toolbox" class=" list-group-item hover-anchor b-a no-select ng-scope  m-l-none">' +
-            '                           <span ng-bind="item.name"></span>' +
-            '                       </div>' +
-            '                   </div>' +
-            '               </div>' +
-            '           </div>' +
-            '       </div>' +
-            '   </div>' +
-            '   <div class="ibox">' +
-            '       <div class="ibox-title">' +
-            '           <h5>数据源</h5>' +
-            '           <div class="ibox-tools"><a ng-click="config.datasources.push({name:\'数据源\', configs:[]})">添加</a></div>' +
-            '       </div>' +
-            '       <div class="ibox-content">' +
-            '           <div class="list-group">' +
-            '               <a ng-repeat="ds in config.datasources" class="list-group-item" ng-click="editdatasource(ds)">' +
-            '                   {{ds.name}} <span class="badge">{{ds.configs.length}}</span>' +
-            '               </a>' +
-            '           </div>' +
-            '       </div>' +
-            '   </div>' +
-            '   <div class="ibox">' +
-            '       <div class="ibox-title">' +
-            '           <h5>子视图</h5>' +
-            '<div class="ibox-tools"><a ng-click="config.views.push({type:\'view\',name:\'子视图\', children:[],buttons:[]})">添加</a></div>' +
-            '       </div>' +
-            '       <div class="ibox-content">' +
-            '           <div class="list-group">' +
-            '               <a class="list-group-item" ng-click="editviews(config)">主视图</a>' +
-            '               <a ng-repeat="view in config.views" class="list-group-item" ng-click="editviews(view)">{{view.name}}</a>' +
-            '           </div>' +
-            '       </div>' +
-            '   </div>' +
-            '</div>' +
-            '<div ng-class="{\'col-xs-9\': editable,\'col-xs-12\': !editable,\'design\':editable}">' +
-            '   <div class="layout-container" ng-include="\'component.html\'"></div>' +
-            '</div>' +
-            '<div ng-if="editable">{{config}}<br><br>{{variables}}</div>' +
-            '</div>',
+            template: "<div class=\"design-container\" ng-init=\"editable=true\">\n    <!--design panels-->\n    <div class=\"design-panels\" ng-show=\"editable\">\n        <div class=\"\" ng-if=\"editable\"><input type=\"text\" ng-model=\"config.name\" class=\"form-control\"/></div>\n        <div class=\" \" ng-if=\"editable\">\n            <div class=\"ibox\">\n                <div class=\"ibox-title\"><h5>组件库</h5></div>\n                <div class=\"ibox-content\">\n                    <div class=\"cell scrollable hover\">\n                        <div class=\"cell-inner\">\n                            <div ng-sortable=\"sortableConfigtoolbox\" class=\" list-group no-radius no-border  m-b-none\">\n                                <div ng-repeat=\"item in toolbox\" class=\" list-group-item hover-anchor b-a no-select ng-scope  m-l-none\"><span ng-bind=\"item.name\"></span></div>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <div class=\"ibox\">\n                <div class=\"ibox-title\"><h5>数据源</h5>\n                    <div class=\"ibox-tools\"><a ng-click=\"config.datasources.push({name:\'数据源\', configs:[]})\">添加</a></div>\n                </div>\n                <div class=\"ibox-content\">\n                    <div class=\"list-group\"><a ng-repeat=\"ds in config.datasources\" class=\"list-group-item\" ng-click=\"editdatasource(ds)\"> {{ds.name}} <span class=\"badge\">{{ds.configs.length}}</span> </a></div>\n                </div>\n            </div>\n            <div class=\"ibox\">\n                <div class=\"ibox-title\"><h5>子视图</h5>\n                    <div class=\"ibox-tools\"><a ng-click=\"config.views.push({type:\'view\',name:\'子视图\', children:[],buttons:[]})\">添加</a></div>\n                </div>\n                <div class=\"ibox-content\">\n                    <div class=\"list-group\"><a class=\"list-group-item\" ng-click=\"editviews(config)\">主视图</a> <a ng-repeat=\"view in config.views\" class=\"list-group-item\" ng-click=\"editviews(view)\">{{view.name}}</a></div>\n                </div>\n            </div>\n        </div>\n\n\n    </div>\n    <div class=\"design-toolbar-topcenter\">\n        <div class=\"btn-group\" role=\"group\" aria-label=\"\">\n            <button type=\"button\" class=\"btn btn-default\" ng-click=\"scale=scale+0.25\"><i class=\'fa fa-plus\'></i></button>\n            <button type=\"button\" class=\"btn btn-default\">{{scale*100}}%</button>\n            <button type=\"button\" class=\"btn btn-default\" ng-click=\"scale=scale>0.25?scale-0.25:scale\"><i class=\'fa fa-minus\'></i></button>\n        </div>\n        <div class=\"btn-group\" role=\"group\" aria-label=\"\">\n            <select ng-model=\'screenwidth\' \n                    ng-options=\'screen for screen in screens\'\n                    ng-disabled=\'lock\'\n                    class=\'form-control\'></select>\n        </div>\n        <div class=\"btn-group\" role=\"group\" aria-label=\"\">\n            <button type=\"button\" class=\"btn btn-default\" ng-click=\'lock=!lock\'>\n                <i class=\"fa fa-fw\" ng-class=\"{\'fa-lock\':lock,\'fa-unlock\':!lock}\"></i>\n            </button>\n        </div>\n    </div>\n    <div style=\'position: absolute; bottom: 0; left: 0; right: 0; height: 100px; overflow: scroll\'>\n        <div ng-if=\"editable\"><br><br>{{variables}}</div>\n    </div>\n    <!--design-body-->\n    <div class=\"design-body\">\n        <div class=\"design-page\" ng-style=\"{\n        \'background-image\':\'linear-gradient(transparent 0px, transparent \'+scale*2+\'px, rgb(255, 255, 255) \'+scale*2+\'px, rgb(255, 255, 255) \'+scale*20+\'px), linear-gradient(to right, rgb(200, 195, 199) 0px, rgb(200, 195, 199) \'+scale*2+\'px, rgb(255, 255, 255) \'+scale*2+\'px, rgb(255, 255, 255) \'+scale*20+\'px)\'\n        ,\'background-size\':\'\'+scale*20+\'px \'+scale*20+\'px\'\n        }\">\n            <div class=\"layout-container\"\n                 ng-style=\"{\'transform\':\'scale(\'+scale+\',\'+scale+\')\',\'width\':screenwidth}\"\n                 ng-include=\"\'component.html\'\"></div>\n        </div>\n    </div>\n\n</div>",
             replace: true,
             scope: {
                 config: "=",
@@ -400,6 +350,11 @@ angular.module('app')
                 $scope.config = angular.extend($scope.config, angular.extend($scope.defaultconfig, $scope.config));
                 $scope.component = $scope.config;
                 $scope.currentview = $scope.component;
+
+                $scope.scale=1;
+                $scope.screens=[800,1024,1280,1440,1680,1920]
+                $scope.screenwidth = 1280;
+
                 // 选中
                 $scope.selecteditem = null;
                 $scope.selectcomponent = function (item, $event) {

@@ -31,6 +31,12 @@ body {
     display: -ms-flexbox;
     display: flex;
 }
+.row-flex>section {
+    min-width: 0;
+    -webkit-flex: 1 1;
+    -ms-flex: 1 1;
+    flex: 1 1;
+}
 #navigator .nav-inner {
     /*position: relative;*/
     z-index: 100;
@@ -48,6 +54,14 @@ body {
     z-index: 50;
     background-color: #F5F5F5;
     transition: right 218ms ease;
+}
+.project-navigation .nav-header {
+    position: absolute;
+    z-index: 2;
+    left: 0;
+    height: 50px;
+    margin: 0;
+    padding: 15px;
 }
 .project-navigation .nav-footer {
     position: absolute;
@@ -69,7 +83,17 @@ a:focus, a:hover {
 a, a:focus, a:hover {
      text-decoration: none;
  }
-
+.project-navigation .nav-body {
+    position: relative;
+    white-space: nowrap;
+    z-index: 1;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
 .project-navigation .nav-footer .nav-menu-handler {
     position: relative;
     padding: 15px 10px;
@@ -138,8 +162,9 @@ a, a:focus, a:hover {
     border-style: solid;
     border-width: 0;
     border-color: #E5E5E5;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: auto;
+    /*overflow-y: auto;*/
+    /*overflow-x: hidden;*/
     /*-webkit-user-select: none;*/
 }
 .add-wrap > a {
