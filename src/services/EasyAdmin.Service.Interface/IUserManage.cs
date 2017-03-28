@@ -26,7 +26,7 @@ namespace EasyAdmin.Service.Interface
     public class UserAndRole
     {
         public User User { get; set; }
-        public int Role { get; set; }
+        public UserProject UserProject { get; set; }
 
     }
 }

@@ -46,12 +46,12 @@ namespace EasyAdmin.Service
                         {
                             User = user,
                             //Project = 
-                            Role = userproject.Role
+                            UserProject = userproject
                         };
             return query.ToList().Select(m=> new UserAndRole()
             {
                 User = m.User,
-                Role = m.Role
+                UserProject = m.UserProject
             }).ToList();
         }
     }

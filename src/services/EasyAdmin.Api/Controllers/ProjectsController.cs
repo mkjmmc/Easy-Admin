@@ -54,7 +54,14 @@ namespace EasyAdmin.Api.Controllers
         public ResponseMessage Users(long ProjectID)
         {
             var userlist = _UserManage.GetListByProjectID(ProjectID);
-            return new ResponseMessage(MessageResult.Success, "", userlist);
+            return new ResponseMessage(MessageResult.Success, "", userlist.Select(m=> new
+            {
+                m.User.Nickname,
+                m.User.ID,
+                m.User.Email,
+                m.UserProject.Role,
+                m.UserProject.CreateTime
+            }));
         }
 
         //// GET api/values/5
