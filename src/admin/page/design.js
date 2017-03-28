@@ -1029,7 +1029,7 @@ angular.module('app')
                     });
 
                     modalInstance.result.then(function (returntext) {
-                        data = returntext;
+                        //data = returntext;
                     }, function () {
                         //$log.info('Modal dismissed at: ' + new Date());
                     });

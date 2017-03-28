@@ -16,7 +16,7 @@ app.factory('rest', function ($rootScope, $http, $q, $resource) {
             var $com = $resource(url, {}, {
                 'save': {method: 'POST'},
             });
-            $com.save(params,payload, function (data) {
+            $com.save(params, payload, function (data) {
                 delay.resolve(data);
             }, function (resp) {
                 delay.reject(resp);
@@ -61,8 +61,8 @@ app.factory('rest_access', function ($rootScope, rest) {
         getdata: function (id) {
             return rest.get(app.host + "/access/:id", {id: id});
         },
-        delete:function(id){
-            return rest.delete(app.host + "/access/:id",  {id: id});
+        delete: function (id) {
+            return rest.delete(app.host + "/access/:id", {id: id});
         },
         save: function (data) {
             return rest.save(app.host + "/access", {}, data);
@@ -77,18 +77,21 @@ app.factory('rest_projects', function ($rootScope, rest) {
         list: function () {
             return rest.save(app.host + "/projects/list");
         },
-        create:function(data){
-            return rest.save(app.host + "/projects/create",{},data);
+        create: function (data) {
+            return rest.save(app.host + "/projects/create", {}, data);
+        },
+        users: function (projectid) {
+            return rest.save(app.host + "/projects/users", {projectid: projectid});
         }
     }
 });
 app.factory('rest_modules', function ($rootScope, rest) {
     return {
         list: function (data) {
-            return rest.save(app.host + "/modules/list",  data);
+            return rest.save(app.host + "/modules/list", data);
         },
-        create:function(data){
-            return rest.save(app.host + "/modules/create",{},data);
+        create: function (data) {
+            return rest.save(app.host + "/modules/create", {}, data);
         }
     }
 });
@@ -96,44 +99,47 @@ app.factory('rest_modules', function ($rootScope, rest) {
 app.factory('rest_pages', function ($rootScope, rest) {
     return {
         list: function (data) {
-            return rest.save(app.host + "/pages/list",  data);
+            return rest.save(app.host + "/pages/list", data);
         },
         detail: function (data) {
-            return rest.save(app.host + "/pages/detail",  data);
+            return rest.save(app.host + "/pages/detail", data);
         },
         connects: function (data) {
-            return rest.save(app.host + "/pages/connects",  data);
+            return rest.save(app.host + "/pages/connects", data);
         },
         databases: function (data) {
-            return rest.save(app.host + "/pages/databases",  data);
+            return rest.save(app.host + "/pages/databases", data);
         },
         tables: function (data) {
-            return rest.save(app.host + "/pages/tables",  data);
+            return rest.save(app.host + "/pages/tables", data);
         },
         columns: function (data) {
-            return rest.save(app.host + "/pages/columns",  data);
+            return rest.save(app.host + "/pages/columns", data);
         },
         executedatasource: function (projectid, data) {
-            return rest.save(app.host + "/pages/executedatasource", {projectid:projectid}, data);
+            return rest.save(app.host + "/pages/executedatasource", {projectid: projectid}, data);
         },
-        create:function(data){
-            return rest.save(app.host + "/pages/create",{},data);
+        create: function (data) {
+            return rest.save(app.host + "/pages/create", {}, data);
         }
     }
 });
 app.factory('rest_connects', function ($rootScope, rest) {
     return {
         list: function (data) {
-            return rest.save(app.host + "/connects/list",  data);
+            return rest.save(app.host + "/connects/list", data);
         },
         update: function (data) {
-            return rest.save(app.host + "/connects/update",  data);
+            return rest.save(app.host + "/connects/update", data);
         },
         create: function (data) {
-            return rest.save(app.host + "/connects/create",  data);
+            return rest.save(app.host + "/connects/create", data);
         },
         delete: function (data) {
-            return rest.save(app.host + "/connects/delete",  data);
+            return rest.save(app.host + "/connects/delete", data);
+        },
+        test: function (ConnectString) {
+            return rest.save(app.host + "/connects/test", {ConnectString: ConnectString});
         },
     }
 });

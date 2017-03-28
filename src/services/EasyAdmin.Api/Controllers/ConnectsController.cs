@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using EasyAdmin.Service.Interface;
 using EasyAdmin.Api.Code;
 using EasyAdmin.Api.Models;
+using MySql.Data.MySqlClient;
 
 namespace EasyAdmin.Api.Controllers
 {
@@ -23,15 +24,27 @@ namespace EasyAdmin.Api.Controllers
             _DBConnectManage = DBConnectManage;
         }
 
+        /// <summary>
+        /// 数据库连接列表
+        /// </summary>
+        /// <param name="ProjectID"></param>
+        /// <returns></returns>
         [HttpPost]
         public ResponseMessage List(long ProjectID)
         {
             // 获取项目列表
             var list = _DBConnectManage.GetListByProjectID(ProjectID);
             //return new string[] { "value1", "value2" };
-            return new ResponseMessage(MessageResult.Success, "", list.Where(m=>m.IsDelete == 0));
+            return new ResponseMessage(MessageResult.Success, "", list.Where(m => m.IsDelete == 0));
         }
 
+        /// <summary>
+        /// 更新数据库连接属性
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <param name="Name"></param>
+        /// <param name="ConnectString"></param>
+        /// <returns></returns>
         [HttpPost]
         public ResponseMessage Update(long ID, string Name, string ConnectString)
         {
@@ -48,6 +61,11 @@ namespace EasyAdmin.Api.Controllers
             return new ResponseMessage(MessageResult.Error, "");
         }
 
+        /// <summary>
+        /// 删除数据库连接
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <returns></returns>
         [HttpPost]
         public ResponseMessage Delete(long ID)
         {
@@ -63,6 +81,13 @@ namespace EasyAdmin.Api.Controllers
             return new ResponseMessage(MessageResult.Error, "");
         }
 
+        /// <summary>
+        /// 创建数据库连接
+        /// </summary>
+        /// <param name="ProjectID"></param>
+        /// <param name="Name"></param>
+        /// <param name="ConnectString"></param>
+        /// <returns></returns>
         [HttpPost]
         public ResponseMessage Create(long ProjectID, string Name, string ConnectString)
         {
@@ -76,6 +101,33 @@ namespace EasyAdmin.Api.Controllers
                 return new ResponseMessage(MessageResult.Success, "");
             }
             return new ResponseMessage(MessageResult.Error, "");
+        }
+
+        /// <summary>
+        /// 测试数据库连接是否可用
+        /// </summary>
+        /// <param name="ConnectString"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ResponseMessage Test(string ConnectString)
+        {
+            using (MySqlConnection connection = new MySqlConnection(ConnectString))
+            {
+                try
+                {
+                    connection.Open();
+                    return new ResponseMessage(MessageResult.Success, "ok");
+                }
+                catch (Exception e)
+                {
+                    return new ResponseMessage(MessageResult.Error, e.Message);
+                    //throw;
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
         }
     }
 }

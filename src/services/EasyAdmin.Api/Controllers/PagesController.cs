@@ -38,6 +38,11 @@ namespace EasyAdmin.Api.Controllers
             _DBConnectManage = DBConnectManage;
         }
 
+        /// <summary>
+        /// 获取页面列表
+        /// </summary>
+        /// <param name="ProjectID"></param>
+        /// <returns></returns>
         [HttpPost]
         public ResponseMessage List(long ProjectID)
         {
@@ -46,7 +51,12 @@ namespace EasyAdmin.Api.Controllers
             //return new string[] { "value1", "value2" };
             return new ResponseMessage(MessageResult.Success, "", list);
         }
-        // 获取配置信息
+
+        /// <summary>
+        /// 获取配置信息
+        /// </summary>
+        /// <param name="PageID"></param>
+        /// <returns></returns>
         [HttpPost]
         public ResponseMessage Detail(long PageID)
         {
@@ -59,20 +69,26 @@ namespace EasyAdmin.Api.Controllers
             //return new string[] { "value1", "value2" };
             return new ResponseMessage(MessageResult.Error, "");
         }
-        [HttpPost]
-        public ResponseMessage Create([FromBody] ModuleCreateModel model)
-        {
-            var result = _ModuleManage.Create(new Dao.Models.Module()
-            {
-                Name = model.Name,
-                ProjectID = model.ProjectID
-            });
-            if (result)
-            {
-                return new ResponseMessage(MessageResult.Success, "");
-            }
-            return new ResponseMessage(MessageResult.Error, "创建模块失败");
-        }
+
+        ///// <summary>
+        ///// 创建模块
+        ///// </summary>
+        ///// <param name="model"></param>
+        ///// <returns></returns>
+        //[HttpPost]
+        //public ResponseMessage Create([FromBody] ModuleCreateModel model)
+        //{
+        //    var result = _ModuleManage.Create(new Dao.Models.Module()
+        //    {
+        //        Name = model.Name,
+        //        ProjectID = model.ProjectID
+        //    });
+        //    if (result)
+        //    {
+        //        return new ResponseMessage(MessageResult.Success, "");
+        //    }
+        //    return new ResponseMessage(MessageResult.Error, "创建模块失败");
+        //}
 
         /// <summary>
         /// 获取连接列表
@@ -84,16 +100,16 @@ namespace EasyAdmin.Api.Controllers
             return list;
         }
 
-        /// <summary>
-        /// 获取数据库列表
-        /// </summary>
-        /// <param name="connectid"></param>
-        /// <returns></returns>
-        public ResponseMessage Connects(long ProjectID)
-        {
-            var connect = GetConnectList(ProjectID);
-            return new ResponseMessage(MessageResult.Success, "成功");
-        }
+        ///// <summary>
+        ///// 获取数据库列表
+        ///// </summary>
+        ///// <param name="connectid"></param>
+        ///// <returns></returns>
+        //public ResponseMessage Connects(long ProjectID)
+        //{
+        //    var connect = GetConnectList(ProjectID);
+        //    return new ResponseMessage(MessageResult.Success, "成功");
+        //}
 
         /// <summary>
         /// 获取数据库列表

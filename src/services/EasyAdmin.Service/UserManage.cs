@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Linq;
 using EasyAdmin.Dao;
 using EasyAdmin.Dao.Models;
 using EasyAdmin.Service.Interface;
+using System.Collections.Generic;
 
 namespace EasyAdmin.Service
 {
@@ -10,6 +12,7 @@ namespace EasyAdmin.Service
         private readonly CloudDbContext _CloudDbContext;
         public UserManage(CloudDbContext CloudDbContext) : base(CloudDbContext)
         {
+            _CloudDbContext = CloudDbContext;
         }
 
         public bool Create(User model)
@@ -30,6 +33,26 @@ namespace EasyAdmin.Service
         public bool Update(User model)
         {
             return base.Update(model);
+        }
+
+
+        public List<UserAndRole> GetListByProjectID(long ProjectID)
+        {
+            var query = from userproject in _CloudDbContext.UserProjects
+                        join user in _CloudDbContext.Users
+                        on userproject.UserID equals user.ID
+                        where userproject.ProjectID == ProjectID
+                        select new
+                        {
+                            User = user,
+                            //Project = 
+                            Role = userproject.Role
+                        };
+            return query.ToList().Select(m=> new UserAndRole()
+            {
+                User = m.User,
+                Role = m.Role
+            }).ToList();
         }
     }
 }

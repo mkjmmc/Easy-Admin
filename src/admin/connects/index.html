@@ -14,12 +14,14 @@
                         <input type="text" ng-model="connect.NameNew" class="form-control" placeholder="连接名称"/>
                     </div>
                     <div class="form-group">
-                        <textarea ng-model="connect.ConnectStringNew" class="form-control" placeholder="连接字符串"></textarea>
+                        <textarea ng-model="connect.ConnectStringNew" ng-change="connect.testok=false;connect.testmessage='';" class="form-control" placeholder="连接字符串" rows="5"></textarea>
+                        <div ng-class="{'text-danger':!connect.testok,'text-success':connect.testok}">{{connect.testmessage}}</div>
+                        <button ng-click="testconnect(connect)" class="btn btn-default">测试</button>
                     </div>
                     <div class="pull-right">
-                        <button class="btn btn-link" ng-click="deleteconnect(connect)">删除</button>
+                        <button class="btn btn-link" ng-click="deleteconnect(connect)"><span class="text-danger">删除</span></button>
                         <button class="btn btn-link" ng-click="editable=false">取消</button>
-                        <button class="btn btn-primary" ng-click="updateconnect(connect)">更新</button>
+                        <button class="btn btn-primary" ng-click="updateconnect(connect)" ng-disabled="!connect.testok">更新</button>
                     </div>
                 </div>
             </div>
@@ -33,11 +35,13 @@
                         <input type="text" ng-model="newconnect.NameNew" class="form-control" placeholder="连接名称"/>
                     </div>
                     <div class="form-group">
-                        <textarea ng-model="newconnect.ConnectStringNew" class="form-control" placeholder="连接字符串"></textarea>
+                        <textarea ng-model="newconnect.ConnectStringNew" ng-change="newconnect.testok=false;newconnect.testmessage='';" class="form-control" placeholder="连接字符串"></textarea>
+                        <div ng-class="{'text-danger':!newconnect.testok,'text-success':newconnect.testok}">{{newconnect.testmessage}}</div>
+                        <button ng-click="testconnect(newconnect)" class="btn btn-default">测试</button>
                     </div>
                     <div class="pull-right">
                         <button class="btn btn-link" ng-click="addnew=false">取消</button>
-                        <button class="btn btn-primary" ng-click="createconnect(newconnect)">添加</button>
+                        <button class="btn btn-primary" ng-click="createconnect(newconnect)" ng-disabled="!newconnect.testok">添加</button>
                     </div>
                 </div>
             </div>

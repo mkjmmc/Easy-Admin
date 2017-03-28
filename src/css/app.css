@@ -140,7 +140,7 @@ a, a:focus, a:hover {
     border-color: #E5E5E5;
     overflow-y: auto;
     overflow-x: hidden;
-    -webkit-user-select: none;
+    /*-webkit-user-select: none;*/
 }
 .add-wrap > a {
     display: block;

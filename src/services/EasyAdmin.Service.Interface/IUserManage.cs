@@ -19,6 +19,14 @@ namespace EasyAdmin.Service.Interface
         User GetModelByAppKey(string key);
         User GetModelByEmail(string Email);
         bool Update(User model);
+        List<UserAndRole> GetListByProjectID(long ProjectID);
+
+    }
+
+    public class UserAndRole
+    {
+        public User User { get; set; }
+        public int Role { get; set; }
 
     }
 }

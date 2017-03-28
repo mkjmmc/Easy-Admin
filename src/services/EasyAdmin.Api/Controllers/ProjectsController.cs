@@ -12,12 +12,16 @@ namespace EasyAdmin.Api.Controllers
     public class ProjectsController : BaseController
     {
         private readonly IProjectManage _ProjectManage;
+        private readonly IUserManage _UserManage;
         private readonly ITenantManage _TenantManage;
         public ProjectsController(IProjectManage ProjectManage
-            , ITenantManage TenantManage)
+            , ITenantManage TenantManage
+            , IUserManage UserManage
+            )
         {
             _ProjectManage = ProjectManage;
             _TenantManage = TenantManage;
+            _UserManage = UserManage;
         }
         // GET api/values
         [HttpPost]
@@ -44,6 +48,13 @@ namespace EasyAdmin.Api.Controllers
                 return new ResponseMessage(MessageResult.Success, "");
             }
             return new ResponseMessage(MessageResult.Error, "创建项目失败");
+        }
+
+        [HttpPost]
+        public ResponseMessage Users(long ProjectID)
+        {
+            var userlist = _UserManage.GetListByProjectID(ProjectID);
+            return new ResponseMessage(MessageResult.Success, "", userlist);
         }
 
         //// GET api/values/5

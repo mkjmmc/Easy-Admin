@@ -3,6 +3,7 @@ app.controller('ProjectDashboardController', function ($scope, $resource, $state
 
     $scope.projectid = $stateParams.projectid;
 
+    // 获取所有的页面列表
     $scope.loadpages = function () {
         rest_pages
             .list({ProjectID: $scope.projectid})
@@ -20,6 +21,27 @@ app.controller('ProjectDashboardController', function ($scope, $resource, $state
             });
     };
     $scope.loadpages();
+
+    // 获取项目所有成员
+    $scope.loadusers = function(){
+        rest_projects
+            .users($scope.projectid)
+            .then(function (data) {
+                // alert(data);
+                // 显示数据
+                if (data.result == 0) {
+                    // alert(data);
+                    // 显示数据
+                    $scope.users = data.data;
+                }
+                else {
+                    alert(data.message);
+                }
+            });
+    };
+    $scope.loadusers();
+
+
     // 读取模块
     $scope.loadmodules = function () {
         // 获取项目列表
@@ -86,6 +108,7 @@ app.controller('ProjectDashboardController', function ($scope, $resource, $state
         });
     }
 
+    // 显示连接设置模态框
     $scope.showconnectsmodal = function () {
         var modalInstance = $uibModal.open({
             animation: true,
