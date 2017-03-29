@@ -64,6 +64,16 @@ namespace EasyAdmin.Api.Controllers
             }));
         }
 
+        public ResponseMessage Info(long ProjectID)
+        {
+            var model = _ProjectManage.GetModel(ProjectID);
+            if (model!= null)
+            {
+                return new ResponseMessage(MessageResult.Success, "", model);
+            }
+            return new ResponseMessage(MessageResult.Error, "项目不存在");
+        }
+
         //// GET api/values/5
         //[HttpGet("{id}")]
         //public string Get(int id)

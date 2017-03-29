@@ -16,6 +16,26 @@ app.controller('ProjectDashboardController', function ($scope, $resource, $state
         return null;
     };
 
+    $scope.loadprojectinfo = function () {
+        // 获取项目列表
+        rest_projects
+            .info( $scope.projectid )
+            .then(function (data) {
+                switch (data.result) {
+                    case 0:
+                        $scope.project = data.data;
+                        break;
+                    default :
+                        alert('项目不存在');
+                        break;
+                }
+            }, function (resp) {
+                console.log(resp);
+                alert(resp);
+            });
+    };
+    $scope.loadprojectinfo();
+
     // 获取所有的页面列表
     $scope.loadpages = function () {
         rest_pages

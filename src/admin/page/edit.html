@@ -1,103 +1,46 @@
-﻿<div ng-controller="PageEditController" class="page-view">
-    <!--<div class="ibox">-->
-        <!--<div class="ibox-title">-->
-            <!--<h5>-->
-                <!--{{config.title}}</h5>-->
-            <!--<div class="ibox-tools">-->
-            <!--</div>-->
-        <!--</div>-->
-        <!--<div class="ibox-content">-->
+﻿<div ng-controller="PageEditController" class="page-view-design">
+    <div class="project-navigation sub-nav sub-navigator">
+        <div class="row-flex">
+            <div class="nav-header">
+                 <span uib-dropdown>
+                    <a href id="simple-dropdown" uib-dropdown-toggle>
+                        {{getcurrentpage().Title}} <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
+                        <!--<li ng-repeat="choice in items">-->
+                        <!--<a href>{{choice}}</a>-->
+                        <!--</li>-->
+                        <li ng-repeat="page in pages">
+                            <a ui-sref="app.project.design({projectid:page.ProjectID, pageid:page.ID})">
+                                {{page.Title}}
+                                <span class="pull-right" ng-show="page.IsPublic==1"><i class="fa fa-fw fa-eye"></i></span>
+                            </a>
+                        </li>
+                        <li>
 
-            <!--<div class="clearfix">-->
-                <!--<input type="checkbox" ng-model="editable"/>-->
-                <!--<a ng-click="savequery()" class="btn btn-success pull-right">保存</a>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
-        <design config="Component" editable="editable"></design>
+                            <a ng-click="pinpagelistbar=true">固定</a>
+                        </li>
+                    </ul>
+                </span>
+            </div>
+            <section class="nav-body">
+                <ul class="nav nav-underscore pull-left">
+                    <li ng-class="{'active':editable}"><a class="app" data-app="works" ng-click="editable=true"> 设计 </a></li>
+                    <li ng-class="{'active':!editable}"><a class="app" data-app="events" ng-click="editable=false"> 预览 </a></li>
+                </ul>
+            </section>
+            <div class="nav-footer">
+                <a class="nav-menu-handler" ng-click="savequery()"><i class="fa fa-fw fa-save"></i> 保存 </a>
+
+                <a class="nav-menu-handler" ng-click="pageinfo.IsPublic=pageinfo.IsPublic==1?0:1">
+                    <i class="fa fa-fw" ng-class="{'fa-eye':pageinfo.IsPublic==1,'fa-eye-slash':pageinfo.IsPublic==0}"></i>
+                    {{pageinfo.IsPublic==1?'公开':'私有'}}
+                </a>
+            </div>
+        </div>
+    </div>
+    <design config="Component" editable="editable" debug="app.debug"></design>
 </div>
 <style>
-    .toolbox{}
-    .nav-tabs > li .close {
-			    margin: -2px 0 0 10px;
-			    font-size: 18px;
-			}
-    .layout{ padding-bottom: 100px;}
-    .active{}
-    .layout-container .layout-active:before {content: ""; display: block; position: absolute; top: 0; left: 0; right: 0; bottom: 0; border: solid 1px #ee6723; -webkit-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.15); box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.15); }
-    
-    .layout-container .layout-hover:before {content: ""; display: block; position: absolute; top: 0; left: 0; right: 0; bottom: 0; border: solid 1px #419bf9; }
-    
-    .row-fluid {
-        width: 100%;
-    }
-    .row-fluid {
-        position: relative;
-        
-    }
-    .component {
-        border: 2px dashed #eeeeee;
-        border-radius: 4px 4px 4px 4px;
-    }
-    .component.hover {
-        border-color: #9da0a4;
-    }
-    .component > div > .toolbar > .btn {
-        color: #eee;
-    }
-     .component.hover > div > .toolbar > .btn {
-        color: #666;
-    }
-    .row-fluid:before, .row-fluid:after {
-        display: table;
-        content: "";
-        line-height: 0;
-    }
-    .row-fluid:before {
-    }
-    .row-fluid:after {
-        clear: both;
-    }
 
-    .column {
-        background-color: #FFFFFF;
-        border: 1px dashed #eeeeee;
-        margin: 0;
-        padding: 39px 0px 24px;
-        position: relative;
-    }
-
-    .row-fluid .column {
-        min-height: 30px;
-    }
-    .column:after {
-        background-color: #F5F5F5;
-        border: 1px solid #DDDDDD;
-        border-radius: 4px 0 4px 0;
-        color: #9DA0A4;
-        content: "Column";
-        font-size: 12px;
-        font-weight: bold;
-        left: -1px;
-        padding: 3px 7px;
-        position: absolute;
-        top: -1px;
-    }
-    .selected{ background-color: #00ced1}
-    .dd-handle{ float: right;}
-
-    .design .modal {
-        position: relative;
-        top: auto;
-        right: auto;
-        bottom: auto;
-        left: auto;
-        z-index: 1;
-        display: block;
-    }
-    .design .modal-dialog {
-        left: auto;
-        margin-right: auto;
-        margin-left: auto;
-    }
 </style>

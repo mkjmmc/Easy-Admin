@@ -15,6 +15,7 @@ namespace EasyAdmin.Service.Interface
         /// <param name="model"></param>
         /// <returns></returns>
         bool Create(Page model);
+        bool Update(Page model);
 
         List<Page> GetListByProjectID(long ProjectID);
 

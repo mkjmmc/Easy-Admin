@@ -54,6 +54,7 @@ namespace EasyAdmin.Api.Controllers
                 m.ID,
                 m.ProjectID,
                 m.Title,
+                m.IsPublic
             }));
         }
 
@@ -194,7 +195,7 @@ namespace EasyAdmin.Api.Controllers
                     display = true
                 });
             }
-            return new ResponseMessage(MessageResult.Error, "成功", list);
+            return new ResponseMessage(MessageResult.Success, "成功", list);
             // return Json(list, JsonRequestBehavior.AllowGet);
         }
 
@@ -330,6 +331,46 @@ namespace EasyAdmin.Api.Controllers
             ////return Content(sql + "=============" + rows);
             //return null;
         }
+
+        [HttpPost]
+        public ResponseMessage Save([FromBody]SaveConfig config)
+        {
+            var cfg = JObject.Parse(config.config);
+            var title = cfg.SelectToken("name").ToObject<string>();
+            if (config.id == 0)
+            {
+                if(_PageManage.Create(new Page()
+                {
+                    Config = config.config,
+                    Title = title,
+                    ProjectID = config.ProjectID,
+                    IsPublic = config.IsPublic
+                }))
+                {
+                    return new ResponseMessage(MessageResult.Success);
+                }
+                return new ResponseMessage(MessageResult.Error, "添加失败");
+            }
+            else
+            {
+                var page = _PageManage.GetModel(config.id);
+                if (page == null || page.ProjectID != config.ProjectID)
+                {
+                    return new ResponseMessage(MessageResult.Error, "页面不存在");
+                }
+                else
+                {
+                    page.Config = config.config;
+                    page.Title = title;
+                    page.IsPublic = config.IsPublic;
+                    if (_PageManage.Update(page))
+                    {
+                        return new ResponseMessage(MessageResult.Success);
+                    }
+                    return new ResponseMessage(MessageResult.Error, "添加失败");
+                }
+            }
+        }
     }
 
     /// <summary>
@@ -355,5 +396,14 @@ namespace EasyAdmin.Api.Controllers
         public long ID { get; set; }
         public string Name { get; set; }
         public string ConnectString { get; set; }
+    }
+
+    public class SaveConfig
+    {
+        public long ProjectID { get; set; }
+        public string config { get; set; }
+        public long id { get; set; }
+
+        public int IsPublic { get; set; }
     }
 }

@@ -143,6 +143,7 @@ app
                         function ($ocLazyLoad) {
                             return $ocLazyLoad.load([
                                 'admin/page/ctrl.js',
+                                'admin/page/design.css',
                                 'admin/page/design.js',
                                 'admin/page/filter.js',
                                 'admin/page/datatable/datatable.js',

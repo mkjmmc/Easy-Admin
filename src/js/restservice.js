@@ -82,6 +82,9 @@ app.factory('rest_projects', function ($rootScope, rest) {
         },
         users: function (projectid) {
             return rest.save(app.host + "/projects/users", {projectid: projectid});
+        },
+        info: function (projectid) {
+            return rest.save(app.host + "/projects/info", {projectid: projectid});
         }
     }
 });
@@ -104,30 +107,25 @@ app.factory('rest_pages', function ($rootScope, rest) {
         detail: function (data) {
             return rest.save(app.host + "/pages/detail", data);
         },
-        connects: function (data) {
-            return rest.save(app.host + "/pages/connects", data);
-        },
-        databases: function (data) {
-            return rest.save(app.host + "/pages/databases", data);
-        },
-        tables: function (data) {
-            return rest.save(app.host + "/pages/tables", data);
-        },
-        columns: function (data) {
-            return rest.save(app.host + "/pages/columns", data);
-        },
+        //connects: function (data) {
+        //    return rest.save(app.host + "/pages/connects", data);
+        //},
+
         executedatasource: function (projectid, data) {
             return rest.save(app.host + "/pages/executedatasource", {projectid: projectid}, data);
         },
         create: function (data) {
             return rest.save(app.host + "/pages/create", {}, data);
+        },
+        save: function (data) {
+            return rest.save(app.host + "/pages/save", {}, data);
         }
     }
 });
 app.factory('rest_connects', function ($rootScope, rest) {
     return {
-        list: function (data) {
-            return rest.save(app.host + "/connects/list", data);
+        list: function (projectid) {
+            return rest.save(app.host + "/connects/list", {projectid: projectid});
         },
         update: function (data) {
             return rest.save(app.host + "/connects/update", data);
@@ -140,6 +138,15 @@ app.factory('rest_connects', function ($rootScope, rest) {
         },
         test: function (ConnectString) {
             return rest.save(app.host + "/connects/test", {ConnectString: ConnectString});
+        },
+        databases: function (projectid, connectid) {
+            return rest.save(app.host + "/pages/databases", {projectid: projectid, connectid: connectid});
+        },
+        tables: function (projectid, connectid, databasename) {
+            return rest.save(app.host + "/pages/tables", {projectid: projectid, connectid: connectid, databasename: databasename});
+        },
+        columns: function (projectid, connectid, databasename,tablename) {
+            return rest.save(app.host + "/pages/columns", {projectid: projectid, connectid: connectid, databasename: databasename,tablename:tablename});
         },
     }
 });

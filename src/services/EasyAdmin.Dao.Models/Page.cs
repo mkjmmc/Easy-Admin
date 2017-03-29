@@ -16,5 +16,6 @@ namespace EasyAdmin.Dao.Models
         public long ProjectID { get; set; }
         public string Title { get; set; }
         public string Config { get; set; }
+        public int IsPublic { get; set; }
     }
 }

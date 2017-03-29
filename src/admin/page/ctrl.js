@@ -62,41 +62,60 @@ app.controller('PageEditController', function ($scope, $resource, $stateParams, 
         name: '页面',
         children: []
     };
+    $scope.pageid = $stateParams.pageid;
+    $scope.projectid = $stateParams.projectid;
 
 
     // 保存查询配置
     $scope.savequery = function () {
         var params = {
             config: JSON.stringify($scope.Component),
-            id: $stateParams.id
+            id: $scope.pageid,
+            projectid: $scope.projectid,
+            IsPublic:$scope.pageinfo.IsPublic
         };
-        var $com = $resource('/enter/query/save');
-        $com.save(null, params, function (data) {
-            if (data.result == 0) {
-                // 保存成功
-                $state.go('page.list', {});
+        rest_pages
+            .save(params)
+            .then(function(data){
+                if (data.result == 0) {
+                    // 保存成功
+                    $state.go('app.project.design', {projectid:$scope.projectid, pageid:$scope.pageid});
 //                alert('保存成功');
-            } else {
-                // 保存失败
-                alert('保存失败');
-            }
-
-        }, function (resp) {
-            alert(resp);
-        });
+                } else {
+                    // 保存失败
+                    alert('保存失败');
+                }
+            },function(resp){
+                alert(resp);
+            });
+//        var $com = $resource('/enter/query/save');
+//        $com.save(null, params, function (data) {
+//            if (data.result == 0) {
+//                // 保存成功
+//                $state.go('page.list', {});
+////                alert('保存成功');
+//            } else {
+//                // 保存失败
+//                alert('保存失败');
+//            }
+//
+//        }, function (resp) {
+//            alert(resp);
+//        });
     }
 
-    if ($stateParams.pageid && $stateParams.pageid > 0) {
+    if ($scope.pageid && $scope.pageid > 0) {
         // 获取配置
         // var params = {
         //     id: $stateParams.id,
         // }
         rest_pages
-            .detail({pageid: $stateParams.pageid})
+            .detail({pageid: $scope.pageid})
             .then(function (data) {
                 // alert(data);
                 // 显示数据
                 if (data.result == 0) {
+                    $scope.pageinfo = data.data;
                     $scope.Component = angular.extend($scope.Component, JSON.parse(data.data.Config));
 //                $scope.getdata($stateParams.page, $stateParams.search);
 //                     $scope.$parent.$parent.selectedpage = $scope.Component.name;

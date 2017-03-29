@@ -12,8 +12,10 @@ angular.module('app')
 
             // config
             app.host = "http://localhost:3595/api";// "http://adminapi.yys.ren:8011/api";// "http://localhost:65030/api"; //"http://adminapi.yys.ren/api";
+            app.debug = false;
             $scope.app = {
                 host: app.host,
+                debug:app.debug,
                 name: 'Easy Admin',
                 version: '1.0.0',
                 // for chart colors

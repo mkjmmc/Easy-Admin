@@ -41,5 +41,10 @@ namespace EasyAdmin.Service
                         select project;
             return query.ToList();
         }
+
+        public Project GetModel(long ProjectID)
+        {
+            return base.Get(m => m.ID == ProjectID);
+        }
     }
 }

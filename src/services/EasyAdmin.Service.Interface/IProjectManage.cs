@@ -17,6 +17,7 @@ namespace EasyAdmin.Service.Interface
         bool Create(Project model);
 
         List<Project> GetListByUserID(long UserID);
+        Project GetModel(long ProjectID);
 
     }
 }

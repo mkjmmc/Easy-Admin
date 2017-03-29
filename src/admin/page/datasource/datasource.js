@@ -8,7 +8,7 @@ app.directive('datasource', function () {
         scope: {
             config: "="
         },
-        controller: function ($scope, $resource, $stateParams, $state, $parse, $filter, $timeout, $q) {
+        controller: function ($scope, $resource, $stateParams, $state, $parse, $filter, $timeout, $q, rest_connects) {
             $scope.defaultdata = {
                 name: '数据源',
                 connectid: 0,
@@ -79,58 +79,78 @@ app.directive('datasource', function () {
             $scope.getconnects = function () {
                 var delay = $q.defer();
                 if (!$scope.connects) {
-                    var $com = $resource('/enter/query/Connects');
-                    $com.get(null, function (data) {
-                        if (data.result == 0) {
-                            if (!$scope.connects) {
-                                $scope.connects = [];
-                            }
-                            for (var i = 0; i < data.data.length; i++) {
-                                if (!$scope.connects[data.data[i].ID]) {
-                                    $scope.connects[data.data[i].ID] = {};
+                    rest_connects
+                        .list($stateParams.projectid)
+                        .then(function (data) {
+                            if (data.result == 0) {
+                                if (!$scope.connects) {
+                                    $scope.connects = [];
                                 }
-                                $scope.connects[data.data[i].ID].ID = data.data[i].ID;
-                                $scope.connects[data.data[i].ID].Name = data.data[i].Name;
+                                for (var i = 0; i < data.data.length; i++) {
+                                    if (!$scope.connects[data.data[i].ID]) {
+                                        $scope.connects[data.data[i].ID] = {};
+                                    }
+                                    $scope.connects[data.data[i].ID].ID = data.data[i].ID;
+                                    $scope.connects[data.data[i].ID].Name = data.data[i].Name;
+                                }
+                                delay.resolve();
+                                //$scope.connects = data.data;
+                            } else {
+                                //alert(data.message);
+                                delay.reject(data.message);
                             }
-                            delay.resolve();
-                            //$scope.connects = data.data;
-                        } else {
-                            //alert(data.message);
-                            delay.reject(data.message);
-                        }
-                    }, function (resp) {
-                        delay.reject(resp);
-                        console.log("getdatabases error", resp);
-                    });
+                        }, function (resp) {
+                            delay.reject(resp);
+                            console.log("getdatabases error", resp);
+                        });
                 } else {
                     delay.resolve();
                 }
                 return delay.promise;
             };
             // 获取数据库
-            $scope.getdatabases = function (connectid)  {
+            $scope.getdatabases = function (connectid) {
                 var delay = $q.defer();
                 if ($scope.connects
                     && $scope.connects[connectid]
                     && !$scope.connects[connectid].databases) {
-                    var $com = $resource('/enter/query/Databases');
-                    $com.get({connectid: connectid}, function (data) {
-                        if (data.result == 0) {
-                            if (!$scope.connects[connectid].databases) {
-                                $scope.connects[connectid].databases = {};
-                            }
-                            for (var i = 0; i < data.data.length; i++) {
-                                if (!$scope.connects[connectid].databases[data.data[i]]) {
-                                    $scope.connects[connectid].databases[data.data[i]] = null;
+                    rest_connects
+                        .databases($stateParams.projectid, connectid)
+                        .then(function (data) {
+                            if (data.result == 0) {
+                                if (!$scope.connects[connectid].databases) {
+                                    $scope.connects[connectid].databases = {};
                                 }
+                                for (var i = 0; i < data.data.length; i++) {
+                                    if (!$scope.connects[connectid].databases[data.data[i]]) {
+                                        $scope.connects[connectid].databases[data.data[i]] = null;
+                                    }
+                                }
+                                delay.resolve();
+                            } else {
+                                delay.reject(data);
                             }
-                            delay.resolve();
-                        } else {
-                            delay.reject(data);
-                        }
-                    }, function (resp) {
-                        delay.reject(resp);
-                    });
+                        }, function (resp) {
+                            delay.reject(resp);
+                        });
+                    //var $com = $resource('/enter/query/Databases');
+                    //$com.get({connectid: connectid}, function (data) {
+                    //    if (data.result == 0) {
+                    //        if (!$scope.connects[connectid].databases) {
+                    //            $scope.connects[connectid].databases = {};
+                    //        }
+                    //        for (var i = 0; i < data.data.length; i++) {
+                    //            if (!$scope.connects[connectid].databases[data.data[i]]) {
+                    //                $scope.connects[connectid].databases[data.data[i]] = null;
+                    //            }
+                    //        }
+                    //        delay.resolve();
+                    //    } else {
+                    //        delay.reject(data);
+                    //    }
+                    //}, function (resp) {
+                    //    delay.reject(resp);
+                    //});
                 }
                 else {
                     delay.resolve();
@@ -145,23 +165,44 @@ app.directive('datasource', function () {
                     && databasename
                     && $scope.connects[connectid]
                     && !$scope.connects[connectid].databases[databasename]) {
-                    var $com = $resource('/enter/query/TableList');
-                    $com.query({
-                        connectid: connectid,
-                        databasename: databasename
-                    }, function (data) {
-                        if (!$scope.connects[connectid].databases[databasename]) {
-                            $scope.connects[connectid].databases[databasename] = {};
-                        }
-                        for (var i = 0; i < data.length; i++) {
-                            if (!$scope.connects[connectid].databases[databasename][data[i]]) {
-                                $scope.connects[connectid].databases[databasename][data[i]] = null
+                    rest_connects
+                        .tables($stateParams.projectid, connectid, databasename)
+                        .then(function (data) {
+                            if (data.result == 0) {
+                                if (!$scope.connects[connectid].databases[databasename]) {
+                                    $scope.connects[connectid].databases[databasename] = {};
+                                }
+                                for (var i = 0; i < data.data.length; i++) {
+                                    if (!$scope.connects[connectid].databases[databasename][data.data[i]]) {
+                                        $scope.connects[connectid].databases[databasename][data.data[i]] = null
+                                    }
+                                }
+                                delay.resolve();
                             }
-                        }
-                        delay.resolve();
-                    }, function (resp) {
-                        delay.reject(resp);
-                    });
+                            else {
+                                delay.reject(data.message);
+                            }
+                        }, function (resp) {
+                            delay.reject(resp);
+                        });
+
+                    //var $com = $resource('/enter/query/TableList');
+                    //$com.query({
+                    //    connectid: connectid,
+                    //    databasename: databasename
+                    //}, function (data) {
+                    //    if (!$scope.connects[connectid].databases[databasename]) {
+                    //        $scope.connects[connectid].databases[databasename] = {};
+                    //    }
+                    //    for (var i = 0; i < data.length; i++) {
+                    //        if (!$scope.connects[connectid].databases[databasename][data[i]]) {
+                    //            $scope.connects[connectid].databases[databasename][data[i]] = null
+                    //        }
+                    //    }
+                    //    delay.resolve();
+                    //}, function (resp) {
+                    //    delay.reject(resp);
+                    //});
                 } else {
                     delay.resolve();
                 }
@@ -179,17 +220,30 @@ app.directive('datasource', function () {
                     && $scope.connects[connectid].databases[databasename]
                     && !$scope.connects[connectid].databases[databasename][tablename]
                 ) {
-                    var $com = $resource('/enter/query/columnList');
-                    $com.query({
-                        connectid: connectid,
-                        databasename: databasename,
-                        tablename: tablename
-                    }, function (data) {
-                        $scope.connects[connectid].databases[databasename][tablename] = data;
-                        delay.resolve();
-                    }, function (resp) {
-                        delay.reject(resp);
-                    });
+                    rest_connects
+                        .columns($stateParams.projectid, connectid, databasename, tablename)
+                        .then(function (data) {
+                            if (data.result == 0) {
+                                $scope.connects[connectid].databases[databasename][tablename] = data.data;
+                                delay.resolve();
+                            }
+                            else {
+                                delay.reject(data.message);
+                            }
+                        }, function (resp) {
+                            delay.reject(resp);
+                        });
+                    //var $com = $resource('/enter/query/columnList');
+                    //$com.query({
+                    //    connectid: connectid,
+                    //    databasename: databasename,
+                    //    tablename: tablename
+                    //}, function (data) {
+                    //    $scope.connects[connectid].databases[databasename][tablename] = data;
+                    //    delay.resolve();
+                    //}, function (resp) {
+                    //    delay.reject(resp);
+                    //});
                 }
                 else {
                     delay.resolve();

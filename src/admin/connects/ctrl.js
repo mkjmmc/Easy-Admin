@@ -7,7 +7,7 @@ app.controller('ConnectListController', function ($scope, $resource, $state, $st
     // 获取所有的连接
     $scope.loadconnects = function () {
         rest_connects
-            .list({ProjectID: $scope.projectid})
+            .list($scope.projectid)
             .then(function (data) {
                 // alert(data);
                 // 显示数据

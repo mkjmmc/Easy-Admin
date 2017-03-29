@@ -3,13 +3,14 @@ angular.module('app')
     .directive('design', function () {
         return {
             restrict: 'E',
-            template: "<div class=\"design-container\" ng-init=\"editable=true\">\n    <!--design panels-->\n    <div class=\"design-panels\" ng-show=\"editable\">\n        <div class=\"\" ng-if=\"editable\"><input type=\"text\" ng-model=\"config.name\" class=\"form-control\"/></div>\n        <div class=\" \" ng-if=\"editable\">\n            <div class=\"ibox\">\n                <div class=\"ibox-title\"><h5>组件库</h5></div>\n                <div class=\"ibox-content\">\n                    <div class=\"cell scrollable hover\">\n                        <div class=\"cell-inner\">\n                            <div ng-sortable=\"sortableConfigtoolbox\" class=\" list-group no-radius no-border  m-b-none\">\n                                <div ng-repeat=\"item in toolbox\" class=\" list-group-item hover-anchor b-a no-select ng-scope  m-l-none\"><span ng-bind=\"item.name\"></span></div>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <div class=\"ibox\">\n                <div class=\"ibox-title\"><h5>数据源</h5>\n                    <div class=\"ibox-tools\"><a ng-click=\"config.datasources.push({name:\'数据源\', configs:[]})\">添加</a></div>\n                </div>\n                <div class=\"ibox-content\">\n                    <div class=\"list-group\"><a ng-repeat=\"ds in config.datasources\" class=\"list-group-item\" ng-click=\"editdatasource(ds)\"> {{ds.name}} <span class=\"badge\">{{ds.configs.length}}</span> </a></div>\n                </div>\n            </div>\n            <div class=\"ibox\">\n                <div class=\"ibox-title\"><h5>子视图</h5>\n                    <div class=\"ibox-tools\"><a ng-click=\"config.views.push({type:\'view\',name:\'子视图\', children:[],buttons:[]})\">添加</a></div>\n                </div>\n                <div class=\"ibox-content\">\n                    <div class=\"list-group\"><a class=\"list-group-item\" ng-click=\"editviews(config)\">主视图</a> <a ng-repeat=\"view in config.views\" class=\"list-group-item\" ng-click=\"editviews(view)\">{{view.name}}</a></div>\n                </div>\n            </div>\n        </div>\n\n\n    </div>\n    <div class=\"design-toolbar-topcenter\">\n        <div class=\"btn-group\" role=\"group\" aria-label=\"\">\n            <button type=\"button\" class=\"btn btn-default\" ng-click=\"scale=scale+0.25\"><i class=\'fa fa-plus\'></i></button>\n            <button type=\"button\" class=\"btn btn-default\">{{scale*100}}%</button>\n            <button type=\"button\" class=\"btn btn-default\" ng-click=\"scale=scale>0.25?scale-0.25:scale\"><i class=\'fa fa-minus\'></i></button>\n        </div>\n        <div class=\"btn-group\" role=\"group\" aria-label=\"\">\n            <select ng-model=\'screenwidth\' \n                    ng-options=\'screen for screen in screens\'\n                    ng-disabled=\'lock\'\n                    class=\'form-control\'></select>\n        </div>\n        <div class=\"btn-group\" role=\"group\" aria-label=\"\">\n            <button type=\"button\" class=\"btn btn-default\" ng-click=\'lock=!lock\'>\n                <i class=\"fa fa-fw\" ng-class=\"{\'fa-lock\':lock,\'fa-unlock\':!lock}\"></i>\n            </button>\n        </div>\n    </div>\n    <div style=\'position: absolute; bottom: 0; left: 0; right: 0; height: 100px; overflow: scroll\'>\n        <div ng-if=\"editable\"><br><br>{{variables}}</div>\n    </div>\n    <!--design-body-->\n    <div class=\"design-body\">\n        <div class=\"design-page\" ng-style=\"{\n        \'background-image\':\'linear-gradient(transparent 0px, transparent \'+scale*2+\'px, rgb(255, 255, 255) \'+scale*2+\'px, rgb(255, 255, 255) \'+scale*20+\'px), linear-gradient(to right, rgb(200, 195, 199) 0px, rgb(200, 195, 199) \'+scale*2+\'px, rgb(255, 255, 255) \'+scale*2+\'px, rgb(255, 255, 255) \'+scale*20+\'px)\'\n        ,\'background-size\':\'\'+scale*20+\'px \'+scale*20+\'px\'\n        }\">\n            <div class=\"layout-container\"\n                 ng-style=\"{\'transform\':\'scale(\'+scale+\',\'+scale+\')\',\'width\':screenwidth}\"\n                 ng-include=\"\'component.html\'\"></div>\n        </div>\n    </div>\n\n</div>",
+            template: "<div class=\"design-container\" ng-init=\"editable=true\" ng-class=\"{\'editable\':editable}\">\n    <!--design panels-->\n    <div class=\"design-panels\" ng-show=\"editable\">\n        <div class=\"\" ng-if=\"editable\"><input type=\"text\" ng-model=\"config.name\" class=\"form-control\"/></div>\n        <div class=\" \" ng-if=\"editable\">\n            <div class=\"panel panel-default\">\n                <div class=\"panel-heading\">\n                    <span>组件库</span>\n                </div>\n                <div ng-sortable=\"sortableConfigtoolbox\" class=\" list-group no-radius no-border  m-b-none\">\n                    <div ng-repeat=\"item in toolbox\" class=\" list-group-item hover-anchor b-a no-select ng-scope  m-l-none\"><span ng-bind=\"item.name\"></span></div>\n                </div>\n            </div>\n            <div class=\"panel panel-default\">\n                <div class=\"panel-heading\"><h5>数据源</h5>\n\n                    <div class=\"ibox-tools\"><a ng-click=\"config.datasources.push({name:\'数据源\', configs:[]})\">添加</a></div>\n                </div>\n                <div class=\"list-group\">\n                    <a ng-repeat=\"ds in config.datasources\" class=\"list-group-item\" ng-click=\"editdatasource(ds)\"> {{ds.name}} <span class=\"badge\">{{ds.configs.length}}</span> </a>\n                </div>\n            </div>\n            <div class=\"panel panel-default\">\n                <div class=\"panel-heading\"><h5>子视图</h5>\n\n                    <div class=\"ibox-tools\"><a ng-click=\"config.views.push({type:\'view\',name:\'子视图\', children:[],buttons:[]})\">添加</a></div>\n                </div>\n                <div class=\"list-group\">\n                    <a class=\"list-group-item\" ng-click=\"editviews(config)\">主视图</a>\n                    <a ng-repeat=\"view in config.views\" class=\"list-group-item\" ng-click=\"editviews(view)\">{{view.name}}</a>\n                </div>\n            </div>\n        </div>\n\n\n    </div>\n    <div class=\"design-toolbar-topcenter\">\n        <div class=\"btn-group\" role=\"group\" aria-label=\"\">\n            <button type=\"button\" class=\"btn btn-default\" ng-click=\"scale=scale+0.25\"><i class=\'fa fa-plus\'></i></button>\n            <button type=\"button\" class=\"btn btn-default\">{{scale*100}}%</button>\n            <button type=\"button\" class=\"btn btn-default\" ng-click=\"scale=scale>0.25?scale-0.25:scale\"><i class=\'fa fa-minus\'></i></button>\n        </div>\n        <div class=\"btn-group\" role=\"group\" aria-label=\"\">\n            <select ng-model=\'config.screenwidth\'\n                    ng-options=\'screen for screen in screens\'\n                    ng-disabled=\'config.lockscreenwidth\'\n                    class=\'form-control\'></select>\n        </div>\n        <div class=\"btn-group\" role=\"group\" aria-label=\"\">\n            <button type=\"button\" class=\"btn btn-default\"\n                    ng-click=\'config.lockscreenwidth=!config.lockscreenwidth\'\n                    uib-tooltip=\"{{config.lockscreenwidth?\'unlock the screen width\':\'lock the screen width to \' + config.screenwidth + \'px\'}}\"\n                    tooltip-append-to-body=\"true\">\n                <i class=\"fa fa-fw\" ng-class=\"{\'fa-lock\':config.lockscreenwidth,\'fa-unlock\':!config.lockscreenwidth}\"></i>\n            </button>\n        </div>\n        {{app.debug}}\n\n    </div>\n    <div style=\'position: absolute; bottom: 0; left: 0; right: 240px; height: 200px; overflow: scroll; z-index: 30003; background-color: #ffffff\' ng-if=\"debug\">\n        <div><br><br>{{config}}</div>\n    </div>\n    <!--design-body-->\n    <div class=\"design-body\">\n        <div class=\"design-page\"\n             ng-show=\"editable\"\n             ng-style=\"{\n        \'background-image\':\'linear-gradient(transparent 0px, transparent \'+scale*2+\'px, rgb(255, 255, 255) \'+scale*2+\'px, rgb(255, 255, 255) \'+scale*20+\'px), linear-gradient(to right, rgb(200, 195, 199) 0px, rgb(200, 195, 199) \'+scale*2+\'px, rgb(255, 255, 255) \'+scale*2+\'px, rgb(255, 255, 255) \'+scale*20+\'px)\'\n        ,\'background-size\':\'\'+scale*20+\'px \'+scale*20+\'px\'\n        }\">\n            <div class=\"layout-container\"\n                 ng-style=\"{\'transform\':\'scale(\'+scale+\',\'+scale+\')\',\'width\':config.screenwidth}\"\n                 ng-include=\"\'component.html\'\"></div>\n        </div>\n        <div class=\"design-page\"\n             ng-show=\"!editable\">\n            <div class=\"layout-container\"\n                 \n                 ng-style=\"{\'width\':config.lockscreenwidth ? config.screenwidth : \'\'}\"\n                 ng-include=\"\'component.html\'\"></div>\n        </div>\n    </div>\n\n</div>",
             replace: true,
             scope: {
                 config: "=",
-                editable: "="
+                editable: "=",
+                debug:"="
             },
-            controller: function ($scope, $templateCache, $uibModal, $interpolate, $resource, $location, $q,rest_pages, $stateParams, $compile, $parse) {
+            controller: function ($scope, $templateCache, $uibModal, $interpolate, $resource, $location, $q, rest_pages, $stateParams,$timeout, $compile, $parse) {
 
                 // 加载模板
 //                // 列表
@@ -42,7 +43,7 @@ angular.module('app')
                 );
                 // 容器
                 $templateCache.put('view.html',
-                    '<div class="modal" style="display: block" tabindex="-1" role="dialog">\n    <div class="modal-dialog" role="document">\n        <div class="modal-content">\n            <div class="modal-header">\n                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>\n                <h4 class="modal-title">{{component.title}}</h4>\n            </div>\n            <div class="modal-body" ng-include="\'list.html\'">\n            </div>\n            <div class="modal-footer">\n                <div ng-repeat="component in component.buttons" ng-include="\'button.html\'" include-replace>\n                </div>\n                <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->\n                <!--<button type="button" class="btn btn-primary">Save changes</button>-->\n            </div>\n        </div>\n        <!-- /.modal-content -->\n    </div>\n    <!-- /.modal-dialog -->\n</div><!-- /.modal -->'
+                    '<div class="modal" style="display: block;position: relative;" tabindex="-1" role="dialog">\n    <div class="modal-dialog" role="document">\n        <div class="modal-content">\n            <div class="modal-header">\n                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>\n                <h4 class="modal-title">{{component.title}}</h4>\n            </div>\n            <div class="modal-body" ng-include="\'list.html\'">\n            </div>\n            <div class="modal-footer">\n                <div ng-repeat="component in component.buttons" ng-include="\'button.html\'" include-replace>\n                </div>\n                <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->\n                <!--<button type="button" class="btn btn-primary">Save changes</button>-->\n            </div>\n        </div>\n        <!-- /.modal-content -->\n    </div>\n    <!-- /.modal-dialog -->\n</div><!-- /.modal -->'
                 );
                 $templateCache.put('view.config.html',
                     '<div class="form-horizontal ">\n    <div class="form-group">\n        <label class="col-sm-2 control-label">名称</label>\n\n        <div class="col-sm-10">\n            <input type="text" ng-model="component.name" class="form-control">\n        </div>\n    </div>\n    <div class="form-group">\n        <label class="col-sm-2 control-label">标题</label>\n\n        <div class="col-sm-10">\n            <input type="text" ng-model="component.title" class="form-control">\n        </div>\n    </div>\n    <div class="form-group">\n        <label class="col-sm-2 control-label">按钮</label>\n\n        <div class="col-sm-10">\n            <div ng-repeat="component in component.buttons" ng-include="\'button.config.html\'">\n                \n            </div>\n            <a class="btn btn-default" ng-click="component.buttons.push( {\n                        name: \'按钮\',\n                        type: \'button\',\n                        class: \'\',\n                        onclick: \'\'\n                    })"><i class="fa fa-plus"></i></a>\n            <!--<input type="text" ng-model="component.title" class="form-control">-->\n        </div>\n    </div>\n    <!--<input type="text" ng-model="component.title">-->\n</div>\n                    '
@@ -68,7 +69,7 @@ angular.module('app')
                     '   ng-mouseleave="selectcomponent({},$event)"' +
                     '   ng-class="{hover:selecteditem === component}" >' +
                     '   <div class="clearfix" ng-if="editable" >' +
-                    '       <div class="pull-left label">{{component.type}}</div>' +
+                    '       <div class="pull-left label label-default">{{component.type}}</div>' +
                     '       <div class="pull-right toolbar">' +
                     '           <div class="btn btn-default btn-xs" ng-click="showconfig(component)"><i class="fa fa-cog"></i> 配置</div>' +
                         //'           <div class="btn btn-default btn-xs" ng-click="copy(component)"><i class="fa fa-copy"></i> 复制</div>' +
@@ -125,13 +126,13 @@ angular.module('app')
                     '
                 );
                 $templateCache.put('panel.html',
-                    '<div class="ibox">' +
-                    '   <div class="ibox-title">' +
-                    '      <h5>{{component.name}}</h5>' +
+                    '<div class="panel panel-default">' +
+                    '   <div class="panel-heading">' +
+                    '      {{component.name}}' +
                     '      <div class="ibox-tools">' +
                     '      </div>' +
                     '   </div>' +
-                    '   <div class="ibox-content" ng-include="\'list.html\'">' +
+                    '   <div class="panel-body" ng-include="\'list.html\'">' +
                     '   </div>' +
                     '</div>'
                 );
@@ -346,14 +347,22 @@ angular.module('app')
                 $scope.variables = $location.search();//{};
                 //$scope.component = $scope.component;
 //                $scope.children = $scope.component.children;
-                $scope.defaultconfig = {datasources: [], views: []};
+                $scope.defaultconfig = {
+                    datasources: [],
+                    views: [],
+                    screenwidth:1280,
+                    lockscreenwidth:true
+                };
+                //$timeout(function(){
+                //
+                //})
                 $scope.config = angular.extend($scope.config, angular.extend($scope.defaultconfig, $scope.config));
                 $scope.component = $scope.config;
                 $scope.currentview = $scope.component;
 
-                $scope.scale=1;
-                $scope.screens=[800,1024,1280,1440,1680,1920]
-                $scope.screenwidth = 1280;
+                $scope.scale = 1;
+                $scope.screens = [800, 1024, 1280, 1440, 1680, 1920]
+                //$scope.screenwidth = 1280;
 
                 // 选中
                 $scope.selecteditem = null;
@@ -577,19 +586,34 @@ angular.module('app')
 
                 $scope.dataupdate = function (params) {
                     var delay = $q.defer();
-                    var $com = $resource('/enter/query/Update');
-                    $com.save({}, params, function (data) {
-                        if (data && data.result == 0) {
-                            // 更新成功，刷新数据
-                            delay.resolve(data.data);
-                        } else {
-                            delay.reject(data);
-                        }
-                        console.log(data)
-                    }, function (resp) {
-                        delay.reject(resp);
-                        console.log(resp)
-                    });
+                    rest_pages
+                        .executedatasource($stateParams.projectid, params)
+                        .then(function (data) {
+                            if (data && data.result == 0) {
+                                // 更新成功，刷新数据
+                                //$scope.getdata($scope.page);
+                                delay.resolve(data.data);
+                            }
+                            else {
+                                delay.reject(data);
+                            }
+                            console.log(data)
+                        }, function (resp) {
+                            delay.reject(resp);
+                        })
+                    //var $com = $resource('/enter/query/Update');
+                    //$com.save({}, params, function (data) {
+                    //    if (data && data.result == 0) {
+                    //        // 更新成功，刷新数据
+                    //        delay.resolve(data.data);
+                    //    } else {
+                    //        delay.reject(data);
+                    //    }
+                    //    console.log(data)
+                    //}, function (resp) {
+                    //    delay.reject(resp);
+                    //    console.log(resp)
+                    //});
                     return delay.promise;
                 }
 
@@ -627,7 +651,7 @@ angular.module('app')
                     (function loop(i) {
                         var chain = $q.when();
                         chain = chain
-                            .then(function(){
+                            .then(function () {
                                 var fun = null;
                                 switch (funs[i].name) {
                                     case "execdatasource":
@@ -666,7 +690,7 @@ angular.module('app')
                                         //});
                                         break;
                                     case "sendevent":
-                                        $scope.$broadcast(funs[i].params.name,funs[i].params.data);
+                                        $scope.$broadcast(funs[i].params.name, funs[i].params.data);
                                         //$scope.$emit(funs[i].params.name);
                                         break;
 

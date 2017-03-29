@@ -1,57 +1,218 @@
-.design-container{
+.design-container {
     display: block;
     position: relative;
-    width:100%;
+    width: 100%;
     height: 100%;
     overflow: hidden;
+}
+
+.design-container.editable {
     padding-right: 240px;
 }
-.design-panels{
+
+.design-panels {
+    display: none;
+}
+
+.editable .design-panels {
     position: absolute;
-    top:0;
+    display: block;
+    top: 0;
     right: 0;
-    bottom:0;
-    width:240px;
+    bottom: 0;
+    width: 240px;
     z-index: 20000;
     overflow: scroll;
     background-color: #ffffff;
+    padding: 10px;
 }
-.design-body{
+
+.design-body {
     position: relative;
-    width:100%;
+    width: 100%;
     height: 100%;
     z-index: 10000;
     overflow: hidden;
 
-    background-color: #0a1015;
+    /*background-color: #0a1015;*/
 
 }
+
 /*.design-container{*/
+/*background-image: linear-gradient(transparent 0px, transparent 2px, rgb(255, 255, 255) 2px, rgb(255, 255, 255) 20px), linear-gradient(to right, rgb(200, 195, 199) 0px, rgb(200, 195, 199) 2px, rgb(255, 255, 255) 2px, rgb(255, 255, 255) 20px);*/
+/*background-size: 20px 20px;*/
+/*background-position: 344.5px -2px;*/
+/*}*/
+.design-page {
     /*background-image: linear-gradient(transparent 0px, transparent 2px, rgb(255, 255, 255) 2px, rgb(255, 255, 255) 20px), linear-gradient(to right, rgb(200, 195, 199) 0px, rgb(200, 195, 199) 2px, rgb(255, 255, 255) 2px, rgb(255, 255, 255) 20px);*/
     /*background-size: 20px 20px;*/
-    /*background-position: 344.5px -2px;*/
-/*}*/
-.design-page{
-    background-image: linear-gradient(transparent 0px, transparent 2px, rgb(255, 255, 255) 2px, rgb(255, 255, 255) 20px), linear-gradient(to right, rgb(200, 195, 199) 0px, rgb(200, 195, 199) 2px, rgb(255, 255, 255) 2px, rgb(255, 255, 255) 20px);
-    background-size: 20px 20px;
     background-position: 0px 0px;
 
-    width:100%;
+    width: 100%;
     height: 100%;
     overflow: auto;
 }
-.layout-container{
+
+.layout-container {
     /*border:solid 1px #eeeeee;*/
-    background-color: #ffffff;
     /*transform:scale(1,1);*/
     margin: 0 auto;
-    transform-origin:top center;
-    box-shadow:0 0 5px #999999;
-    margin-top: 50px;
+    margin-top: 30px;
+
 }
-.design-toolbar-topcenter{
+
+.editable .layout-container {
+
+    background-color: #ffffff;
+    transform-origin: top center;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    box-shadow: 0 0 10px #666666;
+
+}
+
+.design-toolbar-topcenter {
+    display: none;
+}
+
+.editable .design-toolbar-topcenter {
+    display: block;
     position: absolute;
     left: 30px;
     bottom: 30px;
     z-index: 20001;
+}
+
+.toolbox {
+}
+
+.nav-tabs > li .close {
+    margin: -2px 0 0 10px;
+    font-size: 18px;
+}
+
+.editable .layout {
+    padding-bottom: 100px;
+}
+
+.active {
+}
+
+.layout-container .layout-active:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: solid 1px #ee6723;
+    -webkit-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.15);
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.15);
+}
+
+.layout-container .layout-hover:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: solid 1px #419bf9;
+}
+
+.row-fluid {
+    width: 100%;
+}
+
+.row-fluid {
+    position: relative;
+
+}
+
+.editable .component {
+    border: 2px dashed #eeeeee;
+    border-radius: 4px 4px 4px 4px;
+}
+
+.editable .component.hover {
+    border-color: #9da0a4;
+}
+
+.component > div > .toolbar > .btn {
+    color: #eee;
+}
+
+.component.hover > div > .toolbar > .btn {
+    color: #666;
+}
+
+.row-fluid:before, .row-fluid:after {
+    display: table;
+    content: "";
+    line-height: 0;
+}
+
+.row-fluid:before {
+}
+
+.row-fluid:after {
+    clear: both;
+}
+
+.editable .column {
+    background-color: #FFFFFF;
+    border: 1px dashed #eeeeee;
+    margin: 0;
+    padding-top: 39px;
+    padding-bottom: 24px;
+    /*padding: 39px 0px 24px;*/
+    position: relative;
+}
+
+.editable .row-fluid .column {
+    min-height: 30px;
+}
+
+.editable .column:after {
+    background-color: #F5F5F5;
+    border: 1px solid #DDDDDD;
+    border-radius: 4px 0 4px 0;
+    color: #9DA0A4;
+    content: "Column";
+    font-size: 12px;
+    font-weight: bold;
+    left: -1px;
+    padding: 3px 7px;
+    position: absolute;
+    top: -1px;
+}
+
+.selected {
+    background-color: #00ced1
+}
+
+.dd-handle {
+    float: right;
+}
+
+.design .modal {
+    position: relative;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    z-index: 1;
+    display: block;
+}
+
+.design .modal-dialog {
+    left: auto;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.dropdown-menu{
+    z-index: 30000;
 }
