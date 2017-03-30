@@ -20,7 +20,7 @@ namespace EasyAdmin.Service.Interface
         User GetModelByEmail(string Email);
         bool Update(User model);
         List<UserAndRole> GetListByProjectID(long ProjectID);
-
+        UserProject GetUserProject(long UserID, long ProjectID);
     }
 
     public class UserAndRole

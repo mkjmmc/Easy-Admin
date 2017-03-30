@@ -32,6 +32,7 @@ namespace EasyAdmin.Dao
         public virtual DbSet<Module> Modules { get; set; }
         public virtual DbSet<Page> Pages { get; set; }
         public virtual DbSet<DBConnect> DBConnects { get; set; }
+        public virtual DbSet<UserInvitation> UserInvitations { get; set; }
 
     }
 

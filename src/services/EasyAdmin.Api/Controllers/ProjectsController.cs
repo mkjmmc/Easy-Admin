@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using EasyAdmin.Service.Interface;
 using EasyAdmin.Api.Code;
 using EasyAdmin.Api.Models;
+using System.Net.Mail;
+using System.Net;
 
 namespace EasyAdmin.Api.Controllers
 {
@@ -13,15 +15,18 @@ namespace EasyAdmin.Api.Controllers
     {
         private readonly IProjectManage _ProjectManage;
         private readonly IUserManage _UserManage;
+        private readonly IUserInvitationManage _UserInvitationManage;
         private readonly ITenantManage _TenantManage;
         public ProjectsController(IProjectManage ProjectManage
             , ITenantManage TenantManage
             , IUserManage UserManage
+            , IUserInvitationManage UserInvitationManage
             )
         {
             _ProjectManage = ProjectManage;
             _TenantManage = TenantManage;
             _UserManage = UserManage;
+            _UserInvitationManage = UserInvitationManage;
         }
         // GET api/values
         [HttpPost]
@@ -50,11 +55,21 @@ namespace EasyAdmin.Api.Controllers
             return new ResponseMessage(MessageResult.Error, "创建项目失败");
         }
 
+        /// <summary>
+        /// 获取项目成员列表
+        /// </summary>
+        /// <param name="ProjectID"></param>
+        /// <returns></returns>
         [HttpPost]
         public ResponseMessage Users(long ProjectID)
         {
+            // 判断用户权限
             var userlist = _UserManage.GetListByProjectID(ProjectID);
-            return new ResponseMessage(MessageResult.Success, "", userlist.Select(m=> new
+            if (!userlist.Any(m => m.User.ID == _TenantManage.user.ID))
+            {
+                return new ResponseMessage(MessageResult.Error, "项目不存在");
+            }
+            return new ResponseMessage(MessageResult.Success, "", userlist.Select(m => new
             {
                 m.User.Nickname,
                 m.User.ID,
@@ -66,12 +81,124 @@ namespace EasyAdmin.Api.Controllers
 
         public ResponseMessage Info(long ProjectID)
         {
+            // 判断是否有权限
+            var userproject = _UserManage.GetUserProject(_TenantManage.user.ID, ProjectID);
+            if (userproject == null)
+            {
+                return new ResponseMessage(MessageResult.Error, "项目不存在");
+            }
             var model = _ProjectManage.GetModel(ProjectID);
-            if (model!= null)
+            if (model != null)
             {
                 return new ResponseMessage(MessageResult.Success, "", model);
             }
             return new ResponseMessage(MessageResult.Error, "项目不存在");
+        }
+
+        /// <summary>
+        /// 邀请成员加入项目
+        /// </summary>
+        /// <param name="ProjectID"></param>
+        /// <param name="Email"></param>
+        /// <returns></returns>
+        public ResponseMessage InviteJoin(long ProjectID, string Email)
+        {
+            // 判断是否有权限
+            var userproject = _UserManage.GetUserProject(_TenantManage.user.ID, ProjectID);
+            if (userproject == null)
+            {
+                return new ResponseMessage(MessageResult.Error, "项目不存在");
+            }
+            // 只有创建者和管理员能进行邀请
+            if (userproject.Role == 0)
+            {
+                return new ResponseMessage(MessageResult.Error, "只有创建者和管理员能进行邀请");
+            }
+            // 获取项目信息
+            var project = _ProjectManage.GetModel(ProjectID);
+            if (project == null)
+            {
+                return new ResponseMessage(MessageResult.Error, "项目不存在");
+            }
+            // 生成邀请码
+            var model = _UserInvitationManage.GetModel(_TenantManage.user.ID, Email);
+            var result = false;
+            if (model == null)
+            {
+                model = new Dao.Models.UserInvitation()
+                {
+                    UserID = _TenantManage.user.ID,
+                    Email = Email,
+                    ProjectID = ProjectID,
+                    Code = Guid.NewGuid().ToString("N"),
+                    CreateTime = DateTimeUtility.GetTimeMilliseconds(DateTime.Now)
+                };
+                result = _UserInvitationManage.Create(model);
+            }
+            else
+            {
+                model.CreateTime = DateTimeUtility.GetTimeMilliseconds(DateTime.Now);
+                result = _UserInvitationManage.Update(model);
+            }
+            if (result)
+            {
+                var acitveurl = string.Format(@"http://localhost:63342/Easy-Admin/src/index.html#/invite?code={0}&email={1}&t={2}", model.Code, model.Email, model.CreateTime); // Url.Action("invite", "Access", new { code = "", email = Email, t = DateTimeUtility.GetTimeMilliseconds(DateTime.Now) });
+                var title = string.Format("{0}邀请您加入{1}项目", _TenantManage.user.Nickname, project.Name);
+                var content = string.Format(@"<div class=""easyadmin-email"" style=""background: #F2F2F2; font-family: Helvetica Neue, Microsoft Yahei, Hiragino Sans GB, WenQuanYi Micro Hei, sans-serif; font-size: 14px; font-weight: normal; margin: 0; padding: 40px 0; text-align: center"">
+    <div style=""font-size: 36px; font-weight: bold;margin: 30px auto; "">Easy Admin</div>
+    <div class=""content-wrap"">
+        <div class=""content"" lang=""zh"" style=""background: white; border: 1px solid #D9D9D9; border-radius: 3px; box-sizing: border-box; margin: 0 auto; max-width: 690px; overflow: hidden; padding: 40px 30px; text-align: center"">
+            <div class=""main"">
+                <div class=""user"">
+                    <h2 class=""user-info"" style=""color: #383838; font-size: 20px; font-weight: normal; margin: 20px auto; margin-top: 20px; word-break: normal"">{0}
+                        <span class=""user-email"" style=""color: inherit; display: inline; text-decoration: none; word-break: normal"">(<a href=""mailto:{1}"" target=""_blank"">{1}</a>)</span>
+                    </h2>
+                </div>
+                <h2 class=""message"" style=""color: #808080; display: inline; font-size: 20px; font-weight: normal; margin: 0; word-break: normal"">邀请您加入项目
+                    <q class=""organization-name"" style=""display: inline"">{2}</q>
+                </h2><a class=""btn"" href=""{3}"" style=""-moz-transition: all 218ms; -o-transition: all 218ms; -webkit-transition: all 218ms; background: #03A9F4; border-radius: 2px; color: white; display: block; font-size: 20px; height: 54px; line-height: 54px; margin: 30px auto; text-decoration: none; transition: all 218ms; width: 200px; color: white!important; border: 0!important; cursor: pointer !important;"" target=""_blank"">进入项目</a>
+                <p class=""hint center"" style=""color: #A6A6A6; display: block; font-weight: normal; line-height: 24px; margin: 0 auto; max-width: 600px; word-break: normal"">如果按钮无法点击，请直接访问以下链接：
+                    <br><a href=""{3}"" style=""-moz-transition: all 218ms; -o-transition: all 218ms; -webkit-transition: all 218ms; color: #03A9F4; text-decoration: underline; transition: all 218ms; word-break: break-all;"" target=""_blank"">{3}</a> 此链接自发送之时起两天后过期 </p>
+            </div>
+        </div>
+    </div>
+    <p class=""small"" style=""color: #BDBDBD; display: block; font-size: 12px; font-weight: normal; line-height: 22px; margin: 0 auto; margin-top: 20px; max-width: 540px; padding: 0 5px; text-align: center; word-break: normal"">邮件来自{4} 的自动提醒，无需回复。
+        <br>如果您在使用中有任何的疑问或者建议， 欢迎反馈我们意见至邮件：<a style=""-moz-transition: all 218ms; -o-transition: all 218ms; -webkit-transition: all 218ms; color: #BDBDBD; text-decoration: underline; transition: all 218ms"">4824865@qq.com</a></p>
+</div>", _TenantManage.user.Nickname, _TenantManage.user.Email, project.Name, acitveurl, "Easy Admin - 快速后台构建工具");
+                SendEmail(Email, title, content);
+            }
+            return null;
+
+        }
+
+        public void SendEmail(string email, string subject, string body)
+        {
+            // 发送加入项目的邮件
+            MailMessage mailObj = new MailMessage();
+            mailObj.From = new MailAddress("4824865@qq.com", "Easy Admin"); //发送人邮箱地址
+            mailObj.IsBodyHtml = true;
+            mailObj.To.Add(email);   //收件人邮箱地址
+            mailObj.Subject = subject;    //主题
+            mailObj.Body = body;    //正文
+            mailObj.BodyEncoding = System.Text.Encoding.UTF8;
+            mailObj.HeadersEncoding = System.Text.Encoding.UTF8;
+            SmtpClient smtp = new SmtpClient();
+            smtp.Host = "smtp.qq.com";         //smtp服务器名称
+            smtp.Port = 587;
+            smtp.UseDefaultCredentials = true;
+            smtp.EnableSsl = true;
+            smtp.Credentials = new NetworkCredential("4824865@qq.com", "eypluivdelwebidc");  //发送人的登录名和密码
+            try
+            {
+                smtp.Send(mailObj);
+                //context.Response.Write(SerializeUtility.JavaScriptSerialize(new { Result = 0, Message = "发送成功" }));
+                return;
+            }
+            catch (Exception ex)
+            {
+                //context.Response.Write(SerializeUtility.JavaScriptSerialize(new { Result = 1, Message = ex.Message.ToString() }));
+                return;
+            }
         }
 
         //// GET api/values/5

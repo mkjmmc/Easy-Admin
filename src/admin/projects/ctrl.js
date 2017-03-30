@@ -8,6 +8,7 @@ app.controller('ProjectsController', function ($scope, $resource, $state, $local
             .then(function (data) {
                 switch (data.result) {
                     case 0:
+                        $scope.projects=[];
                         $scope.projects = data.data;
                         if ($scope.projects.length == 1) {
                             $state.go('app.project.index', {id: $scope.projects[0].ID});
@@ -64,6 +65,7 @@ app.controller('ProjectsController', function ($scope, $resource, $state, $local
         });
 
         modalInstance.result.then(function (returntext) {
+            $scope.loadprojects();
         }, function () {
         });
     }

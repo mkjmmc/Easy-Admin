@@ -54,5 +54,10 @@ namespace EasyAdmin.Service
                 UserProject = m.UserProject
             }).ToList();
         }
+
+        public UserProject GetUserProject(long UserID, long ProjectID)
+        {
+            return _CloudDbContext.UserProjects.FirstOrDefault(m => m.UserID == UserID && m.ProjectID == ProjectID);
+        }
     }
 }

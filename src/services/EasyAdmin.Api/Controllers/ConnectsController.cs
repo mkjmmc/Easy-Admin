@@ -14,14 +14,17 @@ namespace EasyAdmin.Api.Controllers
     {
         private readonly IProjectManage _ProjectManage;
         private readonly ITenantManage _TenantManage;
+        private readonly IUserManage _UserManage;
         private readonly IDBConnectManage _DBConnectManage;
         public ConnectsController(IProjectManage ProjectManage
             , ITenantManage TenantManage
+            , IUserManage UserManage
             , IDBConnectManage DBConnectManage)
         {
             _ProjectManage = ProjectManage;
             _TenantManage = TenantManage;
             _DBConnectManage = DBConnectManage;
+            _UserManage = UserManage;
         }
 
         /// <summary>
@@ -32,6 +35,12 @@ namespace EasyAdmin.Api.Controllers
         [HttpPost]
         public ResponseMessage List(long ProjectID)
         {
+            // 判断是否有权限
+            var userproject = _UserManage.GetUserProject(_TenantManage.user.ID, ProjectID);
+            if (userproject == null)
+            {
+                return new ResponseMessage(MessageResult.Error, "项目不存在");
+            }
             // 获取项目列表
             var list = _DBConnectManage.GetListByProjectID(ProjectID);
             //return new string[] { "value1", "value2" };
@@ -51,6 +60,12 @@ namespace EasyAdmin.Api.Controllers
             var model = _DBConnectManage.GetModel(ID);
             if (model != null)
             {
+                // 判断是否有权限
+                var userproject = _UserManage.GetUserProject(_TenantManage.user.ID, model.ProjectID);
+                if (userproject == null)
+                {
+                    return new ResponseMessage(MessageResult.Error, "项目不存在");
+                }
                 model.Name = Name;
                 model.ConnectString = ConnectString;
             }
@@ -72,6 +87,12 @@ namespace EasyAdmin.Api.Controllers
             var model = _DBConnectManage.GetModel(ID);
             if (model != null)
             {
+                // 判断是否有权限
+                var userproject = _UserManage.GetUserProject(_TenantManage.user.ID, model.ProjectID);
+                if (userproject == null)
+                {
+                    return new ResponseMessage(MessageResult.Error, "项目不存在");
+                }
                 model.IsDelete = 1;
             }
             if (_DBConnectManage.Update(model))
@@ -91,6 +112,12 @@ namespace EasyAdmin.Api.Controllers
         [HttpPost]
         public ResponseMessage Create(long ProjectID, string Name, string ConnectString)
         {
+            // 判断是否有权限
+            var userproject = _UserManage.GetUserProject(_TenantManage.user.ID, ProjectID);
+            if (userproject == null)
+            {
+                return new ResponseMessage(MessageResult.Error, "项目不存在");
+            }
             if (_DBConnectManage.Create(new Dao.Models.DBConnect()
             {
                 ProjectID = ProjectID,

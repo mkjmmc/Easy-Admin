@@ -12,7 +12,7 @@ angular.module('app')
 
             // config
             app.host = "http://localhost:3595/api";// "http://adminapi.yys.ren:8011/api";// "http://localhost:65030/api"; //"http://adminapi.yys.ren/api";
-            app.debug = false;
+            app.debug = true;
             $scope.app = {
                 host: app.host,
                 debug:app.debug,
@@ -72,24 +72,9 @@ angular.module('app')
 
             // 退出登录
             $scope.logout = function () {
-                var $com = $resource($scope.app.resource.logout);
-                $com.save({}, function (data) {
-                    switch (data.Code) {
-                        case 0:
-                            $scope.session_user = $localStorage.user = $localStorage.auth = null;
-                            $http.defaults.headers.common['Authorization'] = "";
-                            $state.go("auth.login");
-                            break;
-                        default :
-                            //TODO 显示错误信息
-                            // $state.go('auth.login');
-                            break;
-                    }
-
-                }, function () {
-                    //TODO 显示错误信息
-                    //$state.go('auth.login');
-                })
+                $scope.session_user = $localStorage.user = $localStorage.auth = null;
+                $http.defaults.headers.common['Authorization'] = "";
+                $state.go("access.signin");
             }
             function isSmartDevice($window) {
                 // Adapted from http://www.detectmobilebrowsers.com

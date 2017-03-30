@@ -21,6 +21,7 @@ namespace EasyAdmin.Api.Controllers
         private readonly IProjectManage _ProjectManage;
         private readonly IModuleManage _ModuleManage;
         private readonly IPageManage _PageManage;
+        private readonly IUserManage _UserManage;
         private readonly IDBConnectManage _DBConnectManage;
         private readonly ITenantManage _TenantManage;
         public PagesController(
@@ -29,6 +30,7 @@ namespace EasyAdmin.Api.Controllers
             , IModuleManage ModuleManage
             , IPageManage PageManage
             , IDBConnectManage DBConnectManage
+            , IUserManage UserManage
             )
         {
             _ProjectManage = ProjectManage;
@@ -36,6 +38,7 @@ namespace EasyAdmin.Api.Controllers
             _ModuleManage = ModuleManage;
             _PageManage = PageManage;
             _DBConnectManage = DBConnectManage;
+            _UserManage = UserManage;
         }
 
         /// <summary>
@@ -46,6 +49,12 @@ namespace EasyAdmin.Api.Controllers
         [HttpPost]
         public ResponseMessage List(long ProjectID)
         {
+            // 判断是否有权限
+            var userproject = _UserManage.GetUserProject(_TenantManage.user.ID, ProjectID);
+            if (userproject == null)
+            {
+                return new ResponseMessage(MessageResult.Error, "项目不存在");
+            }
             // 获取项目列表
             var list = _PageManage.GetListByProjectID(ProjectID);
             //return new string[] { "value1", "value2" };
@@ -66,10 +75,16 @@ namespace EasyAdmin.Api.Controllers
         [HttpPost]
         public ResponseMessage Detail(long PageID)
         {
-            // 获取项目列表
+            // 获取
             var model = _PageManage.GetModel(PageID);
             if (model != null)
             {
+                // 判断是否有权限
+                var userproject = _UserManage.GetUserProject(_TenantManage.user.ID, model.ProjectID);
+                if (userproject == null)
+                {
+                    return new ResponseMessage(MessageResult.Error, "项目不存在");
+                }
                 return new ResponseMessage(MessageResult.Success, "", model);
             }
             //return new string[] { "value1", "value2" };
@@ -124,6 +139,12 @@ namespace EasyAdmin.Api.Controllers
         /// <returns></returns>
         public ResponseMessage Databases(long ProjectID,int connectid)
         {
+            // 判断是否有权限
+            var userproject = _UserManage.GetUserProject(_TenantManage.user.ID, ProjectID);
+            if (userproject == null)
+            {
+                return new ResponseMessage(MessageResult.Error, "项目不存在");
+            }
             var connect = GetConnectList(ProjectID).FirstOrDefault(m => m.ID == connectid);
             if (connect == null)
             {
@@ -147,6 +168,12 @@ namespace EasyAdmin.Api.Controllers
         /// <returns></returns>
         public ResponseMessage Tables(long ProjectID,int connectid, string databasename)
         {
+            // 判断是否有权限
+            var userproject = _UserManage.GetUserProject(_TenantManage.user.ID, ProjectID);
+            if (userproject == null)
+            {
+                return new ResponseMessage(MessageResult.Error, "项目不存在");
+            }
             var connect = GetConnectList(ProjectID).FirstOrDefault(m => m.ID == connectid);
             if (connect == null)
             {
@@ -176,6 +203,12 @@ namespace EasyAdmin.Api.Controllers
         /// <returns></returns>
         public ResponseMessage Columns(long ProjectID,int connectid, string databasename, string tablename)
         {
+            // 判断是否有权限
+            var userproject = _UserManage.GetUserProject(_TenantManage.user.ID, ProjectID);
+            if (userproject == null)
+            {
+                return new ResponseMessage(MessageResult.Error, "项目不存在");
+            }
             var connect = GetConnectList(ProjectID).FirstOrDefault(m => m.ID == connectid);
             if (connect == null)
             {
@@ -211,6 +244,12 @@ namespace EasyAdmin.Api.Controllers
             //string json = new StreamReader(req).ReadToEnd();
             //var config = JsonConvert.DeserializeObject<ExcuteConfig>(json);
 
+            // 判断是否有权限
+            var userproject = _UserManage.GetUserProject(_TenantManage.user.ID, ProjectID);
+            if (userproject == null)
+            {
+                return new ResponseMessage(MessageResult.Error, "项目不存在");
+            }
             // 解析配置
             if (config == null)
             {
@@ -335,6 +374,12 @@ namespace EasyAdmin.Api.Controllers
         [HttpPost]
         public ResponseMessage Save([FromBody]SaveConfig config)
         {
+            // 判断是否有权限
+            var userproject = _UserManage.GetUserProject(_TenantManage.user.ID, config. ProjectID);
+            if (userproject == null)
+            {
+                return new ResponseMessage(MessageResult.Error, "项目不存在");
+            }
             var cfg = JObject.Parse(config.config);
             var title = cfg.SelectToken("name").ToObject<string>();
             if (config.id == 0)

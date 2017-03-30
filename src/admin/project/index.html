@@ -47,17 +47,18 @@
                 <div class="nav-menu-handler " uib-dropdown>
                     <a href class="dropdown-toggle clear" uib-dropdown-toggle>
                         <i class="fa fa-users"></i>
-                        12
+                        {{users.length}}
                     </a>
                     <!-- dropdown -->
                     <ul class="dropdown-menu animated fadeInRight w">
-                        <li>
-                            <a href ng-click="showconnectsmodal()">
-                                <span>数据库连接</span>
+                        <li ng-repeat="user in users">
+                            <a href>
+                                <span>{{user.Nickname}}</span>
                             </a>
                         </li>
+                        <li class="divider"></li>
                         <li>
-                            <a ui-sref="app.page.profile">菜单设置</a>
+                            <a href ng-click="showinvitationmodal()"><i class="fa fa-fw fa-plus-circle"></i>邀请新成员</a>
                         </li>
                     </ul>
                     <!-- / dropdown -->

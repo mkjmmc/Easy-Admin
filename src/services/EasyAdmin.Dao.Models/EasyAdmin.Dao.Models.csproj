@@ -44,6 +44,7 @@
     <Compile Include="DBConnect.cs" />
     <Compile Include="Page.cs" />
     <Compile Include="Module.cs" />
+    <Compile Include="UserInvitation.cs" />
     <Compile Include="UserProject.cs" />
     <Compile Include="Project.cs" />
     <Compile Include="User.cs" />

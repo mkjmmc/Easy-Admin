@@ -7,17 +7,16 @@ using System.Threading.Tasks;
 
 namespace EasyAdmin.Service.Interface
 {
-    public interface IProjectManage
+    public interface IUserInvitationManage
     {
         /// <summary>
         /// 创建
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        bool Create(Project model);
-
-        List<Project> GetListByUserID(long UserID);
-        Project GetModel(long ProjectID);
-        bool AddUser(long ProjectID, long UserID);
+        bool Create(UserInvitation model);
+        UserInvitation GetModel(long UserID, string Email);
+        UserInvitation GetModel(string  Code);
+        bool Update(UserInvitation model);
     }
 }

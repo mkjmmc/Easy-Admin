@@ -1,7 +1,7 @@
 ﻿// 加载
 app.controller('LoadingController', function ($scope, $resource, $state, $localStorage, rest_access) {
 
-    if (!$scope.session_user) {
+    if (!$localStorage.user) {
         $state.go('access.signin');
         return;
     }
@@ -22,7 +22,13 @@ app.controller('LoadingController', function ($scope, $resource, $state, $localS
     });
 });
 // 登录
-app.controller('SigninFormController', function ($scope, $state, $http, $resource, Base64, $localStorage, md5, rest_access) {
+app.controller('SigninFormController', function ($scope, $state, $stateParams, $http,$location, $resource, Base64, $localStorage, md5, rest_access) {
+    $scope.user = {};
+    $scope.email = $stateParams.email;
+    $scope.url = $stateParams.url;
+    if ($stateParams.email) {
+        $scope.user.email = $stateParams.email;
+    }
     $scope.login = function () {
         // 对密码进行md5加密
         var password = md5.createHash($scope.user.password || '');
@@ -38,7 +44,12 @@ app.controller('SigninFormController', function ($scope, $state, $http, $resourc
                         $localStorage.user = user;
                         $localStorage.auth = user.LoginKey;
                         $http.defaults.headers.common['Authorization'] = $localStorage.auth;
-                        $state.go('app.projects');
+                        if ($stateParams.url && $stateParams.url.length > 0) {
+                            $location.url($stateParams.url);
+                        }
+                        else {
+                            $state.go('app.projects');
+                        }
                         break;
                     default:
                         // 异常处理
@@ -52,8 +63,13 @@ app.controller('SigninFormController', function ($scope, $state, $http, $resourc
 });
 
 // 注册
-app.controller('SignupFormController', function ($scope, $http, $state, $resource, Base64, $localStorage, md5, $timeout, rest_access) {
+app.controller('SignupFormController', function ($scope, $http, $state,$stateParams, $resource, Base64, $localStorage, md5, $timeout, rest_access) {
     $scope.user = {};
+
+    $scope.email = $stateParams.email;
+    $scope.url = $stateParams.url;
+
+    $scope.user.email = $scope.email;
     $scope.authError = null;
 
     $scope.checkcodetime = 0;
@@ -82,7 +98,7 @@ app.controller('SignupFormController', function ($scope, $http, $state, $resourc
                         //$localStorage.user = user;
                         //$localStorage.auth = user.Token;
                         //$http.defaults.headers.common['Authorization'] = $localStorage.auth;
-                        $state.go('access.signin');
+                        $state.go('access.signin', {email:$scope.email, url:$scope.url});
                         break;
                     default:
                         // 异常处理
@@ -117,6 +133,46 @@ app.controller('ChangePasswordController', function ($scope, $http, $state, $res
             $scope.authError = "服务器登录错误"
         });
     };
+});
+
+// 邀请
+app.controller('InviteController', function ($scope, $state, $stateParams, $location,$localStorage, rest_access) {
+
+    var code = $stateParams.code;
+    var email = $stateParams.email;
+    var t = $stateParams.t;
+
+    // 验证邀请码
+    $scope.errormessage = '';
+    if (!code || !email) {
+        $scope.errormessage = '邀请码错误';
+        $state.go('access.loading');
+    }
+    // 判断本地是否登录
+    if (!$localStorage.user) {
+        $state.go('access.signin', {email: email, url: $location.url()});
+        return;
+    }
+    // 判断登录账号是否同一个
+    if($localStorage.user.Email != email){
+        $state.go('access.signin', {email: email, url: $location.url()});
+        return;
+    }
+    // 验证邀请码
+    rest_access
+        .invite(code, email)
+        .then(function (data) {
+            if(data.result == 0){
+                // 验证通过
+                $state.go('app.projects')
+                return;
+            }
+            else{
+                alert(data.message);
+            }
+        }, function (resp) {
+            alert(resp)
+        })
 });
 app.factory('Base64', function () {
     var keyStr = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';

@@ -65,6 +65,7 @@ namespace EasyAdmin.Api
             services.AddTransient<IModuleManage, ModuleManage>();
             services.AddTransient<IPageManage, PageManage>();
             services.AddTransient<IDBConnectManage, DBConnectManage>();
+            services.AddTransient<IUserInvitationManage, UserInvitationManage>();
 
             //services.AddScoped<ISSODeveloperManage, SSODeveloperManage>();
             //services.AddTransient<IRecordingManage, RecordingManage>();

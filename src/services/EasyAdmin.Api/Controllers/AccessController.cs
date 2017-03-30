@@ -13,12 +13,19 @@ namespace EasyAdmin.Api.Controllers
     public class AccessController : Controller
     {
         private readonly IUserManage _UserManage;
+        private readonly IProjectManage _ProjectManage;
+        private readonly IUserInvitationManage _UserInvitationManage;
         private readonly ITenantManage _TenantManage;
         public AccessController(IUserManage UserManage
-            , ITenantManage TenantManage)
+            , ITenantManage TenantManage
+            , IUserInvitationManage UserInvitationManage
+            , IProjectManage ProjectManage
+            )
         {
             _UserManage = UserManage;
             _TenantManage = TenantManage;
+            _UserInvitationManage = UserInvitationManage;
+            _ProjectManage = ProjectManage;
         }
         //// GET api/values
         //[HttpGet]
@@ -89,6 +96,29 @@ namespace EasyAdmin.Api.Controllers
                 return new ResponseMessage(MessageResult.Success, "注册成功");
             }
             return new ResponseMessage(MessageResult.Error, "用户名或密码错误");
+        }
+
+        [HttpPost]
+        [ServiceFilter(typeof(AuthorizeFilter))]
+        public ResponseMessage Invite(string Code, string Email)
+        {
+            var model = _UserInvitationManage.GetModel(Code);
+            if(model== null || model.Email != Email || model.Email!= _TenantManage.user.Email)
+            {
+                return new ResponseMessage(MessageResult.Error, "邀请码不存在");
+            }
+            else
+            {
+                // 加入到项目中
+                if(_ProjectManage.AddUser(model.ProjectID, _TenantManage.user.ID))
+                {
+                    return new ResponseMessage(MessageResult.Success, "");
+                }
+                else
+                {
+                    return new ResponseMessage(MessageResult.Error, "加入项目失败");
+                }
+            }
         }
 
         // PUT api/values/5

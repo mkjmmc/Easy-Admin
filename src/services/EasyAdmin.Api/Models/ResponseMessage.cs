@@ -89,5 +89,11 @@ namespace EasyAdmin.Api.Models
         [Description("签名错误")]
         SignatureError = -99,
 
+        /// <summary>
+        /// 权限错误
+        /// </summary>
+        [Description("Unauthorized")]
+        Unauthorized = 401
+
     }
 }

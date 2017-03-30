@@ -1,12 +1,71 @@
-<div class="container">
-    <div class="ibox" ng-controller="ProjectsController">
-        <a ng-click="showcreatedialog()">创建</a>
-
+<div class="container" ng-controller="ProjectsController">
+    <div class="projects-grid">
         <div class="row">
-            <div ng-repeat="project in projects" class="col-sm-3">
-                <a ng-bind="project.Name" ui-sref="app.project({projectid:project.ID})"></a>
+            <div ng-repeat="project in projects" class="col-sm-3 project"
+                 style="background-image: url('img/p{{project.ID%4+1}}.jpg')"
+                 ui-sref="app.project({projectid:project.ID})">
+                <header class="project-info">
+                    <div class="info-wrap">
+                        <div class="project-name hinted"><h3 ng-bind="project.Name">Enter_设计、开发、测试协作</h3></div>
+                        <div class="edit-set"><a class="icon icon-star hinted flagged" data-title="取消星标"></a></div>
+                    </div>
+                    <p class="project-desc hinted"></p>
+                </header>
             </div>
-            {{projects}}
+            <div class="col-sm-3 project add-project-button" ng-click="showcreatedialog()">
+                <a class="create-project-handler">
+                    <i class="fa fa-plus-circle"></i>
+                    <span class="add-project-button-label">创建新项目</span>
+                </a>
+            </div>
+            <div ng-if="app.debug">
+                {{projects}}
+            </div>
         </div>
+
+        <pre ng-if="app.debug">
+            进行中：
+            4.注册发送激活邮件 [未开始]
+            5.通过激活链接激活账号 [未开始]
+            6.项目主页定制 [未开始]
+            7.注册和登录页面样式 [未开始]
+            8.底部版权信息样式优化 [未开始]
+            9.异常提示样式优化 [未开始]
+            10.项目成员列表样式优化 [未开始]
+            11.只有创建者能进入设计界面 [未开始]
+            12.datatable控件排序箭头消失的bug [未开始]
+            14.邀请邮件链接2天后过期 [未开始]
+            15.
+            16.
+            17.
+            18.
+            19.
+            20.
+            21.
+            22.
+            23.
+            24.
+            25.
+            .
+            .
+            .
+            100.发布beta版
+
+            未来：
+            1.markdown文档支持
+            2.优化页面样式
+            3.优化项目加载资源
+            4.数据读取和加载动画（loading）
+            5.优化项目列表页面样式
+            6.更换发送邮件的邮箱
+
+            已完成：
+            ·项目列表页面样式 [完成]
+            ·用户权限限制，只能访问加入的项目，只有创建者能进入设计界面 [完成]
+            ·项目成员列表 [完成]
+            ·用户邀请，发送邀请邮件[ok]，点击邀请邮件链接加入项目 [完成]
+            ·测试邀请链接进入的用户跳转至注册页面后参数是否会消失 [完成]
+
+        </pre>
     </div>
 </div>

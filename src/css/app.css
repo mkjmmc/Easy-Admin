@@ -4,6 +4,7 @@ html, body {
 }
 body {
     font-family: "Helvetica Neue", "PingFang SC", "Microsoft Yahei", 微软雅黑, STXihei, 华文细黑, sans-serif;
+    background-color: #F5F5F5;
 }
 
 .loading {
@@ -274,4 +275,109 @@ a, a:focus, a:hover {
     padding: 0 5px;
     color: #ccc;
     content: "/\00a0";
+}
+
+.projects-grid{ margin-top: 48px;}
+.project {
+    position: relative;
+    height: 148px;
+    margin: 14px;
+    background-size: cover;
+    background-color: #CCC;
+    background-position: center;
+    -webkit-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);
+    transition: all 218ms;
+    border-radius: 3px;
+    cursor: pointer;
+    padding: 0;
+}
+.project {
+    width: 254px;
+    height: 128px;
+}
+.project:hover {
+    -webkit-transform: translate3d(0,-5px,0);
+    transform: translate3d(0,-5px,0);
+    box-shadow: 0 7px 21px rgba(0,0,0,.15);
+}
+.project.add-project-button {
+    background-color: #FFF;
+    transition: all 218ms;
+}
+.project.add-project-button .create-project-handler {
+    display: block;
+    height: 100%;
+    padding-top: 32px;
+    color: #A6A6A6;
+    text-align: center;
+    transition: all 218ms;
+}
+.project.add-project-button .create-project-handler .icon-circle-cross {
+    display: block;
+    margin-bottom: 25px;
+    font-size: 36px;
+}
+.project.add-project-button .create-project-handler .add-project-button-label {
+    font-size: 18px;
+}
+.project.add-project-button .create-project-handler .fa-plus-circle {
+    display: block;
+    margin-bottom: 15px;
+    font-size: 36px;
+}
+.project.add-project-button:hover .create-project-handler {
+    color: #3DA8F5;
+}
+.project-info {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    margin: 0;
+    padding: 10px 15px 30px;
+    color: #FFF;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+    background-image: linear-gradient(to bottom,rgba(0,0,0,.3) 0,rgba(0,0,0,0) 100%);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#4d000000', endColorstr='#00000000', GradientType=0);
+}
+.project-info .info-wrap {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+}
+.project-name {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex: 1 1 auto;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding-right: 4px;
+}
+.project-name h3 {
+    margin: 0;
+    line-height: 30px;
+    font-size: 18px;
+    -webkit-backface-visibility: hidden;
+    -webkit-transform: translateZ(0);
+}
+
+.message-item .message-info .message-creator-name .name-limit,
+.project-desc,
+.project-name,
+.project-name h3,
+.project-name,
+.project-name h3,
+.project-name p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

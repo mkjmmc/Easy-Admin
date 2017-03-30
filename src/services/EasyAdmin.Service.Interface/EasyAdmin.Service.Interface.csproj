@@ -45,6 +45,7 @@
     <Compile Include="IModuleManage.cs" />
     <Compile Include="ITenantManage.cs" />
     <Compile Include="IProjectManage.cs" />
+    <Compile Include="IUserInvitationManage.cs" />
     <Compile Include="IUserManage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

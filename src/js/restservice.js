@@ -70,6 +70,9 @@ app.factory('rest_access', function ($rootScope, rest) {
         update: function (id, data) {
             return rest.update(app.host + "/access/:id", {id: id}, data);
         },
+        invite: function (code, email) {
+            return rest.save(app.host + "/access/invite", {code: code, email:email});
+        },
     }
 });
 app.factory('rest_projects', function ($rootScope, rest) {
@@ -85,6 +88,9 @@ app.factory('rest_projects', function ($rootScope, rest) {
         },
         info: function (projectid) {
             return rest.save(app.host + "/projects/info", {projectid: projectid});
+        },
+        invite: function (projectid,email) {
+            return rest.save(app.host + "/projects/InviteJoin", {projectid: projectid,email:email});
         }
     }
 });

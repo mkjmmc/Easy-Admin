@@ -1,0 +1,17 @@
+<div>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-title">邀请新成员</h4>
+    </div>
+    <div class="modal-body" id="modal-body">
+        <form name="form" class="form-validation">
+            <div class="form-group">
+                <label class="control-label">账号邀请</label>
+                <input type="email" class="form-control" placeholder="请输入邮箱" ng-model="email" required/>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="invite()" ng-disabled='form.$invalid'>发送邀请邮件</button>
+        <button class="btn btn-default">取消</button>
+    </div>
+</div>
