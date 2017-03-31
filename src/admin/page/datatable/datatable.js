@@ -290,14 +290,13 @@ app.directive('datatable', function () {
             <table class="table table-striped table-hover table-bordered">\
                 <thead>\
                     <tr>\
-                        <th ng-repeat="column in config.columns" ng-if="column.display==true" ng-class="{\
-                            \'sorting\': column.isorderby\
-                            ,\'sorting_asc\':getmodelinarray(config.orderby, \'column_name\', column.column_name)!=null && getmodelinarray(config.orderby, \'column_name\', column.column_name).order == \'ASC\'\
-                            ,\'sorting_desc\':getmodelinarray(config.orderby, \'column_name\', column.column_name)!=null && getmodelinarray(config.orderby, \'column_name\', column.column_name).order == \'DESC\'\
-                            }"\
+                        <th ng-repeat="column in config.columns" ng-if="column.display==true" \
                             ng-click="sorting(column.column_name)"\
                             >\
                             {{column.displayname}}\
+                            <i class="fa fa-fw fa-sort text-muted" ng-show="column.isorderby && getmodelinarray(config.orderby, \'column_name\', column.column_name)==null"></i>\
+                            <i class="fa fa-fw fa-sort-asc text-info-dker" ng-show="getmodelinarray(config.orderby, \'column_name\', column.column_name)!=null && getmodelinarray(config.orderby, \'column_name\', column.column_name).order == \'ASC\'"></i>\
+                            <i class="fa fa-fw fa-sort-desc text-info-dker" ng-show="getmodelinarray(config.orderby, \'column_name\', column.column_name)!=null && getmodelinarray(config.orderby, \'column_name\', column.column_name).order == \'DESC\'"></i>\
                         </th>\
                     </tr>\
                 </thead>\
@@ -371,7 +370,7 @@ app.directive('datatable', function () {
 
                 // 查询条件
                 if ($scope.config.condition) {
-                    config[$scope.config.table].condition = $scope.config.condition;
+                    config[$scope.config.table].condition = angular.copy($scope.config.condition);
                 }
                 // 排序
                 if ($scope.config.orderby) {

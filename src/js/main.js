@@ -68,6 +68,9 @@ angular.module('app')
                 $translate.use(langKey);
                 $scope.lang.isopen = !$scope.lang.isopen;
             };
+            $scope.getsession_user= function(){
+                return $localStorage.user;
+            }
             $scope.session_user = $localStorage.user;
 
             // 退出登录

@@ -15,7 +15,7 @@ namespace EasyAdmin.Service.Interface
         /// <param name="model"></param>
         /// <returns></returns>
         bool Create(UserInvitation model);
-        UserInvitation GetModel(long UserID, string Email);
+        UserInvitation GetModel(long UserID, string Email, long ProjectID);
         UserInvitation GetModel(string  Code);
         bool Update(UserInvitation model);
     }

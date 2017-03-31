@@ -121,7 +121,7 @@ namespace EasyAdmin.Api.Controllers
                 return new ResponseMessage(MessageResult.Error, "项目不存在");
             }
             // 生成邀请码
-            var model = _UserInvitationManage.GetModel(_TenantManage.user.ID, Email);
+            var model = _UserInvitationManage.GetModel(_TenantManage.user.ID, Email, ProjectID);
             var result = false;
             if (model == null)
             {
@@ -131,13 +131,15 @@ namespace EasyAdmin.Api.Controllers
                     Email = Email,
                     ProjectID = ProjectID,
                     Code = Guid.NewGuid().ToString("N"),
-                    CreateTime = DateTimeUtility.GetTimeMilliseconds(DateTime.Now)
+                    CreateTime = DateTimeUtility.GetTimeMilliseconds(DateTime.Now),
+                    ExpirationTime = DateTimeUtility.GetTimeMilliseconds(DateTime.Now.AddDays(2)),
                 };
                 result = _UserInvitationManage.Create(model);
             }
             else
             {
                 model.CreateTime = DateTimeUtility.GetTimeMilliseconds(DateTime.Now);
+                model.ExpirationTime = DateTimeUtility.GetTimeMilliseconds(DateTime.Now.AddDays(2));
                 result = _UserInvitationManage.Update(model);
             }
             if (result)
@@ -165,41 +167,18 @@ namespace EasyAdmin.Api.Controllers
     <p class=""small"" style=""color: #BDBDBD; display: block; font-size: 12px; font-weight: normal; line-height: 22px; margin: 0 auto; margin-top: 20px; max-width: 540px; padding: 0 5px; text-align: center; word-break: normal"">邮件来自{4} 的自动提醒，无需回复。
         <br>如果您在使用中有任何的疑问或者建议， 欢迎反馈我们意见至邮件：<a style=""-moz-transition: all 218ms; -o-transition: all 218ms; -webkit-transition: all 218ms; color: #BDBDBD; text-decoration: underline; transition: all 218ms"">4824865@qq.com</a></p>
 </div>", _TenantManage.user.Nickname, _TenantManage.user.Email, project.Name, acitveurl, "Easy Admin - 快速后台构建工具");
-                SendEmail(Email, title, content);
+                if(EmailHelper.SendEmail(Email, title, content))
+                {
+                    return new ResponseMessage(MessageResult.Success, "邀请邮件发送成功");
+                }
+                else
+                {
+                    return new ResponseMessage(MessageResult.Error, "邀请邮件发送失败");
+                }
             }
-            return null;
-
+            return new ResponseMessage(MessageResult.Error, "邀请失败");
         }
 
-        public void SendEmail(string email, string subject, string body)
-        {
-            // 发送加入项目的邮件
-            MailMessage mailObj = new MailMessage();
-            mailObj.From = new MailAddress("4824865@qq.com", "Easy Admin"); //发送人邮箱地址
-            mailObj.IsBodyHtml = true;
-            mailObj.To.Add(email);   //收件人邮箱地址
-            mailObj.Subject = subject;    //主题
-            mailObj.Body = body;    //正文
-            mailObj.BodyEncoding = System.Text.Encoding.UTF8;
-            mailObj.HeadersEncoding = System.Text.Encoding.UTF8;
-            SmtpClient smtp = new SmtpClient();
-            smtp.Host = "smtp.qq.com";         //smtp服务器名称
-            smtp.Port = 587;
-            smtp.UseDefaultCredentials = true;
-            smtp.EnableSsl = true;
-            smtp.Credentials = new NetworkCredential("4824865@qq.com", "eypluivdelwebidc");  //发送人的登录名和密码
-            try
-            {
-                smtp.Send(mailObj);
-                //context.Response.Write(SerializeUtility.JavaScriptSerialize(new { Result = 0, Message = "发送成功" }));
-                return;
-            }
-            catch (Exception ex)
-            {
-                //context.Response.Write(SerializeUtility.JavaScriptSerialize(new { Result = 1, Message = ex.Message.ToString() }));
-                return;
-            }
-        }
 
         //// GET api/values/5
         //[HttpGet("{id}")]

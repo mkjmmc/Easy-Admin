@@ -62,6 +62,7 @@ app.controller('PageEditController', function ($scope, $resource, $stateParams, 
         name: '页面',
         children: []
     };
+    $scope.editable = true;
     $scope.pageid = $stateParams.pageid;
     $scope.projectid = $stateParams.projectid;
 

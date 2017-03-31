@@ -10,7 +10,7 @@ app.controller('LoadingController', function ($scope, $resource, $state, $localS
         switch (data.result) {
             case 0:
                 $scope.session_user = data.data;
-                $localStorage.user = data.data;
+                $localStorage.user = $scope.session_user;
                 $state.go('app.projects');
                 break;
             default :
@@ -41,7 +41,7 @@ app.controller('SigninFormController', function ($scope, $state, $stateParams, $
                         // 登录成功处理
                         var user = data.data;
                         $scope.session_user = user;
-                        $localStorage.user = user;
+                        $localStorage.user = $scope.session_user;
                         $localStorage.auth = user.LoginKey;
                         $http.defaults.headers.common['Authorization'] = $localStorage.auth;
                         if ($stateParams.url && $stateParams.url.length > 0) {

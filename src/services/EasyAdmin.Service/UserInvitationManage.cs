@@ -26,9 +26,9 @@ namespace EasyAdmin.Service
             return base.Get(m => m.Code == Code);
         }
 
-        public UserInvitation GetModel(long UserID, string Email)
+        public UserInvitation GetModel(long UserID, string Email, long ProjectID)
         {
-            return base.Get(m => m.UserID == UserID && m.Email == Email);
+            return base.Get(m => m.UserID == UserID && m.Email == Email && m.ProjectID == ProjectID);
         }
 
         public bool Update(UserInvitation model)

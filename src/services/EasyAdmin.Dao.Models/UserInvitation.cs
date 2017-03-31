@@ -18,5 +18,6 @@ namespace EasyAdmin.Dao.Models
         public string Email { get; set; }
         public long ProjectID { get; set; }
         public long CreateTime { get; set; }
+        public long ExpirationTime { get; set; }
     }
 }
