@@ -7,6 +7,7 @@
     module.directive('bindHtmlCompile', ['$compile', function ($compile) {
         return {
             restrict: 'A',
+            replace: true,
             link: function (scope, element, attrs) {
                 scope.$watch(function () {
                     return scope.$eval(attrs.bindHtmlCompile);
@@ -21,6 +22,10 @@
                         compileScope = scope.$eval(attrs.bindHtmlScope);
                     }
                     $compile(element.contents())(compileScope);
+                    if(attrs.replace == "true")
+                    {
+                        element.replaceWith(element.children());
+                    }
                 });
             }
         };

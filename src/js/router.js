@@ -152,6 +152,7 @@ app
                                     'admin/page/filter.js',
                                     'admin/page/datatable/datatable.js',
                                     'admin/page/datasource/datasource.js',
+                                    'admin/page/components/list-group.js',
                                 ]);
                             }]
                     }
@@ -171,6 +172,7 @@ app
                                     'admin/page/filter.js',
                                     'admin/page/datatable/datatable.js',
                                     'admin/page/datasource/datasource.js',
+                                    'admin/page/components/list-group.js',
                                 ]);
                             }]
                     }

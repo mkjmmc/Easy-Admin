@@ -182,7 +182,7 @@ angular.module('app')
                     '<div class="form-group">\n    <label for="">Label Name</label>\n    <input type="text" class="form-control" placeholder="Label Name" ng-model="component.label">\n</div>\n<div class="form-group">\n    <label for="">Placeholder</label>\n    <input type="text" class="form-control" placeholder="Placeholder" ng-model="component.placeholder">\n</div>\n<div class="form-group">\n    <label for="">Value</label>\n    <input type="text" class="form-control" placeholder="Value" ng-model="variables[component.model]"/>\n</div>\n<div class="form-group">\n    <label for="">Variable name</label>\n    <input type="text" class="form-control" placeholder="Variable name" ng-model="component.model">\n</div>'
                 );
                 $templateCache.put('event.config.html',
-                    '<div class="form-horizontal">\n    <div class="form-group" ng-init="funs=!funs ? [] : funs">\n        <label for="" class="col-sm-2 control-label">Type</label>\n\n        <div class="col-sm-10">\n            <select ng-model="type" class="form-control">\n                <option value="click">click</option>\n            </select>\n        </div>\n    </div>\n    <div class="form-group" ng-if="type">\n        <label for="" class="col-sm-2 control-label">Functions</label>\n\n        <div class="col-sm-10 list-group">\n            <div ng-repeat="fun in funs" ng-include="\'eventfun.config.html\'" class="form-horizontal list-group-item">\n            </div>\n            <a ng-click="funs.push({name:\'\'})">添加</a>\n        </div>\n    </div>\n    {{event}}\n</div>'
+                    '<div class="form-horizontal">\n    <div class="form-group" ng-init="funs=!funs ? [] : funs">\n        <label for="" class="col-sm-2 control-label">Type</label>\n\n        <div class="col-sm-10">\n            <select ng-model="type" class="form-control">\n                <option value="click">click</option>\n                <option value="submit">submit</option>\n            </select>\n        </div>\n    </div>\n    <div class="form-group" ng-if="type">\n        <label for="" class="col-sm-2 control-label">Functions</label>\n\n        <div class="col-sm-10 list-group">\n            <div ng-repeat="fun in funs" ng-include="\'eventfun.config.html\'" class="form-horizontal list-group-item">\n            </div>\n            <a ng-click="funs.push({name:\'\'})">添加</a>\n        </div>\n    </div>\n    {{event}}\n</div>'
                 );
 
                 $templateCache.put('eventfuns.config.html',
@@ -197,7 +197,18 @@ angular.module('app')
                 $templateCache.put('nav.config.html',
                     '<div ng-repeat="component in component.children">\n    <div class="form-group">\n        <label class="col-sm-2 control-label">显示文字</label>\n\n        <div class="col-sm-10">\n            <input type="text" ng-model="component.text" class="form-control">\n        </div>\n    </div>\n    <div class="form-group">\n        <label class="col-sm-2 control-label">active</label>\n\n        <div class="col-sm-10">\n            <input type="text" ng-model="component.active" class="form-control">\n        </div>\n    </div>\n    <div class="form-group" ng-init="component.events=!component.events?{click:[]}:component.events">\n        <label class="col-sm-2 control-label">点击事件</label>\n\n        <div class="col-sm-10">\n            <div ng-repeat="(type, funs) in component.events" ng-include="\'event.config.html\'"></div>\n        </div>\n    </div>\n    <a ng-click="$parent.component.children.splice($index,1)"><i class="fa fa-close"></i></a>\n</div>\n<a ng-click="component.children.push({text: \'New Nav\'})"><i class="fa fa-plus"></i></a>\n                    '
                 );
-
+                $templateCache.put('form.html',
+                    '<form ng-include="\'list.html\'" ng-submit="execevent(component.events[\'submit\'])"></form>'
+                );
+                $templateCache.put('form.config.html',
+                    '<div class="form-horizontal">\n    <div class="form-group" ng-init="component.events=!component.events?{submit:[]}:component.events">\n        <label class="col-sm-2 control-label">Submit事件</label>\n\n        <div class="col-sm-10">\n            <div ng-repeat="(type, funs) in component.events" ng-include="\'event.config.html\'"></div>\n        </div>\n    </div>\n</div>'
+                );
+                $templateCache.put('list-group.html',
+                    '<div><list-group config="component.config" variables="variables" loaddata="execdatasource(name,config)" ondataupdate="dataupdate(config)"></list-group>{{component}}</div>'
+                );
+                $templateCache.put('list-group.config.html',
+                    '<list-group-config config="component.config" \n                   datasources="datasources" \n                   variables="variables"\n                   loaddata="execdatasource(name,config)"\n                   ondataupdate="dataupdate(config)"\n        >\n</list-group-config>'
+                );
                 //$templateCache.put('modal.html',
                 //    '<div class="modal" style="display: block" tabindex="-1" role="dialog">\n    <div class="modal-dialog" role="document">\n        <div class="modal-content">\n            <div class="modal-header">\n                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>\n                <h4 class="modal-title">{{component.title}}</h4>\n            </div>\n            <div class="modal-body" ng-include="\'list.html\'">\n            </div>\n            <div class="modal-footer">\n                <div ng-repeat="component in component.buttons" ng-include="\'button.html\'" include-replace>\n                </div>\n                <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->\n                <!--<button type="button" class="btn btn-primary">Save changes</button>-->\n            </div>\n        </div>\n        <!-- /.modal-content -->\n    </div>\n    <!-- /.modal-dialog -->\n</div><!-- /.modal -->'
                 //);
@@ -350,6 +361,15 @@ angular.module('app')
                     }, {
                         name: 'nav',
                         type: 'nav',
+                        children: []
+                    }, {
+                        name: 'form',
+                        type: 'form',
+                        children: []
+                    }, {
+                        name: 'list-group',
+                        type: 'list-group',
+                        config:{},
                         children: []
                     }
                 ];
