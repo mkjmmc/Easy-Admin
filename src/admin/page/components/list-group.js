@@ -2,165 +2,13 @@
 app.directive('listGroupConfig', function () {
     return {
         restrict: 'E',
-        template: '<div>\
-        <div class="row">\
-                <div class="col-xs-3">\
-                    <div>\
-                        <select ng-model="config.datasource" ng-options="datasource.name as datasource.name for datasource in datasources" class="form-control"></select>\
-                    </div>\
-                    <div ng-repeat="cfg in datasources | getchild:{name:config.datasource}:\'configs\' " class="panel panel-default">\
-                        <div class="panel-heading">{{cfg.name}}</div>\
-                        <div class="list-group" style=" overflow: auto">\
-                            <a ng-repeat="(key,val) in cfg.fields" class="list-group-item" ng-click="config.columns.push({display:true,displayname:key,column_name:key,formater:\'\\{\\{row.\'+key+\'\\}\\}\'})">\
-                                {{key}}\
-                            </a>\
-                        </div>\
-                    </div>\
-                </div>\
-                <div class="col-xs-9">\
-                    <div><textarea ng-model="config.template" class="form-control" rows="20"></textarea></div>\
-                    <uib-tabset active="active">\
-                <uib-tab index="0">\
-                    <uib-tab-heading>显示\
-                    </uib-tab-heading>\
-                    <div style="overflow: auto;">\
-                        <div class="form-inline">\
-                            名称：\
-                            <input type="text" ng-model="config.title" class="form-control"/>\
-                            表\
-                            <select ng-model="config.table" ng-options="cfg.name as cfg.name for cfg in datasources | getchild:{name:config.datasource}:\'configs\'" class="form-control">\
-                            </select>\
-                            类型： \
-                            <select ng-model="config.type" class="form-control">\
-                                <option value="list">列表</option>\
-                                <option value="detail">详情</option>\
-                            </select>\
-                        </div>\
-                        <table class="table table-striped table-bordered table-condensed">\
-                            <thead>\
-                            <tr>\
-                                <th><input type="checkbox" ng-model="allselected" ng-click="selectall(allselected, config.columns, \'display\')"/></th>\
-                                <th>显示名称</th>\
-                                <th>格式化</th>\
-                                <th>对齐</th>\
-                                <th>对应字段</th>\
-                                <th>设置</th>\
-                                <th></th>\
-                                \
-                            </tr>\
-                            </thead>\
-                            <tbody  ui-sortable ng-model="config.columns">\
-                            <tr ng-repeat="column in config.columns">\
-                                <td><input type="checkbox" ng-model="column.display"/></td>\
-                                <td>\
-                                    <input type="text" ng-model="column.displayname" class="form-control"/></td>\
-                                <td>\
-                                    <input type="text" ng-model="column.formater" class="form-control"/>\
-                                </td>\
-                                <td>\
-                                    <select ng-model="column.align" class="form-control">\
-                                        <option value="left">左对齐</option>\
-                                        <option value="center">居中</option>\
-                                        <option value="right">右对齐</option>\
-                                    </select>\
-                                </td>\
-                                <td>\
-                                    <select ng-model="column.column_name" ng-options="key as key for (key,val) in datasources | getchild:{name:config.datasource}:\'configs\' | getchild:{name:config.table}:\'fields\'" class="form-control"></select>\
-                                </td>\
-                                <td>\
-                                    <div ng-if="column.column_name && column.column_name.length>0">\
-                                        <label><input type="checkbox" ng-model="column.isfilter"/>筛选</label>\
-                                        <label><input type="checkbox" ng-model="column.isorderby"/>排序</label>\
-                                        <label><input type="checkbox" ng-model="column.isedit"/>修改</label>\
-                                        <label><input type="checkbox" ng-model="column.isenum"/>枚举</label>\
-                                        <div ng-if="column.isenum" ng-init="column.options= !column.options ? []:column.options">\
-                                            <table>\
-                                                <tr ng-repeat="option in column.options">\
-                                                    <td><input type="text" ng-model="option.label" class="form-control"/></td>\
-                                                    <td><input type="text" ng-model="option.value" class="form-control"/></td>\
-                                                </tr>\
-                                            </table>\
-                                            <a ng-click="column.options.push({label:\'\',value:\'\'})">添加</a>\
-                                        </div>\
-                                    </div>\
-                                </td>\
-                                <td><a ng-click="config.columns.splice($index,1)"><i class="fa fa-close"></i></a></td>\
-                                \
-                            </tr>\
-                            </tbody>\
-                        </table>\
-                        <a ng-click="config.columns.push({display:true,displayname:\'\',formater:\'\'})">添加</a>\
-                    </div>\
-                </uib-tab>\
-                <uib-tab index="1">\
-                    <uib-tab-heading>\
-                        筛选\
-                    </uib-tab-heading>\
-                    <div style=" overflow: auto;">\
-                        <table>\
-                            <tr ng-repeat="item in config.condition">\
-                                <td>\
-                                    <select ng-model="item.name" ng-options="column.column_name as column.displayname for column in config.columns  | objFilter:{isfilter:true}" class="form-control"></select>\
-                                </td>\
-                                <td>\
-                                <select ng-model="item.opt" class="form-control">\
-                                    <option value="=">=</option>\
-                                    <option value="&lt;&gt;">&lt;&gt;</option>\
-                                    <option value="&lt;">&lt;</option>\
-                                    <option value=">&lt;=">&lt;=</option>\
-                                    <option value="&gt;">&gt;</option>\
-                                    <option value="&gt;=">&gt;=</option>\
-                                    <option value="like">like</option>\
-                                    <option value="not like">not like</option>\
-                                    <option value="begin with">begin with</option>\
-                                    <option value="end with">end with</option>\
-                                    <option value="is null">is null</option>\
-                                    <option value="is not null">is not null</option>\
-                                </select>\
-                                </td>\
-                                <td>\
-                                    <input ng-model="item.value" ng-if="!getcolumn(item.name).isenum" class="form-control" ng-if="item.opt != \'is null\' && item.opt != \'is not null\'"/>\
-                                    <select ng-model="item.value" ng-if="getcolumn(item.name).isenum && getcolumn(item.name).options && getcolumn(item.name).options.length>0"\
-                                        ng-options="option.value as option.label for option in getcolumn(item.name).options" class="form-control"></select>\
-                                        \
-                                </td>\
-                                <td><a ng-click="config.condition.splice($index,1)">删除</a></td>\
-                            </tr>\
-                        </table>\
-                        <a ng-click="config.condition.push({name:\'\',opt:\'=\',value:\'\'})">添加</a>\
-                    </div>\
-                </uib-tab>\
-                <uib-tab index="2">\
-                    <uib-tab-heading>\
-                        排序\
-                    </uib-tab-heading>\
-                    <div style="overflow: auto;">\
-                        <table>\
-                            <tr ng-repeat="item in config.orderby">\
-                                <td>\
-                                    <select ng-model="item.column_name" ng-options="column.column_name as column.displayname for column in config.columns  | objFilter:{isorderby:true}" class="form-control"></select>\
-                                </td>\
-                                <td>\
-                                    <a ng-click="item.order = item.order==\'ASC\' ? \'DESC\' : \'ASC\'">{{item.order}}</a>\
-                                </td>\
-                                <td><a ng-click="config.orderby.splice($index,1)">删除</a></td>\
-                            </tr>\
-                        </table>\
-                        <a ng-click="config.orderby.push({column_name:\'\',order:\'ASC\'})">添加</a>\
-                    </div>\
-                </uib-tab>\
-            </uib-tabset>\
-                </div>\
-            </div>\
-            <div>{{config}}</div>\
-            <datatable config="config"  variables="variables" loaddata="loaddata1(name,config)"></datatable>\
-            </div>\
-            ',
+        template: '<div>\n    <div class="row">\n        <div class="col-xs-3">\n            <div>\n                <select ng-model="config.datasource" ng-options="datasource.name as datasource.name for datasource in datasources" class="form-control"></select>\n            </div>\n            <div ng-repeat="cfg in datasources | getchild:{name:config.datasource}:\'configs\' " class="panel panel-default">\n                <div class="panel-heading">{{cfg.name}}</div>\n                <div class="list-group" style=" overflow: auto">\n                    <a ng-repeat="(key,val) in cfg.fields" class="list-group-item" ng-click="config.columns.push({display:true,displayname:key,column_name:key,formater:\'\\{\\{row.\'+key+\'\\}\\}\'})">\n                        {{key}}\n                    </a>\n                </div>\n            </div>\n        </div>\n        <div class="col-xs-9">\n            <uib-tabset active="active">\n                <uib-tab index="0">\n                    <uib-tab-heading>显示\n                    </uib-tab-heading>\n                    <div style="overflow: auto;">\n                        <div class="form-inline">\n                            名称：\n                            <input type="text" ng-model="config.title" class="form-control"/>\n                            表\n                            <select ng-model="config.table" ng-options="cfg.name as cfg.name for cfg in datasources | getchild:{name:config.datasource}:\'configs\'" class="form-control">\n                            </select>\n                            类型：\n                            <select ng-model="config.type" class="form-control">\n                                <option value="list">列表</option>\n                                <option value="detail">详情</option>\n                            </select>\n                        </div>\n                        <div><textarea ng-model="config.template" class="form-control" rows="20"></textarea></div>\n                    </div>\n                </uib-tab>\n                <uib-tab index="1">\n                    <uib-tab-heading>\n                        筛选\n                    </uib-tab-heading>\n                    <div style=" overflow: auto;">\n                        <table>\n                            <tr ng-repeat="item in config.condition">\n                                <td>\n                                    <select ng-model="item.name" ng-options="column.column_name as column.displayname for column in config.columns  | objFilter:{isfilter:true}" class="form-control"></select>\n                                </td>\n                                <td>\n                                    <select ng-model="item.opt" class="form-control">\n                                        <option value="=">=</option>\n                                        <option value="&lt;&gt;">&lt;&gt;</option>\n                                        <option value="&lt;">&lt;</option>\n                                        <option value=">&lt;=">&lt;=</option>\n                                        <option value="&gt;">&gt;</option>\n                                        <option value="&gt;=">&gt;=</option>\n                                        <option value="like">like</option>\n                                        <option value="not like">not like</option>\n                                        <option value="begin with">begin with</option>\n                                        <option value="end with">end with</option>\n                                        <option value="is null">is null</option>\n                                        <option value="is not null">is not null</option>\n                                    </select>\n                                </td>\n                                <td>\n                                    <input ng-model="item.value" ng-if="!getcolumn(item.name).isenum" class="form-control" ng-if="item.opt != \'is null\' && item.opt != \'is not null\'"/>\n                                    <select ng-model="item.value" ng-if="getcolumn(item.name).isenum && getcolumn(item.name).options && getcolumn(item.name).options.length>0"\n                                            ng-options="option.value as option.label for option in getcolumn(item.name).options" class="form-control"></select>\n\n                                </td>\n                                <td><a ng-click="config.condition.splice($index,1)">删除</a></td>\n                            </tr>\n                        </table>\n                        <a ng-click="config.condition.push({name:\'\',opt:\'=\',value:\'\'})">添加</a>\n                    </div>\n                </uib-tab>\n                <uib-tab index="2">\n                    <uib-tab-heading>\n                        排序\n                    </uib-tab-heading>\n                    <div style="overflow: auto;">\n                        <table>\n                            <tr ng-repeat="item in config.orderby">\n                                <td>\n                                    <select ng-model="item.column_name" ng-options="column.column_name as column.displayname for column in config.columns  | objFilter:{isorderby:true}" class="form-control"></select>\n                                </td>\n                                <td>\n                                    <a ng-click="item.order = item.order==\'ASC\' ? \'DESC\' : \'ASC\'">{{item.order}}</a>\n                                </td>\n                                <td><a ng-click="config.orderby.splice($index,1)">删除</a></td>\n                            </tr>\n                        </table>\n                        <a ng-click="config.orderby.push({column_name:\'\',order:\'ASC\'})">添加</a>\n                    </div>\n                </uib-tab>\n            </uib-tabset>\n        </div>\n    </div>\n    <div>{{config}}</div>\n</div>\n            ',
         replace: true,
         scope: {
             config: "=",
             datasources: "=",
-            loaddata: "&"
+            loaddata: "&",
+            ondataupdate: "&"// 数据更新
         },
         controller: function ($scope, $resource, $uibModal, $timeout) {
 
@@ -216,6 +64,7 @@ app.directive('listGroupConfig', function () {
                 return column_name;
 
             }
+
         }
     };
 });
@@ -255,6 +104,55 @@ app.directive('listGroup', function () {
 
             $scope.getdata($scope.page);
 
+
+            $scope.dataupdate = function (modifier, condition) {
+                var md = [];
+                var cd = [];
+                for (var p in modifier) {
+                    md.push({name: p, value: modifier[p]});
+                }
+
+                for (var p in condition) {
+                    cd.push({name: p, opt: '=', value: condition[p]});
+                }
+                if(cd.length==0){
+                    alert('未设置该表的主键，不建议更新');
+                    return;
+                }
+                var connectid = $scope.data.connectid;
+                var database = $scope.data.data[$scope.config.table].database;
+                var table = $scope.data.data[$scope.config.table].table;
+                // data.data[$scope.config.table].data
+                $scope.updatedata(connectid, database, table, cd, md);
+            }
+            // 更新数据
+            $scope.updatedata = function (connectid, database, table, condition, modifier) {
+                var params = {
+                    connectid: connectid,
+                    configs: [
+                        {
+                            "type": "update",
+                            "database": database,
+                            "table": table,
+                            "condition": condition,
+                            "modifier": modifier,
+                        }
+                    ]
+                };
+                $scope.ondataupdate({config: params}).then(function (data) {
+                    $scope.getdata($scope.page);
+                }, function (resp) {
+                    alert(resp);
+                })
+                // var $com = $resource('/enter/query/Update');
+                // $com.save({}, params, function (data) {
+                //     if (data && data.rows > 0) {
+                //         // 更新成功，刷新数据
+                //         $scope.getdata($scope.page);
+                //     }
+                //     console.log(data)
+                // });
+            }
         }
     };
 });

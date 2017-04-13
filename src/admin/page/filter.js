@@ -22,15 +22,14 @@
                         compileScope = scope.$eval(attrs.bindHtmlScope);
                     }
                     $compile(element.contents())(compileScope);
-                    if(attrs.replace == "true")
-                    {
+                    if (attrs.replace == "true") {
                         element.replaceWith(element.children());
                     }
                 });
             }
         };
-    } ]);
-} (window.angular));
+    }]);
+}(window.angular));
 
 app.directive('includeReplace', function () {
     return {
@@ -99,3 +98,27 @@ app.filter('getchild', function () {
         return [];
     };
 });
+
+app.directive('autoFocusWhen', ['$log', '$timeout', function ($log, $timeout) {
+    return {
+        restrict: 'A',
+        scope: {
+            autoFocusWhen: '='
+        },
+        link: function (scope, element) {
+            scope.$watch('autoFocusWhen', function (newValue) {
+                if (newValue) {
+                    $timeout(function () {
+                        element[0].focus();
+                    })
+                }
+            });
+
+            element.on('blur', function () {
+                scope.$apply(function () {
+                    scope.autoFocusWhen = false;
+                })
+            })
+        }
+    }
+}]);
