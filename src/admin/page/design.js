@@ -153,7 +153,7 @@ angular.module('app')
 
                 // text
                 $templateCache.put('text.html',
-                    '<div>{{component.html}}</div>'
+                    '<div bind-html-compile="component.html">{{component.html}}</div>'
                 );
                 $templateCache.put('text.config.html',
                     '<textarea ng-model="component.html"></textarea>'
