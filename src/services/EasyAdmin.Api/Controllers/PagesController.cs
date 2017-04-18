@@ -354,6 +354,7 @@ namespace EasyAdmin.Api.Controllers
                     {"totalItems", long.Parse(ds.Tables[1].Rows[0][0].ToString())},
                     {"beginindex", 0},
                     {"takecount", 20},
+                    {"connectid", config.connectid},
                 });
             }
             return new ResponseMessage(MessageResult.Success, "成功", new

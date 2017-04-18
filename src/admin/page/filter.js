@@ -122,3 +122,41 @@ app.directive('autoFocusWhen', ['$log', '$timeout', function ($log, $timeout) {
         }
     }
 }]);
+app.directive('icheck', function ($timeout, $parse) {
+    return {
+        require: '?ngModel',
+        link: function ($scope, element, $attrs, ngModel) {
+            return $timeout(function () {
+                $scope.$applyAsync(function () {
+                    var checkToggle = $parse($attrs['checkToggle']);
+
+                    if (ngModel) {
+                        var render = ngModel.$render;
+                        ngModel.$render = function () {
+                            render();
+                            element.iCheck('update');
+                        }
+                    }
+
+                    element.on('ifCreated', function () {
+                        if ($attrs['iCheck']) {
+                            element.parent().addClass('icheck_' + $attrs['iCheck']);
+                        }
+                    }).iCheck({
+                        radioClass: $attrs['checkClass'] || 'iradio_flat-red',
+                        checkboxClass: $attrs['checkClass'] || 'icheckbox_flat-red'
+                    }).on('ifChanged', function (event) {
+                        element.triggerHandler('click');
+                        element.triggerHandler('change');
+
+                        // Can be used for modelless inputs, otherwise use ngChange
+                        $scope.$apply(function () {
+                            event.isChecked = element[0].checked;
+                            checkToggle($scope, {$event: event});
+                        });
+                    });
+                });
+            });
+        }
+    };
+});

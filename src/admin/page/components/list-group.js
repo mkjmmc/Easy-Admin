@@ -96,63 +96,65 @@ app.directive('listGroup', function () {
             });
             // 查询数据
             $scope.getdata = function (page) {
-
-                $scope.loaddata({name: $scope.config.datasource, config: {}}).then(function (data) {
+                $scope.utility.datasource.getdata($scope.config.datasource).then(function (data) {
                     $scope.data = data;
                 });
+                //$scope.loaddata({name: $scope.config.datasource, config: {}}).then(function (data) {
+                //    $scope.data = data;
+                //});
             }
 
             $scope.getdata($scope.page);
 
 
-            $scope.dataupdate = function (modifier, condition) {
-                var md = [];
-                var cd = [];
-                for (var p in modifier) {
-                    md.push({name: p, value: modifier[p]});
-                }
-
-                for (var p in condition) {
-                    cd.push({name: p, opt: '=', value: condition[p]});
-                }
-                if(cd.length==0){
-                    alert('未设置该表的主键，不建议更新');
-                    return;
-                }
-                var connectid = $scope.data.connectid;
-                var database = $scope.data.data[$scope.config.table].database;
-                var table = $scope.data.data[$scope.config.table].table;
-                // data.data[$scope.config.table].data
-                $scope.updatedata(connectid, database, table, cd, md);
-            }
-            // 更新数据
-            $scope.updatedata = function (connectid, database, table, condition, modifier) {
-                var params = {
-                    connectid: connectid,
-                    configs: [
-                        {
-                            "type": "update",
-                            "database": database,
-                            "table": table,
-                            "condition": condition,
-                            "modifier": modifier,
-                        }
-                    ]
-                };
-                $scope.ondataupdate({config: params}).then(function (data) {
-                    $scope.getdata($scope.page);
-                }, function (resp) {
-                    alert(resp);
-                })
-                // var $com = $resource('/enter/query/Update');
-                // $com.save({}, params, function (data) {
-                //     if (data && data.rows > 0) {
-                //         // 更新成功，刷新数据
-                //         $scope.getdata($scope.page);
-                //     }
-                //     console.log(data)
-                // });
-            }
+            //$scope.dataupdate = function (modifier, condition) {
+            //    var md = [];
+            //    var cd = [];
+            //    for (var p in modifier) {
+            //        md.push({name: p, value: modifier[p]});
+            //    }
+            //
+            //    for (var p in condition) {
+            //        cd.push({name: p, opt: '=', value: condition[p]});
+            //    }
+            //    if(cd.length==0){
+            //        alert('未设置该表的主键，不建议更新');
+            //        return;
+            //    }
+            //    var connectid = $scope.data.connectid;
+            //    var database = $scope.data.data[$scope.config.table].database;
+            //    var table = $scope.data.data[$scope.config.table].table;
+            //    // data.data[$scope.config.table].data
+            //    $scope.updatedata(connectid, database, table, cd, md);
+            //}
+            //// 更新数据
+            //$scope.updatedata = function (connectid, database, table, condition, modifier) {
+            //    var params = {
+            //        connectid: connectid,
+            //        configs: [
+            //            {
+            //                "type": "update",
+            //                "database": database,
+            //                "table": table,
+            //                "condition": condition,
+            //                "modifier": modifier,
+            //            }
+            //        ]
+            //    };
+            //    $scope.ondataupdate({config: params}).then(function (data) {
+            //        $scope.getdata($scope.page);
+            //    }, function (resp) {
+            //        alert(resp);
+            //    })
+            //    // var $com = $resource('/enter/query/Update');
+            //    // $com.save({}, params, function (data) {
+            //    //     if (data && data.rows > 0) {
+            //    //         // 更新成功，刷新数据
+            //    //         $scope.getdata($scope.page);
+            //    //     }
+            //    //     console.log(data)
+            //    // });
+            //}
         }
     };
 });

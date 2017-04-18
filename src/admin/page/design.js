@@ -145,18 +145,18 @@ angular.module('app')
                 // datatable
                 $templateCache.put('datatable.html',
                     //'<datatableconfig config="component.config" ng-if="editable"></datatableconfig>' +
-                    '<div><datatable config="component.config" variables="variables" loaddata="execdatasource(name,config)" ondataupdate="dataupdate(config)"></datatable></div>'
+                    '<div><datatable config="component.config" variables="variables" loaddata="utility.datasource.execute(name,config)" ondataupdate="dataupdate(config)"></datatable></div>'
                 );
                 $templateCache.put('datatable.config.html',
-                    '<div>\n    <datatableconfig config="component.config" datasources="datasources" variables="variables" \n                     loaddata="execdatasource(name,config)"\n                     ondataupdate="dataupdate(config)"\n    ></datatableconfig>\n</div>'
+                    '<div>\n    <datatableconfig config="component.config" datasources="datasources" variables="variables" \n                     loaddata="utility.datasource.execute(name,config)"\n                     ondataupdate="dataupdate(config)"\n    ></datatableconfig>\n</div>'
                 );
 
                 // text
-                $templateCache.put('text.html',
+                $templateCache.put('template.html',
                     '<div bind-html-compile="component.html">{{component.html}}</div>'
                 );
-                $templateCache.put('text.config.html',
-                    '<textarea ng-model="component.html"></textarea>'
+                $templateCache.put('template.config.html',
+                    '<textarea ng-model="component.html" class="form-control" style="height: 500px;"></textarea>'
                 );
                 // button
                 $templateCache.put('button.html',
@@ -204,10 +204,10 @@ angular.module('app')
                     '<div class="form-horizontal">\n    <div class="form-group" ng-init="component.events=!component.events?{submit:[]}:component.events">\n        <label class="col-sm-2 control-label">Submit事件</label>\n\n        <div class="col-sm-10">\n            <div ng-repeat="(type, funs) in component.events" ng-include="\'event.config.html\'"></div>\n        </div>\n    </div>\n</div>'
                 );
                 $templateCache.put('list-group.html',
-                    '<div><list-group config="component.config" variables="variables" loaddata="execdatasource(name,config)" ondataupdate="dataupdate(config)"></list-group>{{component}}</div>'
+                    '<div><list-group config="component.config" variables="variables" loaddata="utility.datasource.execute(name,config)" ondataupdate="dataupdate(config)"></list-group>{{component}}</div>'
                 );
                 $templateCache.put('list-group.config.html',
-                    '<list-group-config config="component.config" \n                   datasources="datasources" \n                   variables="variables"\n                   loaddata="execdatasource(name,config)"\n                   ondataupdate="dataupdate(config)"\n        >\n</list-group-config>'
+                    '<list-group-config config="component.config" \n                   datasources="datasources" \n                   variables="variables"\n                   loaddata="utility.datasource.execute(name,config)"\n                   ondataupdate="dataupdate(config)"\n        >\n</list-group-config>'
                 );
                 //$templateCache.put('modal.html',
                 //    '<div class="modal" style="display: block" tabindex="-1" role="dialog">\n    <div class="modal-dialog" role="document">\n        <div class="modal-content">\n            <div class="modal-header">\n                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>\n                <h4 class="modal-title">{{component.title}}</h4>\n            </div>\n            <div class="modal-body" ng-include="\'list.html\'">\n            </div>\n            <div class="modal-footer">\n                <div ng-repeat="component in component.buttons" ng-include="\'button.html\'" include-replace>\n                </div>\n                <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->\n                <!--<button type="button" class="btn btn-primary">Save changes</button>-->\n            </div>\n        </div>\n        <!-- /.modal-content -->\n    </div>\n    <!-- /.modal-dialog -->\n</div><!-- /.modal -->'
@@ -333,8 +333,8 @@ angular.module('app')
                         type: 'panel',
                         children: []
                     }, {
-                        name: '段落',
-                        type: 'text',
+                        name: '模板',
+                        type: 'template',
                         html: ''
                     }, {
                         name: '按钮',
@@ -369,7 +369,7 @@ angular.module('app')
                     }, {
                         name: 'list-group',
                         type: 'list-group',
-                        config:{},
+                        config: {},
                         children: []
                     }
                 ];
@@ -521,171 +521,69 @@ angular.module('app')
                     });
                 };
 
-                $scope.interpolate =function(exec){
+                $scope.interpolate = function (exec) {
                     var parseFunc = $parse(exec);
                     //var parseFunc = $interpolate(exec);
                     return parseFunc($scope.variables);
                 }
 
-                // 执行数据源
-                $scope.execdatasource = function (name, config) {
-                    // alert(name)
-                    var delay = $q.defer();
-                    // 获取配置
-                    var ds = getobjinarray($scope.component.datasources, 'name', name);
-                    if (!ds) {
-                        console.log('数据源不存在')
-                        return;
-                    }
-                    var params = angular.copy(ds);
-                    // 对数据源变量进行处理
-                    for (var i = 0; i < params.configs.length; i++) {
-                        if (config && config[params.configs[i].name]) {
-                            if (config[params.configs[i].name].limit) {
-                                params.configs[i].limit = config[params.configs[i].name].limit;
-                            }
-                            if (config[params.configs[i].name].sort && config[params.configs[i].name].sort.length > 0) {
-                                params.configs[i].sort = config[params.configs[i].name].sort;
-                            }
-                            if (config[params.configs[i].name].condition) {
-                                for (var k = 0; k < config[params.configs[i].name].condition.length; k++) {
-                                    var obj = getobjinarray(params.configs[i].condition, 'name', config[params.configs[i].name].condition[k].name);
-                                    if (!obj) {
-                                        params.configs[i].condition.push(config[params.configs[i].name].condition[k]);
-                                    }
-                                    else {
-                                        obj.opt = config[params.configs[i].name].condition[k].opt;
-                                        obj.value = config[params.configs[i].name].condition[k].value;
-                                    }
-                                    // for (var j = 0; j < params.configs[i].condition.length; j++) {
-                                    //     if (params.configs[i].condition[j].name == config[params.configs[i].name].condition[k].name) {
-                                    //         params.configs[i].condition[j].opt = config[params.configs[i].name].condition[k].opt;
-                                    //         params.configs[i].condition[j].value = config[params.configs[i].name].condition[k].value;
-                                    //     }
-                                    // }
-                                }
-                            }
-                            if (config[params.configs[i].name].condition) {
-                            }
-                        }
-                        for (var j = 0; j < params.configs[i].values.length; j++) {
-                            var parseFunc = $interpolate(params.configs[i].values[j].value);
-                            params.configs[i].values[j].value = parseFunc($scope.variables);
-                            console.log(params.configs[i].values[j].value)
-                        }
-                        for (var j = 0; j < params.configs[i].condition.length; j++) {
-                            var parseFunc = $interpolate(params.configs[i].condition[j].value);
-                            params.configs[i].condition[j].value = parseFunc($scope.variables);
-                            console.log(params.configs[i].condition[j].value)
-                        }
-                        params.configs[i].condition = params.configs[i].condition.filter(function(element, index, array){
-                            if(element.opt != 'is null' && element.opt != 'is not null'){
-                                if(element.value.length == 0){
-                                    return false;
-                                }
-                            }
-                            return true;
-                        });
-                    }
-                    // for (var i = 0; i < params.configs.length; i++) {
-                    //     for (var j = 0; j < params.configs[i].condition.length; j++) {
-                    //         var parseFunc = $interpolate(params.configs[i].condition[j].value);
-                    //         params.configs[i].condition[j].value = parseFunc($scope.variables);
-                    //         console.log(params.configs[i].condition[j].value)
-                    //     }
-                    // }
-                    // if(config){
-                    //     params.configs[i].limit = limit
-                    // }
-                    console.log(params)
-                    rest_pages
-                        .executedatasource($stateParams.projectid, params)
-                        .then(function (data) {
-                            if (data && data.result == 0) {
-                                // 更新成功，刷新数据
-                                //$scope.getdata($scope.page);
-                                delay.resolve(data.data);
-                            }
-                            else {
-                                delay.reject(data);
-                            }
-                            console.log(data)
-                        }, function (resp) {
-                            delay.reject(resp);
-                        })
-                    // var $com = $resource('/enter/query/Update');
-                    // $com.save({}, params, function (data) {
-                    //     if (data && data.result == 0) {
-                    //         // 更新成功，刷新数据
-                    //         //$scope.getdata($scope.page);
-                    //         delay.resolve(data.data);
-                    //     }
-                    //     else {
-                    //         delay.reject(data);
-                    //     }
-                    //     console.log(data)
-                    // }, function (resp) {
-                    //     delay.reject(resp);
-                    // });
-                    return delay.promise;
-                };
 
-                $scope.dataupdate = function (params) {
-                    var delay = $q.defer();
-                    rest_pages
-                        .executedatasource($stateParams.projectid, params)
-                        .then(function (data) {
-                            if (data && data.result == 0) {
-                                // 更新成功，刷新数据
-                                //$scope.getdata($scope.page);
-                                delay.resolve(data.data);
-                            }
-                            else {
-                                delay.reject(data);
-                            }
-                            console.log(data)
-                        }, function (resp) {
-                            delay.reject(resp);
-                        })
-                    //var $com = $resource('/enter/query/Update');
-                    //$com.save({}, params, function (data) {
-                    //    if (data && data.result == 0) {
-                    //        // 更新成功，刷新数据
-                    //        delay.resolve(data.data);
-                    //    } else {
-                    //        delay.reject(data);
-                    //    }
-                    //    console.log(data)
-                    //}, function (resp) {
-                    //    delay.reject(resp);
-                    //    console.log(resp)
-                    //});
-                    return delay.promise;
-                }
-
-                // 更新数据
-                $scope.updatedata = function (connectid, database, table, condition, modifier) {
-                    var params = {
-                        connectid: connectid,
-                        configs: [
-                            {
-                                "type": "update",
-                                "database": database,
-                                "table": table,
-                                "condition": condition,
-                                "modifier": modifier,
-                            }
-                        ]
-                    };
-                    var $com = $resource('/enter/query/Update');
-                    $com.save({}, params, function (data) {
-                        if (data && data.rows > 0) {
-                            // 更新成功，刷新数据
-                            $scope.getdata($scope.page);
-                        }
-                        console.log(data)
-                    });
-                }
+                //$scope.dataupdate = function (params) {
+                //    var delay = $q.defer();
+                //    rest_pages
+                //        .executedatasource($stateParams.projectid, params)
+                //        .then(function (data) {
+                //            if (data && data.result == 0) {
+                //                // 更新成功，刷新数据
+                //                //$scope.getdata($scope.page);
+                //                delay.resolve(data.data);
+                //            }
+                //            else {
+                //                delay.reject(data);
+                //            }
+                //            console.log(data)
+                //        }, function (resp) {
+                //            delay.reject(resp);
+                //        })
+                //    //var $com = $resource('/enter/query/Update');
+                //    //$com.save({}, params, function (data) {
+                //    //    if (data && data.result == 0) {
+                //    //        // 更新成功，刷新数据
+                //    //        delay.resolve(data.data);
+                //    //    } else {
+                //    //        delay.reject(data);
+                //    //    }
+                //    //    console.log(data)
+                //    //}, function (resp) {
+                //    //    delay.reject(resp);
+                //    //    console.log(resp)
+                //    //});
+                //    return delay.promise;
+                //}
+                //
+                //// 更新数据
+                //$scope.updatedata = function (connectid, database, table, condition, modifier) {
+                //    var params = {
+                //        connectid: connectid,
+                //        configs: [
+                //            {
+                //                "type": "update",
+                //                "database": database,
+                //                "table": table,
+                //                "condition": condition,
+                //                "modifier": modifier,
+                //            }
+                //        ]
+                //    };
+                //    var $com = $resource('/enter/query/Update');
+                //    $com.save({}, params, function (data) {
+                //        if (data && data.rows > 0) {
+                //            // 更新成功，刷新数据
+                //            $scope.getdata($scope.page);
+                //        }
+                //        console.log(data)
+                //    });
+                //}
 
                 $scope.execevent = function (funs) {
                     // 执行指令
@@ -701,7 +599,8 @@ angular.module('app')
                                 var fun = null;
                                 switch (funs[i].name) {
                                     case "execdatasource":
-                                        fun = $scope.execdatasource(funs[i].params.name).then(function (data) {
+                                        fun = $scope.utility.datasource.execute(funs[i].params.name).then(function (data) {
+                                            $scope.utility.datasource.data[funs[i].params.name] = data.data;
                                             $scope.execevent(funs[i].thens);
                                         });
                                         break;
@@ -872,7 +771,181 @@ angular.module('app')
                     animation: 150
                 };
 
+                // 系统工具类
+                $scope.utility = {
+                    datasource: {
+                        data: {}
+                    }
+                };
+                // 获取数据
+                $scope.utility.datasource.getdata = function (name, reflash) {
+                    // 判断是否已有数据
+                    if (!reflash && $scope.utility.datasource.data[name]) {
+                        return $scope.utility.datasource.data[name];
+                    }
+                    else {
+                        if (!$scope.utility.datasource.data[name]) {
+                            $scope.utility.datasource.data[name] = [];
+                        }
+                        $scope.utility.datasource.execute(name)
+                            .then(function (data) {
+                                $scope.utility.datasource.data[name] = data.data;
+                            });
+                        return $scope.utility.datasource.data[name];
+                    }
+                };
+                // 执行数据源
+                $scope.utility.datasource.execute = function (name, config) {
+                    // alert(name)
+                    var delay = $q.defer();
+                    // 获取配置
+                    var ds = getobjinarray($scope.component.datasources, 'name', name);
+                    if (!ds) {
+                        console.log('数据源不存在')
+                        return;
+                    }
+                    var params = angular.copy(ds);
+                    // 对数据源变量进行处理
+                    for (var i = 0; i < params.configs.length; i++) {
+                        if (config && config[params.configs[i].name]) {
+                            if (config[params.configs[i].name].limit) {
+                                params.configs[i].limit = config[params.configs[i].name].limit;
+                            }
+                            if (config[params.configs[i].name].sort && config[params.configs[i].name].sort.length > 0) {
+                                params.configs[i].sort = config[params.configs[i].name].sort;
+                            }
+                            if (config[params.configs[i].name].condition) {
+                                for (var k = 0; k < config[params.configs[i].name].condition.length; k++) {
+                                    var obj = getobjinarray(params.configs[i].condition, 'name', config[params.configs[i].name].condition[k].name);
+                                    if (!obj) {
+                                        params.configs[i].condition.push(config[params.configs[i].name].condition[k]);
+                                    }
+                                    else {
+                                        obj.opt = config[params.configs[i].name].condition[k].opt;
+                                        obj.value = config[params.configs[i].name].condition[k].value;
+                                    }
+                                    // for (var j = 0; j < params.configs[i].condition.length; j++) {
+                                    //     if (params.configs[i].condition[j].name == config[params.configs[i].name].condition[k].name) {
+                                    //         params.configs[i].condition[j].opt = config[params.configs[i].name].condition[k].opt;
+                                    //         params.configs[i].condition[j].value = config[params.configs[i].name].condition[k].value;
+                                    //     }
+                                    // }
+                                }
+                            }
+                            if (config[params.configs[i].name].condition) {
+                            }
+                        }
+                        for (var j = 0; j < params.configs[i].values.length; j++) {
+                            var parseFunc = $interpolate(params.configs[i].values[j].value);
+                            params.configs[i].values[j].value = parseFunc($scope.variables);
+                            console.log(params.configs[i].values[j].value)
+                        }
+                        for (var j = 0; j < params.configs[i].condition.length; j++) {
+                            var parseFunc = $interpolate(params.configs[i].condition[j].value);
+                            params.configs[i].condition[j].value = parseFunc($scope.variables);
+                            console.log(params.configs[i].condition[j].value)
+                        }
+                        params.configs[i].condition = params.configs[i].condition.filter(function (element, index, array) {
+                            if (element.opt != 'is null' && element.opt != 'is not null') {
+                                if (element.value.length == 0) {
+                                    return false;
+                                }
+                            }
+                            return true;
+                        });
+                    }
+                    // for (var i = 0; i < params.configs.length; i++) {
+                    //     for (var j = 0; j < params.configs[i].condition.length; j++) {
+                    //         var parseFunc = $interpolate(params.configs[i].condition[j].value);
+                    //         params.configs[i].condition[j].value = parseFunc($scope.variables);
+                    //         console.log(params.configs[i].condition[j].value)
+                    //     }
+                    // }
+                    // if(config){
+                    //     params.configs[i].limit = limit
+                    // }
+                    console.log(params)
+                    rest_pages
+                        .executedatasource($stateParams.projectid, params)
+                        .then(function (data) {
+                            if (data && data.result == 0) {
+                                // 更新成功，刷新数据
+                                //$scope.getdata($scope.page);
+                                delay.resolve(data.data);
+                            }
+                            else {
+                                delay.reject(data);
+                            }
+                            console.log(data)
+                        }, function (resp) {
+                            delay.reject(resp);
+                        })
+                    // var $com = $resource('/enter/query/Update');
+                    // $com.save({}, params, function (data) {
+                    //     if (data && data.result == 0) {
+                    //         // 更新成功，刷新数据
+                    //         //$scope.getdata($scope.page);
+                    //         delay.resolve(data.data);
+                    //     }
+                    //     else {
+                    //         delay.reject(data);
+                    //     }
+                    //     console.log(data)
+                    // }, function (resp) {
+                    //     delay.reject(resp);
+                    // });
+                    return delay.promise;
+                };
+                // 更新数据
+                $scope.utility.updatedata = function (datasourcename, collectionname, condition, modifier) {
+                    var delay = $q.defer();
 
+                    var tableinfo = $scope.utility.datasource.getdata(datasourcename)[collectionname];
+                    var md = [];
+                    var cd = [];
+                    for (var p in modifier) {
+                        md.push({name: p, value: modifier[p]});
+                    }
+
+                    for (var p in condition) {
+                        cd.push({name: p, opt: '=', value: condition[p]});
+                    }
+                    if (cd.length == 0) {
+                        alert('未设置该表的主键，不建议更新');
+                        delay.reject('未设置该表的主键，不建议更新');
+                    }
+                    else{
+                        var params = {
+                            connectid: tableinfo.connectid,
+                            configs: [
+                                {
+                                    "type": "update",
+                                    "database": tableinfo.database,
+                                    "table": tableinfo.table,
+                                    "condition": cd,
+                                    "modifier": md,
+                                }
+                            ]
+                        };
+                        rest_pages
+                            .executedatasource($stateParams.projectid, params)
+                            .then(function (data) {
+                                if (data && data.result == 0) {
+                                    // 更新成功，刷新数据
+                                    //$scope.getdata($scope.page);
+                                    $scope.utility.datasource.getdata(datasourcename, true);
+                                    delay.resolve(data.data);
+                                }
+                                else {
+                                    delay.reject(data);
+                                }
+                                console.log(data)
+                            }, function (resp) {
+                                delay.reject(resp);
+                            })
+                    }
+                    return delay.promise;
+                }
             },
             link: function ($scope, $element, $attrs, pCtrl) {
 
