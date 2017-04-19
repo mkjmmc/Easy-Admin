@@ -176,10 +176,10 @@ angular.module('app')
                 );
                 // input-text
                 $templateCache.put('input-text.html',
-                    '<div class="form-group">\n    <label for="{{component.key}}" ng-show="component.label.length>0">{{component.label}}</label>\n    <input type="text" class="form-control" id="{{component.key}}" placeholder="{{component.placeholder}}" ng-model="variables[component.model]">\n</div>'
+                    '<div class="form-group">\n    <label for="{{component.key}}" ng-show="component.label.length>0">{{component.label}}</label>\n    <input type="text" class="form-control {{component.class}}" id="{{component.key}}" placeholder="{{component.placeholder}}" ng-model="variables[component.model]">\n</div>'
                 );
                 $templateCache.put('input-text.config.html',
-                    '<div class="form-group">\n    <label for="">Label Name</label>\n    <input type="text" class="form-control" placeholder="Label Name" ng-model="component.label">\n</div>\n<div class="form-group">\n    <label for="">Placeholder</label>\n    <input type="text" class="form-control" placeholder="Placeholder" ng-model="component.placeholder">\n</div>\n<div class="form-group">\n    <label for="">Value</label>\n    <input type="text" class="form-control" placeholder="Value" ng-model="variables[component.model]"/>\n</div>\n<div class="form-group">\n    <label for="">Variable name</label>\n    <input type="text" class="form-control" placeholder="Variable name" ng-model="component.model">\n</div>'
+                    '<div class="form-group">\n    <label for="">Label Name</label>\n    <input type="text" class="form-control" placeholder="Label Name" ng-model="component.label">\n</div>\n<div class="form-group">\n    <label for="">Placeholder</label>\n    <input type="text" class="form-control" placeholder="Placeholder" ng-model="component.placeholder">\n</div>\n<div class="form-group">\n    <label for="">Value</label>\n    <input type="text" class="form-control" placeholder="Value" ng-model="variables[component.model]"/>\n</div>\n<div class="form-group">\n    <label for="">Variable name</label>\n    <input type="text" class="form-control" placeholder="Variable name" ng-model="component.model">\n</div>\n<div class="form-group">\n    <label for="">Class</label>\n    <input type="text" class="form-control" placeholder="Class" ng-model="component.class">\n</div>'
                 );
                 $templateCache.put('event.config.html',
                     '<div class="form-horizontal">\n    <div class="form-group" ng-init="funs=!funs ? [] : funs">\n        <label for="" class="col-sm-2 control-label">Type</label>\n\n        <div class="col-sm-10">\n            <select ng-model="type" class="form-control">\n                <option value="click">click</option>\n                <option value="submit">submit</option>\n            </select>\n        </div>\n    </div>\n    <div class="form-group" ng-if="type">\n        <label for="" class="col-sm-2 control-label">Functions</label>\n\n        <div class="col-sm-10 list-group">\n            <div ng-repeat="fun in funs" ng-include="\'eventfun.config.html\'" class="form-horizontal list-group-item">\n            </div>\n            <a ng-click="funs.push({name:\'\'})">添加</a>\n        </div>\n    </div>\n    {{event}}\n</div>'
@@ -588,7 +588,7 @@ angular.module('app')
                 $scope.execevent = function (funs) {
                     // 执行指令
                     //eval.call($scope, cmd   );
-                    console.log(funs)
+                    //console.log(funs)
                     if (!funs || funs.length == 0) {
                         return;
                     }
@@ -843,7 +843,7 @@ angular.module('app')
                         for (var j = 0; j < params.configs[i].condition.length; j++) {
                             var parseFunc = $interpolate(params.configs[i].condition[j].value);
                             params.configs[i].condition[j].value = parseFunc($scope.variables);
-                            console.log(params.configs[i].condition[j].value)
+                            //console.log(params.configs[i].condition[j].value)
                         }
                         params.configs[i].condition = params.configs[i].condition.filter(function (element, index, array) {
                             if (element.opt != 'is null' && element.opt != 'is not null') {
@@ -864,7 +864,7 @@ angular.module('app')
                     // if(config){
                     //     params.configs[i].limit = limit
                     // }
-                    console.log(params)
+                    //console.log(params)
                     rest_pages
                         .executedatasource($stateParams.projectid, params)
                         .then(function (data) {
@@ -876,7 +876,7 @@ angular.module('app')
                             else {
                                 delay.reject(data);
                             }
-                            console.log(data)
+                            //console.log(data)
                         }, function (resp) {
                             delay.reject(resp);
                         })
@@ -952,238 +952,6 @@ angular.module('app')
 
             }
         }
-    })
-    .directive('component', function ($filter, $compile, $uibModal) {
-        var getTemplate = function (item, editable) {
-            switch (item.type) {
-                case 'row':
-                    return '<componentlist children="options.children" dragable="false" editable="editable"></componentlist>';
-                case 'col':
-                    return '<componentlist children="options.children" dragable="true" editable="editable"></componentlist>';
-                case 'tabs':
-                    return '<ul class="nav nav-tabs">' +
-                        '<li ng-repeat="item in options.children" role="presentation" ng-class="{active:item.active}">' +
-                        '<a ng-click="selecttab(options.children, $index)" ng-dblclick="showtexteditor(item, \'name\')">{{item.name}}<button class="close closeTab" type="button" ng-click="options.children.splice($index,1)" ng-if="editable">×</button></a>' +
-                        '</li>' +
-                        '<li role="presentation" ng-if="editable">' +
-                        '<a ng-click="options.children.push({name: \'New Section\',type: \'tab\',children: [],class: \'\'})"><i class="fa fa-plus"></i></a>' +
-                        '</li>' +
-                        '</ul>' +
-                        '<!-- Tab panes -->' +
-                        '<div class="tab-content">' +
-                        '<div ng-repeat="item in options.children" role="tabpanel" class="tab-pane" ng-class="{active:item.active}">' +
-                        '<component options="item" editable="editable">' +
-                        '</component>' +
-                        '</div>' +
-                        '</div>';
-                case 'tab':
-                    return '<componentlist children="options.children" dragable="true" editable="editable"></componentlist>';
-                case 'datatable':
-                    if (editable) {
-                        return '<datatableconfig config="options.config"></datatableconfig>';
-                    } else {
-                        return '<datatable config="options.config"></datatable>';
-                    }
-                case 'panel':
-                    return '<div class="ibox">' +
-                        '<div class="ibox-title" ng-dblclick="showtexteditor(options, \'name\')">' +
-                        '<h5>{{options.name}}</h5>' +
-                        '<div class="ibox-tools">' +
-                        '</div>' +
-                        '</div>' +
-                        '<div class="ibox-content">' +
-                        '<componentlist children="options.children" dragable="true" editable="editable"></componentlist>' +
-                        '</div>' +
-                        '</div>';
-                default:
-                    return '';
-            }
-        };
-        return {
-            restrict: "E",
-            require: '^?design',
-            scope: {
-                // 设置指令对于的scope
-                options: "=", // name 值传递 （字符串，单向绑定）
-                selectcomponent: '&',
-                editable: '='
-            },
-
-            replace: true,
-            template: // 替换HTML (使用scope中的变量)
-            '<div ng-click="selectcomponent($event);$event.stopPropagation()" ' +
-//                    'dnd-draggable="options"' +
-//                    'dnd-effect-allowed="move" ' +
-//                    'dnd-moved="children.splice($index, 1)"' +
-//                    'dnd-selected="options.selected = item"' +
-            'ng-mouseenter="hover = editable && true" ' +
-            'ng-mouseleave="hover = editable && false" ' +
-            'ng-class="{\'layout-hover\':hover,\'layout-active\':options.selected}" ' +
-            'ng-keyup="keypress($event)" ' +
-            'tabIndex="0"' +
-            'style="position:relative"' +
-            'class="{{options.class}}">' +
-                //'<div class="handle"><i class="fa fa-arrows" aria-hidden="true"></i></div>' +
-                //'<componentlist children="options.children"></componentlist>' +
-            '</div>',
-            transclude: true,
-            link: function ($scope, $element, $attrs, pCtrl) {
-                $scope.selecttab = function (options, id) {
-                    angular.forEach(options, function (data, index) {
-                        data.active = false;
-                        if (index == id) {
-                            data.active = true;
-                        }
-                    });
-                    //item.active=true;
-                }
-                $scope.pCtrl = pCtrl;
-                // 重定义内容
-                var template = getTemplate($scope.options, $scope.editable);
-                $element.html(template);
-                $compile($element.contents())($scope);
-                if (!$scope.editable) {
-                    $element.removeAttr('tabIndex');
-                }
-
-                var imagestyle = {}
-                //if($scope.options.type == 'image'){
-                //    imagestyle['background-image'] = 'url('++)';
-                //}
-
-
-                if (!$scope.options.style) {
-                    $scope.options.style = {};
-                }
-                // 拖放配置
-                $scope.sortableConfig = {
-                    sort: true,
-                    group: {
-                        name: 'advanced',
-                        pull: true,
-                        put: true
-                    },
-                    animation: 150,
-                    onAdd: function (obj) {
-                        if (obj && obj.model && !obj.model.id) {
-                            obj.model.id = obj.model.key = new Date().getTime();
-                        }
-                    }
-                };
-                // 组件选中
-                $scope.selectcomponent = function ($event) {
-                    if (!$scope.editable) {
-                        return;
-                    }
-                    if ($event.stopPropagation) {
-                        $event.stopPropagation();
-                    }
-                    $scope.pCtrl.selectcomponent($scope.options, $event)
-
-                    //alert(1)
-                    //$scope.pCtrl.select(item);
-                };
-                // 监听键盘事件
-                $scope.keypress = function ($event) {
-                    if (!$scope.editable) {
-                        return;
-                    }
-                    $event.stopPropagation();
-                    if ($event.keyCode == 8 || $event.keyCode == 46) {
-                        $scope.pCtrl.delete($scope.options, $event)
-                    }
-                }
-
-                // 显示文字编辑框
-                $scope.showtexteditor = function (obj, key) {
-                    if (!$scope.editable) {
-                        return;
-                    }
-                    var $ctrl = this;
-                    var modalInstance = $uibModal.open({
-                        animation: true,
-                        ariaLabelledBy: 'modal-title',
-                        ariaDescribedBy: 'modal-body',
-                        template: '<div class="modal-header">\
-    <h3 class="modal-title">\
-        文字编辑</h3>\
-</div>\
-<div class="modal-body">\
-    <div><input type="text" ng-model="data.obj[data.key]">\
-    </div>\
-</div>\
-',
-//                    templateUrl: '/areas/enter/content/query/detail.html',
-                        controller: function ($scope, $resource, $stateParams, $state, $parse, $filter, $uibModalInstance, data) {
-                            var $ctrl = this;
-                            $scope.data = data;
-
-                        },
-                        controllerAs: '$ctrl',
-                        resolve: {
-                            data: function () {
-                                return {
-                                    obj: obj,
-                                    key: key
-                                };
-                            }
-                        }
-                    });
-
-                    modalInstance.result.then(function (returntext) {
-                        //data = returntext;
-                    }, function () {
-                        //$log.info('Modal dismissed at: ' + new Date());
-                    });
-                }
-            }
-        };
-    })
-    .directive('componentlist', function ($filter) {
-        return {
-            restrict: "E",
-            require: '^?design',
-            scope: {
-                // 设置指令对于的scope
-                children: "=", // name 值传递 （字符串，单向绑定）
-                selectcomponent: '&',
-                dragable: '=',
-                editable: '='
-            },
-
-            replace: true,
-            template: // 替换HTML (使用scope中的变量)
-            '<div>' +
-            '<div ng-if="editable">' +
-            '<div ng-sortable="sortableConfig" class="layout">' +
-            '<component ng-repeat="item in children" options="item" editable="editable">' +
-            '</component>' +
-            '</div>' +
-            '</div>' +
-            '<div class="layout" ng-if="!editable">' +
-            '<component ng-repeat="item in children" options="item">' +
-            '</component>' +
-            '</div>' +
-            '</div>',
-            transclude: true,
-            link: function ($scope, $element, $attrs, pCtrl) {
-                $scope.pCtrl = pCtrl;
-                $scope.sortableConfig = {
-                    sort: $scope.dragable,
-                    group: {
-                        name: 'advanced',
-                        pull: $scope.dragable,
-                        put: $scope.dragable
-                    },
-                    animation: 150,
-                    onAdd: function (obj) {
-                        if (obj && obj.model && !obj.model.id) {
-                            obj.model.id = obj.model.key = new Date().getTime();
-                        }
-                    }
-                };
-            }
-        };
     });
 
 

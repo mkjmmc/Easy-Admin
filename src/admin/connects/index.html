@@ -6,7 +6,7 @@
         <div class="list-group">
             <div ng-repeat="connect in connects" class="list-group-item" ng-init="editable=false">
                 <div ng-show="editable==false"
-                     ng-click="editable=true;connect.NameNew = connect.Name;connect.ConnectStringNew = connect.ConnectString">
+                     ng-click="editable=true;connect.NameNew = connect.Name;connect.ConnectStringNew = connect.ConnectString;connect.TypeNew = connect.Type">
                     {{connect.Name}}
                 </div>
                 <div ng-show="editable==true" class="clearfix">
@@ -14,7 +14,12 @@
                         <input type="text" ng-model="connect.NameNew" class="form-control" placeholder="连接名称"/>
                     </div>
                     <div class="form-group">
+                        <select class="form-control" ng-model="connect.TypeNew" ng-change="connect.testok=false;connect.testmessage='';">
+                            <option value="mysql">MySql</option>
+                            <option value="sqlserver">SqlServer</option>
+                        </select>
                         <textarea ng-model="connect.ConnectStringNew" ng-change="connect.testok=false;connect.testmessage='';" class="form-control" placeholder="连接字符串" rows="5"></textarea>
+
                         <div ng-class="{'text-danger':!connect.testok,'text-success':connect.testok}">{{connect.testmessage}}</div>
                         <button ng-click="testconnect(connect)" class="btn btn-default">测试</button>
                     </div>
@@ -30,12 +35,18 @@
                     <i class="fa fa-plus-circle fa-fw"></i>
                     添加新连接
                 </a>
+
                 <div class=" clearfix" ng-show="addnew==true">
                     <div class="form-group">
                         <input type="text" ng-model="newconnect.NameNew" class="form-control" placeholder="连接名称"/>
                     </div>
                     <div class="form-group">
+                        <select class="form-control" ng-model="newconnect.TypeNew" ng-change="connect.testok=false;connect.testmessage='';">
+                            <option value="mysql">MySql</option>
+                            <option value="sqlserver">SqlServer</option>
+                        </select>
                         <textarea ng-model="newconnect.ConnectStringNew" ng-change="newconnect.testok=false;newconnect.testmessage='';" class="form-control" placeholder="连接字符串"></textarea>
+
                         <div ng-class="{'text-danger':!newconnect.testok,'text-success':newconnect.testok}">{{newconnect.testmessage}}</div>
                         <button ng-click="testconnect(newconnect)" class="btn btn-default">测试</button>
                     </div>

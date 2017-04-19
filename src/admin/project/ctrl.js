@@ -3,6 +3,8 @@ app.controller('ProjectDashboardController', function ($scope, $resource, $state
 
     $scope.projectid = $stateParams.projectid;
     $scope.pinpagelistbar = false;
+    $scope.project={};
+    $scope.users=[];
     // $scope.currentpage = null;
 
     $scope.getcurrentpage = function () {

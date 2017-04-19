@@ -142,8 +142,8 @@ app.factory('rest_connects', function ($rootScope, rest) {
         delete: function (data) {
             return rest.save(app.host + "/connects/delete", data);
         },
-        test: function (ConnectString) {
-            return rest.save(app.host + "/connects/test", {ConnectString: ConnectString});
+        test: function (ConnectString, Type) {
+            return rest.save(app.host + "/connects/test", {ConnectString: ConnectString, Type:Type});
         },
         databases: function (projectid, connectid) {
             return rest.save(app.host + "/pages/databases", {projectid: projectid, connectid: connectid});

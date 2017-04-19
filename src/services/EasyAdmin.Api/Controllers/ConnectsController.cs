@@ -7,6 +7,7 @@ using EasyAdmin.Service.Interface;
 using EasyAdmin.Api.Code;
 using EasyAdmin.Api.Models;
 using MySql.Data.MySqlClient;
+using System.Data.SqlClient;
 
 namespace EasyAdmin.Api.Controllers
 {
@@ -55,7 +56,7 @@ namespace EasyAdmin.Api.Controllers
         /// <param name="ConnectString"></param>
         /// <returns></returns>
         [HttpPost]
-        public ResponseMessage Update(long ID, string Name, string ConnectString)
+        public ResponseMessage Update(long ID, string Name, string ConnectString, string Type="mysql")
         {
             var model = _DBConnectManage.GetModel(ID);
             if (model != null)
@@ -68,6 +69,7 @@ namespace EasyAdmin.Api.Controllers
                 }
                 model.Name = Name;
                 model.ConnectString = ConnectString;
+                model.Type = Type;
             }
             if (_DBConnectManage.Update(model))
             {
@@ -110,7 +112,7 @@ namespace EasyAdmin.Api.Controllers
         /// <param name="ConnectString"></param>
         /// <returns></returns>
         [HttpPost]
-        public ResponseMessage Create(long ProjectID, string Name, string ConnectString)
+        public ResponseMessage Create(long ProjectID, string Name, string ConnectString, string Type="mysql")
         {
             // 判断是否有权限
             var userproject = _UserManage.GetUserProject(_TenantManage.user.ID, ProjectID);
@@ -122,7 +124,8 @@ namespace EasyAdmin.Api.Controllers
             {
                 ProjectID = ProjectID,
                 Name = Name,
-                ConnectString = ConnectString
+                ConnectString = ConnectString,
+                Type= Type
             }))
             {
                 return new ResponseMessage(MessageResult.Success, "");
@@ -136,25 +139,53 @@ namespace EasyAdmin.Api.Controllers
         /// <param name="ConnectString"></param>
         /// <returns></returns>
         [HttpPost]
-        public ResponseMessage Test(string ConnectString)
+        public ResponseMessage Test(string ConnectString, string Type="mysql")
         {
-            using (MySqlConnection connection = new MySqlConnection(ConnectString))
+            switch (Type)
             {
-                try
-                {
-                    connection.Open();
-                    return new ResponseMessage(MessageResult.Success, "ok");
-                }
-                catch (Exception e)
-                {
-                    return new ResponseMessage(MessageResult.Error, e.Message);
-                    //throw;
-                }
-                finally
-                {
-                    connection.Close();
-                }
+                case "mysql":
+                    using (MySqlConnection connection = new MySqlConnection(ConnectString))
+                    {
+                        try
+                        {
+                            connection.Open();
+                            return new ResponseMessage(MessageResult.Success, "ok");
+                        }
+                        catch (Exception e)
+                        {
+                            return new ResponseMessage(MessageResult.Error, e.Message);
+                            //throw;
+                        }
+                        finally
+                        {
+                            connection.Close();
+                        }
+                    }
+                    break;
+                case "sqlserver":
+                    using (SqlConnection connection = new SqlConnection(ConnectString))
+                    {
+                        try
+                        {
+                            connection.Open();
+                            return new ResponseMessage(MessageResult.Success, "ok");
+                        }
+                        catch (Exception e)
+                        {
+                            return new ResponseMessage(MessageResult.Error, e.Message);
+                            //throw;
+                        }
+                        finally
+                        {
+                            connection.Close();
+                        }
+                    }
+                    break;
+                default:
+                    throw new Exception("类型不存在");
+                    break;
             }
+            
         }
     }
 }

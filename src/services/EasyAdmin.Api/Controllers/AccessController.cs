@@ -50,7 +50,8 @@ namespace EasyAdmin.Api.Controllers
             return new ResponseMessage(MessageResult.Success, "", new
             {
                 user.Email,
-                user.LoginKey
+                user.LoginKey,
+                user.ID
             });
         }
 
@@ -69,7 +70,8 @@ namespace EasyAdmin.Api.Controllers
                 return new ResponseMessage(MessageResult.Success, "登录成功", new
                 {
                     user.Email,
-                    user.LoginKey
+                    user.LoginKey,
+                    user.ID
                 });
             }
             return new ResponseMessage( MessageResult.Error, "用户名或密码错误");

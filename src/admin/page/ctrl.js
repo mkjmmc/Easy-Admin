@@ -55,7 +55,7 @@ app.controller('PageListController', function ($scope, $resource, $stateParams, 
         $scope.getdata($stateParams.page, $stateParams.search);
     }, 100)
 });
-app.controller('PageEditController', function ($scope, $resource, $stateParams, $state, $parse, $filter, $timeout, rest_pages) {
+app.controller('PageEditController', function ($scope, $resource, $stateParams, $state, $parse, $filter, $timeout, rest_pages,$localStorage) {
     // 初始数据
     $scope.Component = {
         type: 'page',
@@ -65,6 +65,26 @@ app.controller('PageEditController', function ($scope, $resource, $stateParams, 
     $scope.editable = true;
     $scope.pageid = $stateParams.pageid;
     $scope.projectid = $stateParams.projectid;
+
+
+    // 判断是否是创建者，只有创建者才能进入这个页面
+    console.log($scope.users)
+    if($scope.users){
+
+    }
+
+    $scope.$watch(function(){
+        return $scope.users;
+    }, function(newvalue){
+        if(newvalue.length > 0){
+            for(var i=0;i<newvalue.length;i++){
+                if(newvalue[i].ID == $localStorage.user.ID && newvalue[i].Role==1){
+                    return;
+                }
+            }
+            $state.go("app.projects");
+        }
+    });
 
 
     // 保存查询配置
@@ -118,6 +138,8 @@ app.controller('PageEditController', function ($scope, $resource, $stateParams, 
                 if (data.result == 0) {
                     $scope.pageinfo = data.data;
                     $scope.Component = angular.extend($scope.Component, JSON.parse(data.data.Config));
+
+
 //                $scope.getdata($stateParams.page, $stateParams.search);
 //                     $scope.$parent.$parent.selectedpage = $scope.Component.name;
                 }

@@ -69,3 +69,4 @@ artifacts/
 *.nuget.props
 *.nuget.targets
 .idea/*
+src/services/EasyAdmin.Api/appsettings.json

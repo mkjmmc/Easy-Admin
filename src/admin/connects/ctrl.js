@@ -29,7 +29,8 @@ app.controller('ConnectListController', function ($scope, $resource, $state, $st
             .update({
                 ID: connect.ID,
                 Name: connect.NameNew,
-                ConnectString: connect.ConnectStringNew
+                ConnectString: connect.ConnectStringNew,
+                Type: connect.TypeNew,
             })
             .then(function (data) {
                 if (data.result == 0) {
@@ -65,7 +66,8 @@ app.controller('ConnectListController', function ($scope, $resource, $state, $st
             .create({
                 ProjectID: $scope.projectid,
                 Name: connect.NameNew,
-                ConnectString: connect.ConnectStringNew
+                ConnectString: connect.ConnectStringNew,
+                Type: connect.TypeNew,
             })
             .then(function (data) {
                 if (data.result == 0) {
@@ -83,7 +85,7 @@ app.controller('ConnectListController', function ($scope, $resource, $state, $st
     $scope.testconnect = function (connect) {
         connect.testmessage = "";
         rest_connects
-            .test(connect.ConnectStringNew)
+            .test(connect.ConnectStringNew,connect.TypeNew)
             .then(function (data) {
                 if (data.result == 0) {
                     //$scope.loadconnects();

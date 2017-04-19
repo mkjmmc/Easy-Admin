@@ -36,42 +36,48 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using MySql.Data.MySqlClient;
+//using MySql.Data.MySqlClient;
 using Newtonsoft.Json.Linq;
 
 namespace Database
 {
     public class JsonToSql
     {
-
-        public static string jsontosql(JObject config, List<MySqlParameter> _parameters)
+        public string Type { get; set; }
+        public JsonToSql(string type)
         {
+            this.Type = type;
+        }
+
+        public SqlObject jsontosql(JObject config)
+        {
+            var obj = new SqlObject();
             switch (config.SelectToken("type").ToObject<string>())
             {
                 case "select":
                     {
-                        var cfg = config.ToObject<SQLConfigForSelect>() ;
+                        var cfg = config.ToObject<SQLConfigForSelect>();
                         if (cfg == null)
                         {
-                            return "类型异常";
+                            throw new Exception("类型异常");
                         }
-                        var condition = conditiontosql(cfg.condition, _parameters);
+                        var condition = conditiontosql(cfg.condition, obj.Parameters);
                         var sort = sorttosql(cfg.sort);
                         var limit = limittosql(cfg.limit);
-                        return string.Format(@"
-select {0} from `{5}`.`{1}` {2} {3} {4};
-select count(*) from `{5}`.`{1}` {2};
-", fieldstosql(cfg.fields), cfg.table, condition, sort, limit, cfg.database);
+                        obj.Sql = string.Format(@"
+select {0} from {1} {2} {3} {4};
+select count(*) from {1} {2};
+", fieldstosql(cfg.fields), formattablename(cfg.database, cfg.table), condition, sort, limit);
                     }
                     break;
                 case "update":
                     {
-                        var cfg = config.ToObject<SQLConfigForUpdate>() ;
+                        var cfg = config.ToObject<SQLConfigForUpdate>();
                         if (cfg == null)
                         {
-                            return "类型异常";
+                            throw new Exception("类型异常");
                         }
-                        return string.Format(@"update `{0}`.`{1}` set {2} {3}", cfg.database, cfg.table, modifiertosql(cfg.modifier, _parameters), conditiontosql(cfg.condition, _parameters));
+                        obj.Sql = string.Format(@"update {0} set {1} {2}", formattablename(cfg.database, cfg.table), modifiertosql(cfg.modifier, obj.Parameters), conditiontosql(cfg.condition, obj.Parameters));
                     }
                     break;
                 case "insert":
@@ -80,17 +86,16 @@ select count(*) from `{5}`.`{1}` {2};
                         var cfg = config.ToObject<SQLConfigForInsert>();
                         if (cfg == null)
                         {
-                            return "类型异常";
+                            throw new Exception("类型异常");
                         }
                         var index = 0;
-                        return string.Format(@"insert into `{0}`.`{1}` ({2})values({3})"
-                            , cfg.database
-                            , cfg.table
-                            , string.Join(",", cfg.values.Select(m => "`" + m.name + "`").Distinct().ToArray())
+                        obj.Sql = string.Format(@"insert into {0} ({1})values({2})"
+                            , formattablename(cfg.database, cfg.table)
+                            , string.Join(",", cfg.values.Select(m => formatname(m.name)).Distinct().ToArray())
                             , string.Join(",", cfg.values.Select(m =>
                             {
                                 index++;
-                                _parameters.Add(new MySqlParameter("@i_" + index, MySqlDbType.VarChar) { Value = m.value });
+                                obj.Parameters.Add(new Parameter("@i_" + index, m.value));
                                 return "@i_" + index;
                             }).Distinct().ToArray()));
                     }
@@ -98,7 +103,7 @@ select count(*) from `{5}`.`{1}` {2};
                 default:
                     break;
             }
-            return "";
+            return obj;
         }
 
         /// <summary>
@@ -107,7 +112,7 @@ select count(*) from `{5}`.`{1}` {2};
         /// <param name="condition"></param>
         /// <param name="_parameters"></param>
         /// <returns></returns>
-        private static string conditiontosql(List<SQLConfigConditionItem> condition, List<MySqlParameter> _parameters)
+        private string conditiontosql(List<SQLConfigConditionItem> condition, List<Parameter> _parameters)
         {
             // 转换成数组
             if (condition == null || condition.Count == 0)
@@ -151,45 +156,67 @@ select count(*) from `{5}`.`{1}` {2};
                     case "in dataset":
                         m.opt = "in";
                         m.value = "";
-                        return string.Format("`{0}` in ([{1}.{2}])", m.name, m.dataset, m.datasetcolumn);
+                        return string.Format("{0} in ([{1}.{2}])", formatname(m.name), m.dataset, m.datasetcolumn);
                     default:
                         m.opt = "=";
                         break;
                 }
-                _parameters.Add(new MySqlParameter("@c_" + index, MySqlDbType.VarChar) { Value = m.value });
-                return string.Format("`{0}` {1} @c_{2}", m.name, m.opt, index);
+                _parameters.Add(new Parameter("@c_" + index, m.value));
+                return string.Format("{0} {1} @c_{2}", formatname(m.name), m.opt, index);
             }));
             return " where " + sql;
         }
 
-        private static string sorttosql(List<SQLConfigSortItem> sort)
+        private string sorttosql(List<SQLConfigSortItem> sort)
         {
             if (sort == null || sort.Count == 0)
             {
                 return string.Empty;
             }
-            var sql = string.Join(",", sort.Select(m => string.Format("`{0}` {1}", m.name, m.sort == 1 ? "" : "DESC")));
+            var sql = string.Join(",", sort.Select(m => string.Format("{0} {1}", formatname(m.name), m.sort == 1 ? "" : "DESC")));
             return " order by " + sql;
         }
 
-        private static string limittosql(List<int> limit)
+        private string limittosql(List<int> limit)
         {
             if (limit == null || limit.Count == 0)
             {
                 return string.Empty;
             }
-            if (limit.Count == 1)
+            switch (Type)
             {
-                return " limit " + limit[0];
+                case "sqlserver":
+                    {
+                        if (limit.Count == 1)
+                        {
+                            return string.Format(" OFFSET {0} ROWS FETCH NEXT {1} ROWS ONLY ",0, limit[0]);
+                        }
+                        if (limit.Count == 2)
+                        {
+                            return string.Format(" OFFSET {0} ROWS FETCH NEXT {1} ROWS ONLY ", limit[0], limit[1]);
+                        }
+                    }
+                    break;
+                case "mysql":
+                    {
+                        if (limit.Count == 1)
+                        {
+                            return " limit " + limit[0];
+                        }
+                        if (limit.Count == 2)
+                        {
+                            return string.Format(" limit {0},{1}", limit[0], limit[1]);
+                        }
+                    }
+                    break;
+                default:
+                    break;
             }
-            if (limit.Count == 2)
-            {
-                return string.Format(" limit {0},{1}", limit[0], limit[1]);
-            }
+            
             return string.Empty;
         }
 
-        private static string fieldstosql(JObject fields)
+        private string fieldstosql(JObject fields)
         {
             var list = new List<string>();
             foreach (var _property in fields.Properties())
@@ -203,10 +230,10 @@ select count(*) from `{5}`.`{1}` {2};
             {
                 return " * ";
             }
-            return string.Join(",", list.Select(m => "`" + m + "`"));
+            return string.Join(",", list.Select(m => formatname(m)));
         }
 
-        private static string modifiertosql(List<SQLConfigModifierItem> modifier, List<MySqlParameter> _parameters)
+        private string modifiertosql(List<SQLConfigModifierItem> modifier, List<Parameter> _parameters)
         {
             if (modifier == null || modifier.Count == 0)
             {
@@ -216,8 +243,8 @@ select count(*) from `{5}`.`{1}` {2};
             var sql = string.Join(" , ", modifier.Select(m =>
             {
                 index++;
-                _parameters.Add(new MySqlParameter("@m_" + index, MySqlDbType.VarChar) { Value = m.value });
-                return string.Format("`{0}` = @m_{1}", m.name, index);
+                _parameters.Add(new Parameter("@m_" + index, m.value));
+                return string.Format("{0} = @m_{1}", formatname(m.name), index);
             }));
             return sql;
         }
@@ -226,6 +253,53 @@ select count(*) from `{5}`.`{1}` {2};
         {
             return modifier.Select(m => m.name).Distinct().ToArray();
         }
+
+        private string formatname(string name)
+        {
+            switch (Type)
+            {
+                case "mysql":
+                    return string.Format("`{0}`", name);
+                case "sqlserver":
+                    return string.Format("[{0}]", name);
+                default:
+                    return string.Format("`{0}`", name);
+            }
+        }
+
+        private string formattablename(string database, string tablename)
+        {
+            switch (Type)
+            {
+                case "mysql":
+                    return string.Format("{0}.{1}", formatname(database), formatname(tablename));
+                case "sqlserver":
+                    return string.Format("{0}.dbo.{1}", formatname(database), formatname(tablename));
+                default:
+                    return string.Format("{0}.{1}", formatname(database), formatname(tablename));
+            }
+        }
+    }
+
+    public class SqlObject
+    {
+        public SqlObject()
+        {
+            this.Parameters = new List<Parameter>();
+        }
+        public string Sql { get; set; }
+        public List<Parameter> Parameters { get; set; }
+    }
+
+    public class Parameter
+    {
+        public Parameter(string name, object value)
+        {
+            this.Name = name;
+            this.Value = value;
+        }
+        public string Name { get; set; }
+        public object Value { get; set; }
     }
 
     public class SQLConfig

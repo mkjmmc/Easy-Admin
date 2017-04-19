@@ -13,6 +13,7 @@ using Database;
 using Newtonsoft.Json.Linq;
 using System.Data;
 using EasyAdmin.Dao.Models;
+using System.Data.SqlClient;
 
 namespace EasyAdmin.Api.Controllers
 {
@@ -58,7 +59,7 @@ namespace EasyAdmin.Api.Controllers
             // 获取项目列表
             var list = _PageManage.GetListByProjectID(ProjectID);
             //return new string[] { "value1", "value2" };
-            return new ResponseMessage(MessageResult.Success, "", list.Select(m=> new
+            return new ResponseMessage(MessageResult.Success, "", list.Select(m => new
             {
                 m.ID,
                 m.ProjectID,
@@ -137,7 +138,7 @@ namespace EasyAdmin.Api.Controllers
         /// </summary>
         /// <param name="connectid"></param>
         /// <returns></returns>
-        public ResponseMessage Databases(long ProjectID,int connectid)
+        public ResponseMessage Databases(long ProjectID, int connectid)
         {
             // 判断是否有权限
             var userproject = _UserManage.GetUserProject(_TenantManage.user.ID, ProjectID);
@@ -150,14 +151,33 @@ namespace EasyAdmin.Api.Controllers
             {
                 return new ResponseMessage(MessageResult.Error, "连接不存在");
             }
-            DbHelperMySql dbHelperMySql = new DbHelperMySql(connect.ConnectString);
-            var sql = "show databases;";
-            var ds = dbHelperMySql.Query(sql);
             var list = new List<string>();
-            foreach (DataRow _row in ds.Tables[0].Rows)
+            switch (connect.Type)
             {
-                list.Add(_row[0].ToString());
+                case "sqlserver":
+                    {
+                        DbHelperSqlServer dbHelperMySql = new DbHelperSqlServer(connect.ConnectString);
+                        var sql = "Select Name FROM Master.dbo.SysDatabases orDER BY Name  ;";
+                        var ds = dbHelperMySql.Query(sql);
+                        foreach (DataRow _row in ds.Tables[0].Rows)
+                        {
+                            list.Add(_row[0].ToString());
+                        }
+                    }
+                    break;
+                default:
+                    {
+                        DbHelperMySql dbHelperMySql = new DbHelperMySql(connect.ConnectString);
+                        var sql = "show databases;";
+                        var ds = dbHelperMySql.Query(sql);
+                        foreach (DataRow _row in ds.Tables[0].Rows)
+                        {
+                            list.Add(_row[0].ToString());
+                        }
+                    }
+                    break;
             }
+
             return new ResponseMessage(MessageResult.Success, "成功", list);
         }
 
@@ -166,7 +186,7 @@ namespace EasyAdmin.Api.Controllers
         /// 获取数据库表列表
         /// </summary>
         /// <returns></returns>
-        public ResponseMessage Tables(long ProjectID,int connectid, string databasename)
+        public ResponseMessage Tables(long ProjectID, int connectid, string databasename)
         {
             // 判断是否有权限
             var userproject = _UserManage.GetUserProject(_TenantManage.user.ID, ProjectID);
@@ -180,15 +200,37 @@ namespace EasyAdmin.Api.Controllers
                 return new ResponseMessage(MessageResult.Error, "连接不存在");
                 //return Content(Result(1, "连接不存在", null).ToString());
             }
-            var sql = string.Format(
-                "select table_name from information_schema.tables where table_schema='{0}' and table_type='base table';", databasename);
-            DbHelperMySql dbHelperMySql = new DbHelperMySql(connect.ConnectString);
-            var ds = dbHelperMySql.Query(sql);
+
             var list = new List<string>();
-            foreach (DataRow _row in ds.Tables[0].Rows)
+            switch (connect.Type)
             {
-                list.Add(_row["table_name"].ToString());
+                case "sqlserver":
+                    {
+                        DbHelperSqlServer dbHelperMySql = new DbHelperSqlServer(connect.ConnectString);
+                        var sql = "SELECT name FROM sysobjects WHERE type = 'U';";
+                        var ds = dbHelperMySql.Query(sql);
+                        foreach (DataRow _row in ds.Tables[0].Rows)
+                        {
+                            list.Add(_row["name"].ToString());
+                        }
+                    }
+                    break;
+                default:
+                    {
+
+                        var sql = string.Format(
+                            "select table_name from information_schema.tables where table_schema='{0}' and table_type='base table';", databasename);
+                        DbHelperMySql dbHelperMySql = new DbHelperMySql(connect.ConnectString);
+                        var ds = dbHelperMySql.Query(sql);
+                        foreach (DataRow _row in ds.Tables[0].Rows)
+                        {
+                            list.Add(_row["table_name"].ToString());
+                        }
+                    }
+                    break;
             }
+
+
             return new ResponseMessage(MessageResult.Success, "成功", list);
             //return Content(JsonConvert.SerializeObject(list));
             // return Json(list, JsonRequestBehavior.AllowGet);
@@ -201,7 +243,7 @@ namespace EasyAdmin.Api.Controllers
         /// <param name="databasename"></param>
         /// <param name="tablename"></param>
         /// <returns></returns>
-        public ResponseMessage Columns(long ProjectID,int connectid, string databasename, string tablename)
+        public ResponseMessage Columns(long ProjectID, int connectid, string databasename, string tablename)
         {
             // 判断是否有权限
             var userproject = _UserManage.GetUserProject(_TenantManage.user.ID, ProjectID);
@@ -214,28 +256,98 @@ namespace EasyAdmin.Api.Controllers
             {
                 return new ResponseMessage(MessageResult.Error, "连接不存在");
             }
-            var sql =
-                string.Format("select * from information_schema.columns where table_schema='{1}' and table_name='{0}';", tablename, databasename);
-            DbHelperMySql dbHelperMySql = new DbHelperMySql(connect.ConnectString);
-            var ds = dbHelperMySql.Query(sql);
+
             var list = new List<object>();
-            foreach (DataRow _row in ds.Tables[0].Rows)
+            switch (connect.Type)
             {
-                list.Add(new
-                {
-                    column_name = _row["column_name"].ToString(),
-                    data_type = _row["data_type"].ToString(),
-                    display = true
-                });
+                case "sqlserver":
+                    {
+                        var sql =
+                   string.Format("Select name FROM SysColumns Where id=Object_Id('{0}');", tablename, databasename);
+                        var dbHelperMySql = new DbHelperSqlServer(connect.ConnectString);
+                        var ds = dbHelperMySql.Query(sql);
+                        foreach (DataRow _row in ds.Tables[0].Rows)
+                        {
+                            list.Add(new
+                            {
+                                column_name = _row["name"].ToString(),
+                                data_type = "",
+                                display = true
+                            });
+                        }
+                    }
+                    break;
+                default:
+                    {
+                        var sql =
+                  string.Format("select * from information_schema.columns where table_schema='{1}' and table_name='{0}';", tablename, databasename);
+                        DbHelperMySql dbHelperMySql = new DbHelperMySql(connect.ConnectString);
+                        var ds = dbHelperMySql.Query(sql);
+                        foreach (DataRow _row in ds.Tables[0].Rows)
+                        {
+                            list.Add(new
+                            {
+                                column_name = _row["column_name"].ToString(),
+                                data_type = _row["data_type"].ToString(),
+                                display = true
+                            });
+                        }
+                    }
+                    break;
             }
+
+
             return new ResponseMessage(MessageResult.Success, "成功", list);
             // return Json(list, JsonRequestBehavior.AllowGet);
         }
 
 
+        private DataSet Query(DBConnect connect, string sql, List<Parameter> Parameters)
+        {
+            switch (connect.Type)
+            {
+                case "sqlserver":
+                    {
+                        var dbHelperMySql = new DbHelperSqlServer(connect.ConnectString);
+                        return dbHelperMySql.Query(sql, Parameters.Select(p => new SqlParameter(p.Name, SqlDbType.NVarChar) { Value = p.Value }).ToArray());
+                    }
+                default:
+                    {
+                        var dbHelperMySql = new DbHelperMySql(connect.ConnectString);
+                        return dbHelperMySql.Query(sql, Parameters.Select(p => new MySqlParameter(p.Name, MySqlDbType.VarChar) { Value = p.Value }).ToArray());
+                    }
+            }
+        }
+        private int ExecuteSqlTran2(DBConnect connect, List<SqlObject> sqlobj)
+        {
+            switch (connect.Type)
+            {
+                case "sqlserver":
+                    {
+                        var dbHelperMySql = new DbHelperSqlServer(connect.ConnectString);
+                        return dbHelperMySql.ExecuteSqlTran2(sqlobj.Select(
+                            m => new SqlItem<SqlParameter>(m.Sql, m.Parameters.Select(
+                                p => new SqlParameter(p.Name, SqlDbType.NVarChar) { Value = p.Value }
+                                ).ToArray())
+                            ).ToList());
+                    }
+                    break;
+                default:
+                    {
+                        var dbHelperMySql = new DbHelperMySql(connect.ConnectString);
+                        return dbHelperMySql.ExecuteSqlTran2(sqlobj.Select(
+                            m => new SqlItem(m.Sql, m.Parameters.Select(
+                                p => new MySqlParameter(p.Name, MySqlDbType.VarChar) { Value = p.Value }
+                                ).ToArray())
+                            ).ToList());
+                    }
+                    break;
+            }
+            return 0;
+        }
 
         [HttpPost]
-        public ResponseMessage ExecuteDataSource(long ProjectID,[FromBody]ExcuteConfig config)
+        public ResponseMessage ExecuteDataSource(long ProjectID, [FromBody]ExcuteConfig config)
         {
             // update tablename set column=value where id=id
 
@@ -260,18 +372,15 @@ namespace EasyAdmin.Api.Controllers
             {
                 return new ResponseMessage(MessageResult.Error, "连接不存在");
             }
-            // 初始化连接
-            DbHelperMySql dbHelperMySql = new DbHelperMySql(connect.ConnectString);
-
             // 解析json为sql语句;
+            var jts = new JsonToSql(connect.Type);
 
 
             var querylist = new List<SelectConfig>();
-            var sqllist = new List<SqlItem>();
+            var sqllist = new List<SqlObject>();
             foreach (var _sqlConfig in config.Configs)
             {
-                var _parameters = new List<MySqlParameter>();
-                var sql = JsonToSql.jsontosql(_sqlConfig, _parameters);
+                var sql = jts.jsontosql(_sqlConfig);
                 // 查询单独处理
                 if (_sqlConfig.SelectToken("type").ToObject<string>() == "select")
                 {
@@ -280,17 +389,17 @@ namespace EasyAdmin.Api.Controllers
                         name = _sqlConfig.SelectToken("name").ToObject<string>(),
                         database = _sqlConfig.SelectToken("database").ToObject<string>(),
                         table = _sqlConfig.SelectToken("table").ToObject<string>(),
-                        sql = sql,
-                        parameters = _parameters
+                        sql = sql.Sql,
+                        parameters = sql.Parameters
                     };
                     querylist.Add(obj);
                 }
                 else
                 {
-                    sqllist.Add(new SqlItem(sql, _parameters.ToArray()));
+                    sqllist.Add(sql);
                 }
             }
-            var rows = dbHelperMySql.ExecuteSqlTran2(sqllist);
+            var rows = ExecuteSqlTran2(connect, sqllist);
 
             var jobject = new JObject();
             // 执行查询操作
@@ -312,7 +421,7 @@ namespace EasyAdmin.Api.Controllers
                                 var dd = jobj.Value.SelectToken("data")
                                     .Select(m => "'" + m.SelectToken(_column.SelectToken("name").ToObject<string>()).ToObject<string>() + "'");
                                 var result = string.Join(",", dd);
-                                if(string.IsNullOrEmpty(result))
+                                if (string.IsNullOrEmpty(result))
                                 {
                                     result = "''";
                                 }
@@ -322,7 +431,7 @@ namespace EasyAdmin.Api.Controllers
                     }
                 }
 
-                var ds = dbHelperMySql.Query(sql, obj.parameters.ToArray());
+                var ds = Query(connect, sql, obj.parameters);
                 //ds1.Tables[0].TableName = name;
                 // 返回数据
                 var jarray = new JArray();
@@ -376,7 +485,7 @@ namespace EasyAdmin.Api.Controllers
         public ResponseMessage Save([FromBody]SaveConfig config)
         {
             // 判断是否有权限
-            var userproject = _UserManage.GetUserProject(_TenantManage.user.ID, config. ProjectID);
+            var userproject = _UserManage.GetUserProject(_TenantManage.user.ID, config.ProjectID);
             if (userproject == null)
             {
                 return new ResponseMessage(MessageResult.Error, "项目不存在");
@@ -385,7 +494,7 @@ namespace EasyAdmin.Api.Controllers
             var title = cfg.SelectToken("name").ToObject<string>();
             if (config.id == 0)
             {
-                if(_PageManage.Create(new Page()
+                if (_PageManage.Create(new Page()
                 {
                     Config = config.config,
                     Title = title,
@@ -434,7 +543,7 @@ namespace EasyAdmin.Api.Controllers
         public string database { get; set; }
         public string table { get; set; }
         public string sql { get; set; }
-        public List<MySqlParameter> parameters { get; set; }
+        public List<Parameter> parameters { get; set; }
     }
 
     public class ConnectModel
