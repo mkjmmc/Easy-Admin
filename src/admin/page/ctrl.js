@@ -65,7 +65,7 @@ app.controller('PageEditController', function ($scope, $resource, $stateParams, 
     $scope.editable = true;
     $scope.pageid = $stateParams.pageid;
     $scope.projectid = $stateParams.projectid;
-
+    $scope.pageinfo={IsPublic:false};
 
     // 判断是否是创建者，只有创建者才能进入这个页面
     console.log($scope.users)
@@ -100,7 +100,7 @@ app.controller('PageEditController', function ($scope, $resource, $stateParams, 
             .then(function(data){
                 if (data.result == 0) {
                     // 保存成功
-                    $state.go('app.project.design', {projectid:$scope.projectid, pageid:$scope.pageid});
+                    $state.reload('app.project.design', {projectid:data.data.ProjectID, pageid:data.data.ID});
 //                alert('保存成功');
                 } else {
                     // 保存失败

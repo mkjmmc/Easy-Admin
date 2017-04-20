@@ -494,15 +494,16 @@ namespace EasyAdmin.Api.Controllers
             var title = cfg.SelectToken("name").ToObject<string>();
             if (config.id == 0)
             {
-                if (_PageManage.Create(new Page()
+                var page = new Page()
                 {
                     Config = config.config,
                     Title = title,
                     ProjectID = config.ProjectID,
                     IsPublic = config.IsPublic
-                }))
+                };
+                if (_PageManage.Create(page))
                 {
-                    return new ResponseMessage(MessageResult.Success);
+                    return new ResponseMessage(MessageResult.Success, "", page);
                 }
                 return new ResponseMessage(MessageResult.Error, "添加失败");
             }
@@ -520,7 +521,7 @@ namespace EasyAdmin.Api.Controllers
                     page.IsPublic = config.IsPublic;
                     if (_PageManage.Update(page))
                     {
-                        return new ResponseMessage(MessageResult.Success);
+                        return new ResponseMessage(MessageResult.Success, "", page);
                     }
                     return new ResponseMessage(MessageResult.Error, "添加失败");
                 }
