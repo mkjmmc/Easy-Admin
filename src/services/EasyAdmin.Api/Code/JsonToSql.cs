@@ -198,6 +198,7 @@ select count(*) from {1} {2};
                     }
                     break;
                 case "mysql":
+                default:
                     {
                         if (limit.Count == 1)
                         {
@@ -208,8 +209,6 @@ select count(*) from {1} {2};
                             return string.Format(" limit {0},{1}", limit[0], limit[1]);
                         }
                     }
-                    break;
-                default:
                     break;
             }
             

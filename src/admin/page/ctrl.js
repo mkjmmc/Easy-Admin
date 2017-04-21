@@ -95,7 +95,7 @@ app.controller('PageEditController', function ($scope, $resource, $stateParams, 
             projectid: $scope.projectid,
             IsPublic:$scope.pageinfo.IsPublic
         };
-        rest_pages
+        $scope.savePromise = rest_pages
             .save(params)
             .then(function(data){
                 if (data.result == 0) {

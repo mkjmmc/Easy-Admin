@@ -3,8 +3,8 @@
 /* Controllers */
 
 angular.module('app')
-    .controller('AppCtrl', ['$scope', '$translate', '$localStorage', '$window', '$state', '$http', '$resource',
-        function ($scope, $translate, $localStorage, $window, $state, $http, $resource) {
+    .controller('AppCtrl', ['$scope', '$translate', '$localStorage', '$window', '$state', '$http', '$resource','ngProgressFactory',
+        function ($scope, $translate, $localStorage, $window, $state, $http, $resource,ngProgressFactory) {
             // add 'ie' classes to html
             var isIE = !!navigator.userAgent.match(/MSIE/i);
             isIE && angular.element($window.document.body).addClass('ie');
@@ -68,6 +68,22 @@ angular.module('app')
                 $translate.use(langKey);
                 $scope.lang.isopen = !$scope.lang.isopen;
             };
+
+            // progress
+            $scope.progressbar = ngProgressFactory.createInstance();
+            $scope.$on('$stateChangeStart', function(event) {
+                $scope.progressbar.setColor('#23b7e5')
+                $scope.progressbar.start();
+            });
+            $scope.$on('$stateChangeSuccess', function( event, toState, toParams, fromState ) {
+                event.targetScope.$watch('$viewContentLoaded', function(){
+                    $scope.progressbar.complete();
+                    //el.addClass('hide').removeClass('active');
+                })
+            });
+
+
+
             $scope.getsession_user= function(){
                 return $localStorage.user;
             }

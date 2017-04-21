@@ -38,7 +38,15 @@ var app =
             // $templateCache.put('/dialogs/confirm.html','<div class="modal-header dialog-header-confirm"><button type="button" class="close" ng-click="no()">&times;</button><h4 class="modal-title"><span class="'+startSym+'icon'+endSym+'"></span> '+startSym+'header'+endSym+'</h4></div><div class="modal-body" ng-bind-html="msg"></div><div class="modal-footer"><button type="button" class="btn btn-default" ng-click="yes()">确定</button><button type="button" class="btn btn-primary" ng-click="no()">取消</button></div>');
 
             //$templateCache.put('/dialogs/custom2.html','<div class="modal-header"><h4 class="modal-title"><span class="glyphicon glyphicon-star"></span> Custom Dialog 2</h4></div><div class="modal-body"><label class="control-label" for="customValue">Custom Value:</label><input type="text" class="form-control" id="customValue" ng-model="data.val" ng-keyup="hitEnter($event)"><span class="help-block">Using "dialogsProvider.useCopy(false)" in your applications config function will allow data passed to a custom dialog to retain its two-way binding with the scope of the calling controller.</span></div><div class="modal-footer"><button type="button" class="btn btn-default" ng-click="done()">Done</button></div>')
-        }]);
+        }])
+        .value('cgBusyDefaults', {
+            message: 'Loading',
+            backdrop: true,
+            templateUrl: 'vendor/angular/angular-busy/angular-busy.html',
+            delay: 300,
+            //minDuration: 700,
+            //wrapperClass: 'my-class my-class2'
+        });
 //app.config(function ($breadcrumbProvider) {
 //    $breadcrumbProvider.setOptions({
 //        templateUrl: 'tpl/blocks/breadcrumb.html',

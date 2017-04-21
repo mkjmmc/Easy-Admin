@@ -802,7 +802,8 @@ angular.module('app')
                     var ds = getobjinarray($scope.component.datasources, 'name', name);
                     if (!ds) {
                         console.log('数据源不存在')
-                        return;
+                        delay.reject('数据源不存在');
+                        return delay.promise;
                     }
                     var params = angular.copy(ds);
                     // 对数据源变量进行处理

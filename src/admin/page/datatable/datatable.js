@@ -223,122 +223,7 @@ app.directive('datatableconfig', function () {
 app.directive('datatable', function () {
     return {
         restrict: 'E',
-        template: '\
-<div>\
-    <div ng-if="config.type===\'list\'">\
-        <div style="background-color: #ffffff; border: solid 1px #adadad; padding: 10px;margin-bottom: 10px;border-radius:4px;box-shadow: 2px 2px 3px #cccccc;" ng-show="showsearchpanel">\
-            <button type="button" class="close" aria-label="Close" ng-click="showsearchpanel=false"><span aria-hidden="true">&times;</span></button>\
-            <div style="">\
-                <table>\
-                    <tr ng-repeat="item in config.condition">\
-                        <td>\
-                            <select ng-model="item.name" ng-options="column.column_name as column.displayname for column in  config.columns  | filter:{isfilter:true}" class="form-control"></select>\
-                        </td>\
-                        <td>\
-                             <select ng-model="item.opt" class="form-control">\
-                                <option value="=">=</option>\
-                                <option value="&lt;&gt;">&lt;&gt;</option>\
-                                <option value="&lt;">&lt;</option>\
-                                <option value=">&lt;=">&lt;=</option>\
-                                <option value="&gt;">&gt;</option>\
-                                <option value="&gt;=">&gt;=</option>\
-                                <option value="like">like</option>\
-                                <option value="not like">not like</option>\
-                                <option value="begin with">begin with</option>\
-                                <option value="end with">end with</option>\
-                                <option value="is null">is null</option>\
-                                <option value="is not null">is not null</option>\
-                            </select>\
-                        </td>\
-                        <td>\
-                            <input ng-model="item.value" ng-if="!getcolumn(item.name).isenum" class="form-control" ng-if="item.opt != \'is null\' && item.opt != \'is not null\'"/>\
-                            <select ng-model="item.value" ng-if="getcolumn(item.name).isenum && getcolumn(item.name).options && getcolumn(item.name).options.length>0"\
-                                ng-options="option.value as option.label for option in getcolumn(item.name).options" class="form-control"></select>\
-                                \
-                        </td>\
-                        <td><a ng-click="config.condition.splice($index,1)"><i class="fa fa-close"></i></a></td>\
-                    </tr>\
-                </table>\
-                <a ng-click="config.condition.push({name:\'\',opt:\'=\',value:\'\'})" class="btn btn-default"><i class="fa fa-plus"></i></a>\
-            </div>\
-        </div>\
-        <div ng-show="!showsearchpanel" style="margin-bottom: 10px;" class="clearfix">\
-            <div class="pull-left">\
-                <div ng-repeat="item in config.condition" class="label label-default gray-bg" style="margin-right: 5px">\
-                    <span ng-click="$parent.showsearchpanel=!$parent.showsearchpanel" ng-bind="getcolumn(item.name).displayname" class="text-warning"></span>\
-                    <span ng-click="$parent.showsearchpanel=!$parent.showsearchpanel" ng-bind="item.opt" class=""></span>\
-                    <span ng-click="$parent.showsearchpanel=!$parent.showsearchpanel" ng-bind="item.value | enum:getcolumn(item.name).options" class="text-primary"></span>\
-                    <span ng-click="config.condition.splice($index,1);"><i class="fa fa-close"></i></span>\
-                </div>\
-            </div>\
-            <div class="pull-right">\
-                <a class="btn btn-default btn-sm" uib-popover-template="templateUrl" popover-title="" popover-trigger="\'outsideClick\'" popover-placement="bottom"><i class="fa fa-list-ul"></i></a>\
-                <script type="text/ng-template" id="myPopoverTemplate.html" ng-init="templateUrl=\'myPopoverTemplate.html\'">\
-                    <div ui-sortable ng-model="config.columns">\
-                        <div ng-repeat="column in config.columns">\
-                            <label>\
-                                <input type="checkbox" ng-model="column.display" ng-click="configchanged()"/>\
-                                {{column.displayname}}\
-                            </label>\
-                        </div>\
-                    </div>\
-                </script>\
-                <a class="btn btn-default btn-sm" ng-click="showsearchpanel=!showsearchpanel"><i class="fa fa-search"></i></a>\
-            </div>\
-        </div>\
-        <div class="table-responsive">\
-            <table class="table table-striped table-hover table-bordered">\
-                <thead>\
-                    <tr>\
-                        <th ng-repeat="column in config.columns" ng-if="column.display==true" \
-                            ng-click="sorting(column.column_name)"\
-                            >\
-                            {{column.displayname}}\
-                            <i class="fa fa-fw fa-sort text-muted" ng-show="column.isorderby && getmodelinarray(config.orderby, \'column_name\', column.column_name)==null"></i>\
-                            <i class="fa fa-fw fa-sort-asc text-info-dker" ng-show="getmodelinarray(config.orderby, \'column_name\', column.column_name)!=null && getmodelinarray(config.orderby, \'column_name\', column.column_name).order == \'ASC\'"></i>\
-                            <i class="fa fa-fw fa-sort-desc text-info-dker" ng-show="getmodelinarray(config.orderby, \'column_name\', column.column_name)!=null && getmodelinarray(config.orderby, \'column_name\', column.column_name).order == \'DESC\'"></i>\
-                        </th>\
-                    </tr>\
-                </thead>\
-                <tr ng-repeat="row in data.data[config.table].data" ng-dblclick="showdetail(row)">\
-                    <td ng-repeat="column in config.columns" \
-                        ng-if="column.display==true" ng-style="{\'text-align\' : column.align}" \
-                        ng-click="showeditor(row, column)"\
-                        <span bind-html-compile="column.formater"></span>\
-                    </td>\
-                </tr>\
-            </table>\
-        </div>\
-        <footer class="">\
-            <div class="row">\
-                <div class="col-sm-4 text-left">\
-                    <small class="text-muted inline m-t-sm m-b-sm"> {{"总条数" | translate}}: {{totalItems}}</small>\
-                </div>\
-                <div class="col-sm-8 text-right text-center-xs">\
-                    <ul uib-pagination total-items="totalItems" items-per-page="itemsPerPage"\
-                        previous-text="{{\'上一页\' | translate}}" next-text="{{\'下一页\' | translate}}"\
-                        first-text="{{\'首页\' | translate}}" last-text="{{\'末页\' | translate}}"\
-                        ng-model="currentPage" ng-change="pageChanged(currentPage)" class="m-t-none m-b"\
-                        max-size="10"\
-                        boundary-links="true" rotate="false"></ul>\
-                </div>\
-            </div>\
-        </footer>\
-    </div>\
-    <div ng-if="config.type===\'detail\'">\
-        <div ng-repeat="row in data.data[config.table].data">\
-            <table class="table table-striped table-hover table-bordered">\
-                <tr ng-repeat="column in config.columns">\
-                    <th ng-bind="column.displayname" class="text-nowrap">\
-                    </th>\
-                    <td bind-html-compile="column.formater" ng-click="showeditor(row, column)" >\
-                    </td>\
-                </tr>\
-            </table>\
-        </div>\
-    </div>\
-</div>\
-            ',
+        template: '<div cg-busy="{promise:myPromise}">\n    <div ng-if="config.type===\'list\'">\n        <div style="background-color: #ffffff; border: solid 1px #adadad; padding: 10px;margin-bottom: 10px;border-radius:4px;box-shadow: 2px 2px 3px #cccccc;" ng-show="showsearchpanel">\n            <button type="button" class="close" aria-label="Close" ng-click="showsearchpanel=false"><span aria-hidden="true">&times;</span></button>\n            <div style="">\n                <table>\n                    <tr ng-repeat="item in config.condition">\n                        <td>\n                            <select ng-model="item.name" ng-options="column.column_name as column.displayname for column in  config.columns  | filter:{isfilter:true}" class="form-control"></select>\n                        </td>\n                        <td>\n                             <select ng-model="item.opt" class="form-control">\n                                <option value="=">=</option>\n                                <option value="&lt;&gt;">&lt;&gt;</option>\n                                <option value="&lt;">&lt;</option>\n                                <option value=">&lt;=">&lt;=</option>\n                                <option value="&gt;">&gt;</option>\n                                <option value="&gt;=">&gt;=</option>\n                                <option value="like">like</option>\n                                <option value="not like">not like</option>\n                                <option value="begin with">begin with</option>\n                                <option value="end with">end with</option>\n                                <option value="is null">is null</option>\n                                <option value="is not null">is not null</option>\n                            </select>\n                        </td>\n                        <td>\n                            <input ng-model="item.value" ng-if="!getcolumn(item.name).isenum" class="form-control" ng-if="item.opt != \'is null\' && item.opt != \'is not null\'"/>\n                            <select ng-model="item.value" ng-if="getcolumn(item.name).isenum && getcolumn(item.name).options && getcolumn(item.name).options.length>0"\n                                ng-options="option.value as option.label for option in getcolumn(item.name).options" class="form-control"></select>\n                                \n                        </td>\n                        <td><a ng-click="config.condition.splice($index,1)"><i class="fa fa-close"></i></a></td>\n                    </tr>\n                </table>\n                <a ng-click="config.condition.push({name:\'\',opt:\'=\',value:\'\'})" class="btn btn-default"><i class="fa fa-plus"></i></a>\n            </div>\n        </div>\n        <div ng-show="!showsearchpanel" style="margin-bottom: 10px;" class="clearfix">\n            <div class="pull-left">\n                <div ng-repeat="item in config.condition" class="label label-default gray-bg" style="margin-right: 5px">\n                    <span ng-click="$parent.showsearchpanel=!$parent.showsearchpanel" ng-bind="getcolumn(item.name).displayname" class="text-warning"></span>\n                    <span ng-click="$parent.showsearchpanel=!$parent.showsearchpanel" ng-bind="item.opt" class=""></span>\n                    <span ng-click="$parent.showsearchpanel=!$parent.showsearchpanel" ng-bind="item.value | enum:getcolumn(item.name).options" class="text-primary"></span>\n                    <span ng-click="config.condition.splice($index,1);"><i class="fa fa-close"></i></span>\n                </div>\n            </div>\n            <div class="pull-right">\n                <a class="btn btn-default btn-sm" uib-popover-template="templateUrl" popover-title="" popover-trigger="\'outsideClick\'" popover-placement="bottom"><i class="fa fa-list-ul"></i></a>\n                <script type="text/ng-template" id="myPopoverTemplate.html" ng-init="templateUrl=\'myPopoverTemplate.html\'">\n                    <div ui-sortable ng-model="config.columns">\n                        <div ng-repeat="column in config.columns">\n                            <label>\n                                <input type="checkbox" ng-model="column.display" ng-click="configchanged()"/>\n                                {{column.displayname}}\n                            </label>\n                        </div>\n                    </div>\n                </script>\n                <a class="btn btn-default btn-sm" ng-click="showsearchpanel=!showsearchpanel"><i class="fa fa-search"></i></a>\n            </div>\n        </div>\n        <div class="table-responsive">\n            <table class="table table-striped table-hover table-bordered">\n                <thead>\n                    <tr>\n                        <th ng-repeat="column in config.columns" ng-if="column.display==true" \n                            ng-click="sorting(column.column_name)"\n                            >\n                            {{column.displayname}}\n                            <i class="fa fa-fw fa-sort text-muted" ng-show="column.isorderby && getmodelinarray(config.orderby, \'column_name\', column.column_name)==null"></i>\n                            <i class="fa fa-fw fa-sort-asc text-info-dker" ng-show="getmodelinarray(config.orderby, \'column_name\', column.column_name)!=null && getmodelinarray(config.orderby, \'column_name\', column.column_name).order == \'ASC\'"></i>\n                            <i class="fa fa-fw fa-sort-desc text-info-dker" ng-show="getmodelinarray(config.orderby, \'column_name\', column.column_name)!=null && getmodelinarray(config.orderby, \'column_name\', column.column_name).order == \'DESC\'"></i>\n                        </th>\n                    </tr>\n                </thead>\n                <tr ng-repeat="row in data.data[config.table].data" ng-dblclick="showdetail(row)">\n                    <td ng-repeat="column in config.columns" \n                        ng-if="column.display==true" ng-style="{\'text-align\' : column.align}" \n                        ng-click="showeditor(row, column)"\n                        <span bind-html-compile="column.formater"></span>\n                    </td>\n                </tr>\n            </table>\n        </div>\n        <footer class="">\n            <div class="row">\n                <div class="col-sm-4 text-left">\n                    <small class="text-muted inline m-t-sm m-b-sm"> {{"总条数" | translate}}: {{totalItems}}</small>\n                </div>\n                <div class="col-sm-8 text-right text-center-xs">\n                    <ul uib-pagination total-items="totalItems" items-per-page="itemsPerPage"\n                        previous-text="{{\'上一页\' | translate}}" next-text="{{\'下一页\' | translate}}"\n                        first-text="{{\'首页\' | translate}}" last-text="{{\'末页\' | translate}}"\n                        ng-model="currentPage" ng-change="pageChanged(currentPage)" class="m-t-none m-b"\n                        max-size="10"\n                        boundary-links="true" rotate="false"></ul>\n                </div>\n            </div>\n        </footer>\n    </div>\n    <div ng-if="config.type===\'detail\'">\n        <div ng-repeat="row in data.data[config.table].data">\n            <table class="table table-striped table-hover table-bordered">\n                <tr ng-repeat="column in config.columns">\n                    <th ng-bind="column.displayname" class="text-nowrap">\n                    </th>\n                    <td bind-html-compile="column.formater" ng-click="showeditor(row, column)" >\n                    </td>\n                </tr>\n            </table>\n        </div>\n    </div>\n</div>\n            ',
         replace: true,
         scope: {
             config: "=",
@@ -348,7 +233,7 @@ app.directive('datatable', function () {
             ondataupdate: "&"// 数据更新
             //onLoadCallback : "&"
         },
-        controller: function ($scope, $resource, $uibModal, $location, $interpolate) {
+        controller: function ($scope, $resource, $uibModal, $location, $interpolate, $q) {
 
             // 系统变量
             // $scope.Variables = $scope.variables;
@@ -361,6 +246,8 @@ app.directive('datatable', function () {
             });
             // 查询数据
             $scope.getdata = function (page) {
+                var delay = $q.defer();
+
                 page = !page ? 1 : parseInt(page);
                 $scope.itemsPerPage = !$scope.itemsPerPage ? 20 : $scope.itemsPerPage;
                 var limit = [(page - 1) * $scope.itemsPerPage, $scope.itemsPerPage];
@@ -384,19 +271,24 @@ app.directive('datatable', function () {
                     config[$scope.config.table].sort = sort;
                 }
 
-                $scope.loaddata({name: $scope.config.datasource, config: config}).then(function (data) {
-                    $scope.data = data;
+                $scope.myPromise =  $scope.loaddata({name: $scope.config.datasource, config: config})
+                    .then(function (data) {
+                        $scope.data = data;
 
-                    $scope.totalItems = data.data[$scope.config.table].totalItems;
-                    $scope.page = $scope.currentPage = page;
-                    // $scope.itemsPerPage = data.data.itemsPerPage;
+                        $scope.totalItems = data.data[$scope.config.table].totalItems;
+                        $scope.page = $scope.currentPage = page;
+                        // $scope.itemsPerPage = data.data.itemsPerPage;
 
-                    $scope.pageChanged = function (currentPage) {
-                        console.log(currentPage)
-                        $scope.getdata(currentPage);
-                    };
-                });
-            }
+                        $scope.pageChanged = function (currentPage) {
+                            console.log(currentPage)
+                            $scope.getdata(currentPage);
+                        };
+                        delay.resolve(data);
+                    }, function(res){
+                        delay.reject(res);
+                    });
+                return delay.promise;
+            };
 
             // 监视配置变化并重新查询
             $scope.$watch(function () {
@@ -620,7 +512,7 @@ app.directive('datatable', function () {
                 for (var p in condition) {
                     cd.push({name: p, opt: '=', value: condition[p]});
                 }
-                if(cd.length==0){
+                if (cd.length == 0) {
                     alert('未设置该表的主键，不建议更新');
                     return;
                 }

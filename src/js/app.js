@@ -25,4 +25,6 @@ angular.module('app', [
     //'rzModule',
     //'colorpicker.module'
     'ng-sortable',
+    'ngProgress',
+    'cgBusy',
 ]);
