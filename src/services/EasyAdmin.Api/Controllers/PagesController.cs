@@ -440,7 +440,7 @@ namespace EasyAdmin.Api.Controllers
                     var jobj = new JObject();
                     foreach (DataColumn _column in ds.Tables[0].Columns)
                     {
-                        jobj.Add(_column.ColumnName, JToken.FromObject(_row[_column.ColumnName]));
+                        jobj.Add(_column.ColumnName, JToken.FromObject(_row[_column.ColumnName]).ToString());
                         //jobj.Add(_column.ColumnName, _column.DataType.ToString());
                     }
                     jarray.Add(jobj);

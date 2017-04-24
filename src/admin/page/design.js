@@ -145,10 +145,10 @@ angular.module('app')
                 // datatable
                 $templateCache.put('datatable.html',
                     //'<datatableconfig config="component.config" ng-if="editable"></datatableconfig>' +
-                    '<div><datatable config="component.config" variables="variables" loaddata="utility.datasource.execute(name,config)" ondataupdate="dataupdate(config)"></datatable></div>'
+                    '<div><datatable config="component.config" variables="variables" loaddata="utility.datasource.execute(name,config)" ondataupdate="utility.updatedata(config)" utility="utility"></datatable></div>'
                 );
                 $templateCache.put('datatable.config.html',
-                    '<div>\n    <datatableconfig config="component.config" datasources="datasources" variables="variables" \n                     loaddata="utility.datasource.execute(name,config)"\n                     ondataupdate="dataupdate(config)"\n    ></datatableconfig>\n</div>'
+                    '<div>\n    <datatableconfig config="component.config" datasources="datasources" variables="variables" \n                     loaddata="utility.datasource.execute(name,config)"\n                     ondataupdate="dataupdate(config)"\n                     utility="utility"\n    ></datatableconfig>\n</div>'
                 );
 
                 // text
@@ -453,6 +453,7 @@ angular.module('app')
                             $scope.datasources = data.datasources;
                             $scope.execdatasource = data.execdatasource;
                             $scope.views = data.views;
+                            $scope.utility = data.utility;
                         },
                         controllerAs: '$ctrl',
                         resolve: {
@@ -462,7 +463,8 @@ angular.module('app')
                                     variables: $scope.variables,
                                     datasources: $scope.config.datasources,
                                     execdatasource: $scope.execdatasource,
-                                    views: $scope.config.views
+                                    views: $scope.config.views,
+                                    utility:$scope.utility
                                 };
                             }
                         }
@@ -778,7 +780,7 @@ angular.module('app')
                     }
                 };
                 // 获取数据
-                $scope.utility.datasource.getdata = function (name, reflash) {
+                $scope.utility.datasource.getdata = function (name, config, reflash) {
                     // 判断是否已有数据
                     if (!reflash && $scope.utility.datasource.data[name]) {
                         return $scope.utility.datasource.data[name];
@@ -787,9 +789,9 @@ angular.module('app')
                         if (!$scope.utility.datasource.data[name]) {
                             $scope.utility.datasource.data[name] = [];
                         }
-                        $scope.utility.datasource.execute(name)
+                        $scope.utility.datasource.execute(name,config)
                             .then(function (data) {
-                                $scope.utility.datasource.data[name] = data.data;
+                                //$scope.utility.datasource.data[name] = data.data;
                             });
                         return $scope.utility.datasource.data[name];
                     }
@@ -872,6 +874,7 @@ angular.module('app')
                             if (data && data.result == 0) {
                                 // 更新成功，刷新数据
                                 //$scope.getdata($scope.page);
+                                $scope.utility.datasource.data[name] = data.data.data;
                                 delay.resolve(data.data);
                             }
                             else {
@@ -934,7 +937,7 @@ angular.module('app')
                                 if (data && data.result == 0) {
                                     // 更新成功，刷新数据
                                     //$scope.getdata($scope.page);
-                                    $scope.utility.datasource.getdata(datasourcename, true);
+                                    $scope.utility.datasource.getdata(datasourcename, null, true);
                                     delay.resolve(data.data);
                                 }
                                 else {
