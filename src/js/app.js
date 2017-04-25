@@ -27,4 +27,5 @@ angular.module('app', [
     'ng-sortable',
     'ngProgress',
     'cgBusy',
+    'ui.bootstrap.datetimepicker',
 ]);
