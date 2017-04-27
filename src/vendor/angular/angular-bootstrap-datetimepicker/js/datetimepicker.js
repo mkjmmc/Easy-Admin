@@ -380,7 +380,7 @@
        */
 
       function getMoment (modelValue) {
-        if(/\d+/.test(modelValue)){
+        if(/^\d+$/.test(modelValue)){
           return moment(parseInt(modelValue));
         }
         return moment(modelValue,  angular.isString(modelValue) ? configuration.parseFormat : undefined)

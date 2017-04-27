@@ -54,12 +54,18 @@ app.filter('objFilter', function ($filter) {
 
 app.filter('datetime', function ($filter) {
     return function (minsecond, format) {
-        var date = new Date(minsecond - 8 * 60 * 60 * 1000);
         if (!format) {
             format = 'yyyy-MM-dd HH:mm:ss';
         }
-        return $filter('date')(date, format);
-
+        if (/^\d+$/.test(minsecond)) {
+            var date = new Date(minsecond - 8 * 60 * 60 * 1000);
+            return $filter('date')(date, format);
+        }
+        else {
+            var date = moment(minsecond).toDate();
+            return $filter('date')(date, format);
+        }
+        //return $filter('date')(date, format);
     };
 });
 

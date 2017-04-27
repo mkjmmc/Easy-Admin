@@ -181,6 +181,12 @@ angular.module('app')
                 $templateCache.put('input-text.config.html',
                     '<div class="form-group">\n    <label for="">Label Name</label>\n    <input type="text" class="form-control" placeholder="Label Name" ng-model="component.label">\n</div>\n<div class="form-group">\n    <label for="">Placeholder</label>\n    <input type="text" class="form-control" placeholder="Placeholder" ng-model="component.placeholder">\n</div>\n<div class="form-group">\n    <label for="">Value</label>\n    <input type="text" class="form-control" placeholder="Value" ng-model="variables[component.model]"/>\n</div>\n<div class="form-group">\n    <label for="">Variable name</label>\n    <input type="text" class="form-control" placeholder="Variable name" ng-model="component.model">\n</div>\n<div class="form-group">\n    <label for="">Class</label>\n    <input type="text" class="form-control" placeholder="Class" ng-model="component.class">\n</div>'
                 );
+                $templateCache.put('select.html',
+                    '<div class="form-group">\n    <label for="{{component.key}}" ng-show="component.label.length>0">{{component.label}}</label>\n    <select class="form-control {{component.class}}" id="{{component.key}}" placeholder="{{component.placeholder}}" ng-model="variables[component.model]">\n        <option ng-repeat="obj in utility.datasource.getdata(component.config.datasource)[component.config.table][\'data\']" value="{{obj[component.config.value]}}" ng-selected="{{obj[component.config.value]==variables[component.model]}}">\n            {{obj[component.config.label]}}</option>\n    </select>\n    <!--{{variables[component.model]}}-->\n    <!--&lt;!&ndash;{{component}}&ndash;&gt;-->\n    <!--&lt;!&ndash;{{utility.datasource.getdata(component.config.datasource)}}&ndash;&gt;-->\n    <!--<div ng-repeat="obj in utility.datasource.getdata(component.config.datasource)[component.config.table][\'data\']">-->\n        <!--{{obj}}-->\n    <!--</div>-->\n</div>'
+                );
+                $templateCache.put('select.config.html',
+                    '<div class="form-group">\n    <label for="">Label Name</label>\n    <input type="text" class="form-control" placeholder="Label Name" ng-model="component.label">\n</div>\n<div class="form-group">\n    <label for="">Placeholder</label>\n    <input type="text" class="form-control" placeholder="Placeholder" ng-model="component.placeholder">\n</div>\n<div class="form-group">\n    <label for="">Value</label>\n    <input type="text" class="form-control" placeholder="Value" ng-model="variables[component.model]"/>\n</div>\n<div class="form-group">\n    <label for="">Variable name</label>\n    <input type="text" class="form-control" placeholder="Variable name" ng-model="component.model">\n</div>\n<div class="form-group">\n    <label for="">Class</label>\n    <input type="text" class="form-control" placeholder="Class" ng-model="component.class">\n</div>\n<div class="form-group">\n    <label for="">DataSource</label>\n    <select ng-model="component.config.datasource" ng-options="datasource.name as datasource.name for datasource in datasources" class="form-control"></select>\n    <!--<input type="text" class="form-control" placeholder="Class" ng-model="component.class">-->\n</div>\n<div class="form-group" ng-show="component.config.datasource">\n    <label for="">集合</label>\n    <select ng-model="component.config.table" ng-options="cfg.name as cfg.name for cfg in datasources | getchild:{name:component.config.datasource}:\'configs\'" class="form-control"></select>\n</div>\n<div class="form-group" ng-show="component.config.table">\n    <label for="">value</label>\n    <select ng-model="component.config.value" ng-options="key as key for (key,val) in datasources | getchild:{name:component.config.datasource}:\'configs\' | getchild:{name:component.config.table}:\'fields\'" class="form-control"></select>\n</div>\n<div class="form-group" ng-show="component.config.table">\n    <label for="">label</label>\n    <select ng-model="component.config.label" ng-options="key as key for (key,val) in datasources | getchild:{name:component.config.datasource}:\'configs\' | getchild:{name:component.config.table}:\'fields\'" class="form-control"></select>\n</div>\n{{component.config}}'
+                );
                 $templateCache.put('event.config.html',
                     '<div class="form-horizontal">\n    <div class="form-group" ng-init="funs=!funs ? [] : funs">\n        <label for="" class="col-sm-2 control-label">Type</label>\n\n        <div class="col-sm-10">\n            <select ng-model="type" class="form-control">\n                <option value="click">click</option>\n                <option value="submit">submit</option>\n            </select>\n        </div>\n    </div>\n    <div class="form-group" ng-if="type">\n        <label for="" class="col-sm-2 control-label">Functions</label>\n\n        <div class="col-sm-10 list-group">\n            <div ng-repeat="fun in funs" ng-include="\'eventfun.config.html\'" class="form-horizontal list-group-item">\n            </div>\n            <a ng-click="funs.push({name:\'\'})">添加</a>\n        </div>\n    </div>\n    {{event}}\n</div>'
                 );
@@ -333,20 +339,20 @@ angular.module('app')
                         type: 'panel',
                         children: []
                     }, {
-                        name: '模板',
+                        name: 'template',
                         type: 'template',
                         html: ''
                     }, {
-                        name: '按钮',
+                        name: 'button',
                         type: 'button',
                         class: '',
                         onclick: ''
                     }, {
-                        name: '按钮组',
+                        name: 'buttongroup',
                         type: 'buttongroup',
                         children: []
                     }, {
-                        name: '文本输入框',
+                        name: 'input-text',
                         type: 'input-text',
                         placeholder: '',
                         model: '',
@@ -371,6 +377,10 @@ angular.module('app')
                         type: 'list-group',
                         config: {},
                         children: []
+                    },{
+                        name:'select',
+                        type:'select',
+                        config:{}
                     }
                 ];
 
@@ -849,7 +859,7 @@ angular.module('app')
                             //console.log(params.configs[i].condition[j].value)
                         }
                         params.configs[i].condition = params.configs[i].condition.filter(function (element, index, array) {
-                            if (element.opt != 'is null' && element.opt != 'is not null') {
+                            if (element.opt != 'is null' && element.opt != 'is not null' && element.opt != 'in dataset') {
                                 if (element.value.length == 0) {
                                     return false;
                                 }

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div ng-repeat="obj in utility.datasource.getdata('测肤记录')['dlist']['data']">
+    <table class="table table-bordered">
+        <tr>
+            <td>
+                {{obj.Age}}
+            </td>
+            <td>
+                {{obj.Checkintime}}
+            </td>
+            <td>
+                {{obj.Sex}}
+            </td>
+            <td>
+                {{obj.SkinType}}
+            </td>
+            <td>
+                {{obj.Status}}
+            </td>
+            <td>
+                {{obj.Type}}
+            </td>
+        </tr>
+    </table>
+
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>
+                位置
+            </th>
+            <th>
+                水
+            </th>
+            <th>
+                油
+            </th>
+            <th>
+                敏感
+            </th>
+            <th>
+                毛孔
+            </th>
+            <th>
+                弹性
+            </th>
+            <th>
+                白皙
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="data in utility.datasource.getdata('测肤记录')['datalist']['data'] | filter:{DistinguishId:obj.DistinguishId}">
+            <td>
+                {{data.Position}}
+            </td>
+            <td>
+                {{data.Water}}
+            </td>
+            <td>
+                {{data.Oil}}
+            </td>
+            <td>
+                {{data.Elastic}}
+            </td>
+            <td>
+                {{data.Pore}}
+            </td>
+            <td>
+                {{data.Sensitive}}
+            </td>
+            <td>
+                {{data.White}}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="clearfix">
+    <div ng-repeat="photo in utility.datasource.getdata('测肤记录')['photolist']['data'] | filter:{DistinguishId:obj.DistinguishId}" class="pull-left">
+        <div>
+            <img src="{{photo.PhotoPath}}" class="thumb-xxs"/>
+        </div>
+        <div>
+            {{photo.Name}}
+        </div>
+    </div>
+    </div>
+</div>
+{{utility.datasource.getdata('测肤记录')}}
+{"Age":"1992","Checkintime":"2017/3/20 14:41:49","DistinguishId":"385ea2e1-9db1-435f-9042-4336c9d59884","Id":"1093","Jgid":"3869cb18-754d-4193-ad11-dafea98eefe3","Sex":"1","SkinType":"","Status":"1","Type":"2","UserCode":"88e3431ff6e1431e893a79d789e9e807"}
+</body>
+</html>
