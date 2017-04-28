@@ -21,7 +21,7 @@ app.controller('PageListController', function ($scope, $resource, $stateParams, 
 
                 $scope.pageChanged = function () {
                     //                        $log.log('Page changed to: ' + $scope.currentPage);
-                    $state.go('page.list', {search: $scope.search_context, page: $scope.currentPage});
+                    $state.go('app.project.pages', {search: $scope.search_context, page: $scope.currentPage});
                 };
 
                 //                    $scope.maxSize = 5;

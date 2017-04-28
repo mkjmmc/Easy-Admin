@@ -49,13 +49,16 @@ app.controller('ProjectDashboardController', function ($scope, $resource, $state
                     // alert(data);
                     // 显示数据
                     $scope.pages = data.data;
-                    if (!$stateParams.pageid && $scope.pages.length > 0) {
-                        for (var i = 0; i < $scope.pages.length; i++) {
-                            if ($scope.pages[i].IsPublic == 1) {
-                                $state.go('app.project.page', {projectid: $scope.projectid, pageid: $scope.pages[i].ID});
+                    if($state.is('app.project')){
+                        if (!$stateParams.pageid && $scope.pages.length > 0) {
+                            for (var i = 0; i < $scope.pages.length; i++) {
+                                if ($scope.pages[i].IsPublic == 1) {
+                                    $state.go('app.project.page', {projectid: $scope.projectid, pageid: $scope.pages[i].ID});
+                                }
                             }
                         }
                     }
+
                 }
                 else {
                     alert(data.message);

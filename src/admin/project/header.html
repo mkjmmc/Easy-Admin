@@ -1,0 +1,91 @@
+<div class="navbar navbar-default navbar-fixed-top navigator">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#/">{{project.Name}}</a>
+    </div>
+
+    <div class="collapse navbar-collapse nav-inner" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+            <li class="dropdown" uib-dropdown>
+                <a href class="dropdown-toggle" uib-dropdown-toggle> {{getcurrentpage().Title}} <b class="caret"></b></a>
+                <ul class="dropdown-menu animated fadeInRight">
+                    <li ng-repeat="page in pages | filter:{IsPublic:1}">
+                        <a ui-sref="app.project.page({projectid:page.ProjectID, pageid:page.ID})">{{page.Title}}</a>
+                    </li>
+                    <!--<li class="divider"></li>-->
+                    <!--<li>-->
+                        <!--<a ui-sref="app.project.design({projectid:projectid, pageid:0})">新建页面</a>-->
+                    <!--</li>-->
+                    <!--<li class="divider"></li>-->
+                    <!--<li>-->
+                        <!--<a ng-click="pinpagelistbar=true">固定在左侧</a>-->
+                    <!--</li>-->
+                </ul>
+            </li>
+        </ul>
+        <!-- nabar right -->
+        <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown" uib-dropdown>
+                <a href class="dropdown-toggle" uib-dropdown-toggle> <i class="fa fa-users fa-fw"></i> {{users.length}} <b class="caret"></b></a>
+                <!-- dropdown -->
+                <ul class="dropdown-menu animated fadeInRight dropdown-menu-left">
+                    <li ng-repeat="user in users">
+                        <a href>
+                            <span>{{user.Nickname}}</span>
+                        </a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a href ng-click="showinvitationmodal()"><i class="fa fa-fw fa-plus-circle"></i>邀请新成员</a>
+                    </li>
+                </ul>
+                <!-- / dropdown -->
+            </li>
+            <li class="dropdown" uib-dropdown>
+                <a href class="dropdown-toggle" uib-dropdown-toggle> <i class="fa fa-cog fa-fw"></i> 设置 <b class="caret"></b></a>
+                <!-- dropdown -->
+                <ul class="dropdown-menu animated fadeInRight dropdown-menu-left">
+                    <li>
+                        <a href ng-click="showconnectsmodal()">
+                            <span>数据库连接</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a ui-sref="app.project.pages">
+                            <span>页面管理</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a ui-sref="app.page.profile">菜单设置</a>
+                    </li>
+                </ul>
+                <!-- / dropdown -->
+            </li>
+
+            <div ng-include="'tpl/blocks/navbar-header-rightmenu.html'" include-replace></div>
+        </ul>
+    </div>
+    <!--<div class="nav-menu-handler " uib-dropdown>-->
+    <!--<a href class="dropdown-toggle clear" uib-dropdown-toggle>-->
+    <!--<i class="fa fa-bars"></i>-->
+    <!--菜单-->
+    <!--</a>-->
+    <!--&lt;!&ndash; dropdown &ndash;&gt;-->
+    <!--<ul class="dropdown-menu animated fadeInRight w">-->
+    <!--<li>-->
+    <!--<a href ng-click="showconnectsmodal()">-->
+    <!--<span>数据库连接</span>-->
+    <!--</a>-->
+    <!--</li>-->
+    <!--<li>-->
+    <!--<a ui-sref="app.page.profile">菜单设置</a>-->
+    <!--</li>-->
+    <!--</ul>-->
+    <!--&lt;!&ndash; / dropdown &ndash;&gt;-->
+    <!--</div>-->
+</div>

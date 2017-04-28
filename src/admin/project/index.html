@@ -1,75 +1,5 @@
 <div ng-controller="ProjectDashboardController">
-    <div class="project-navigation sub-nav sub-navigator">
-        <div class="row-flex">
-
-            <div class="nav-header">
-                <a ui-sref="app.projects">首页</a>
-                <a class="bread">
-                    {{project.Name}}
-                </a>
-                <span uib-dropdown class="bread">
-                    <a href id="simple-dropdown" uib-dropdown-toggle>
-                        {{getcurrentpage().Title}} <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
-                        <!--<li ng-repeat="choice in items">-->
-                        <!--<a href>{{choice}}</a>-->
-                        <!--</li>-->
-                        <li ng-repeat="page in pages | filter:{IsPublic:1}">
-                            <a ui-sref="app.project.page({projectid:page.ProjectID, pageid:page.ID})">{{page.Title}}</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a ui-sref="app.project.design({projectid:projectid, pageid:0})">新建页面</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a ng-click="pinpagelistbar=true">固定在左侧</a>
-                        </li>
-                    </ul>
-                </span>
-            </div>
-            <div class="nav-footer">
-                <div class="nav-menu-handler " uib-dropdown>
-                    <a href class="dropdown-toggle clear" uib-dropdown-toggle>
-                        <i class="fa fa-bars"></i>
-                        菜单
-                    </a>
-                    <!-- dropdown -->
-                    <ul class="dropdown-menu animated fadeInRight w">
-                        <li>
-                            <a href ng-click="showconnectsmodal()">
-                                <span>数据库连接</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a ui-sref="app.page.profile">菜单设置</a>
-                        </li>
-                    </ul>
-                    <!-- / dropdown -->
-                </div>
-                <div class="nav-menu-handler " uib-dropdown>
-                    <a href class="dropdown-toggle clear" uib-dropdown-toggle>
-                        <i class="fa fa-users"></i>
-                        {{users.length}}
-                    </a>
-                    <!-- dropdown -->
-                    <ul class="dropdown-menu animated fadeInRight w">
-                        <li ng-repeat="user in users">
-                            <a href>
-                                <span>{{user.Nickname}}</span>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href ng-click="showinvitationmodal()"><i class="fa fa-fw fa-plus-circle"></i>邀请新成员</a>
-                        </li>
-                    </ul>
-                    <!-- / dropdown -->
-                </div>
-            </div>
-        </div>
-    </div>
+    <div  ng-include="'admin/project/header.html'" include-replace></div>
     <div class="project-view " ng-class="{'on-pin-pagelist-bar':pinpagelistbar}">
         <div class="pagelist-view" ng-show="pinpagelistbar">
             <div class="panel-layer">
@@ -80,19 +10,6 @@
             </div>
         </div>
         <div class="page-view" ui-view>
-            <!--<a ng-click="showcreatedialog()">创建</a>-->
-
-            <!--<div class="row">-->
-            <!--<div ng-repeat="module in modules" class="col-sm-3">-->
-            <!--<a ui-sref="app.project.index.module({projectid:module.ProjectID, moduleid:module.ID})">-->
-            <!--{{module}}-->
-            <!--</a>-->
-            <!--</div>-->
-
-            <!--</div>-->
-            <!--<div ng-repeat="user in users">-->
-            <!--{{user}}-->
-            <!--</div>-->
         </div>
     </div>
 </div>

@@ -1,3 +1,8 @@
+<!-- navbar -->
+<div data-ng-include=" 'tpl/blocks/header.html' " class="navbar navbar-default navbar-fixed-top navigator" id="navigator">
+</div>
+<!-- / navbar -->
+
 <div class="container" ng-controller="ProjectsController">
     <div class="projects-grid">
         <div class="row">
@@ -18,64 +23,13 @@
                     <span class="add-project-button-label">创建新项目</span>
                 </a>
             </div>
-            <div ng-if="app.debug">
-                {{projects}}
-            </div>
         </div>
 
-        <pre ng-if="app.debug">
-            进行中：
-            6.项目主页定制 [进行中]
-            8.底部版权信息样式优化 [未开始]
-            9.异常提示样式优化 [未开始]
-            10.项目成员列表样式优化 [未开始]
-            11.只有创建者能进入设计界面 [未开始]
-            15.项目属性设置：修改标题，背景图片 [未开始]
-            16.权限分配：1.不用的人看到不一样的菜单，2.对页面进行分组，不同的人看到不同的分组，3. [未开始]
-            23.input控件增加样式  [未开始]
-            24.
-            25.
-            26.
-            27.
-            28.
-            29.
-            30.
-            31.
-            32.
-            33.
-            .
-            .
-            .
-            100.发布beta版
-
-            未来：
-            1.markdown文档支持
-            2.优化页面样式
-            3.优化项目加载资源
-            4.数据读取和加载动画（loading）
-            5.优化项目列表页面样式
-            6.更换发送邮件的邮箱
-            7.英文翻译
-            8.操作记录
-            9.通知提醒
-
-            已完成：
-            ·项目列表页面样式 [完成]
-            ·用户权限限制，只能访问加入的项目，只有创建者能进入设计界面 [完成]
-            ·项目成员列表 [完成]
-            ·用户邀请，发送邀请邮件[ok]，点击邀请邮件链接加入项目 [完成]
-            ·测试邀请链接进入的用户跳转至注册页面后参数是否会消失 [完成]
-            4.注册发送激活邮件,账号增加激活状态,激活成功页面 [取消][账户暂时不需要激活步骤]
-            5.注册成功后发送欢迎邮件 [完成]
-            7.注册和登录页面样式 [完成]
-            12.datatable控件排序箭头消失的bug [完成]
-            14.邀请邮件链接2天后过期 [完成]
-            18.创建新页面 [完成]
-            19.增加控件nav [完成]
-            20.增加控件form [完成]
-            21.增加事件submit [完成]
-            17.试验项目：待办事项 [完成]
-            22.增加控件list-group [完成]
-        </pre>
     </div>
 </div>
+<!-- footer -->
+<div class="app-footer wrapper b-t bg-light" style="position: fixed;bottom: 0;width: 100%;">
+    <span class="pull-right">{{app.version}} </span>
+    &copy; 2017 Copyright.
+</div>
+<!-- / footer -->

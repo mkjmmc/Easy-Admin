@@ -1,0 +1,40 @@
+<li class="dropdown " is-open="lang.isopen" uib-dropdown>
+    <a href class="dropdown-toggle" uib-dropdown-toggle>
+        {{selectLang}} <b class="caret"></b>
+    </a>
+    <!-- dropdown -->
+    <ul class="dropdown-menu animated fadeInRight dropdown-menu-left">
+        <li ng-repeat="(langKey, label) in langs">
+            <a ng-click="setLang(langKey, $event)" href>{{label}}</a>
+        </li>
+    </ul>
+    <!-- / dropdown -->
+</li>
+<li class="dropdown" uib-dropdown>
+    <a href class="dropdown-toggle clear" uib-dropdown-toggle>
+        <span class="">{{getsession_user().Email}}</span> <b class="caret"></b>
+    </a>
+    <!-- dropdown -->
+    <ul class="dropdown-menu animated fadeInRight w">
+        <li>
+            <a href>
+                <span class="badge bg-danger pull-right">30%</span>
+                <span>Settings</span>
+            </a>
+        </li>
+        <li>
+            <a ui-sref="app.page.profile">Profile</a>
+        </li>
+        <li>
+            <a ui-sref="app.docs">
+                <span class="label bg-info pull-right">new</span>
+                Help
+            </a>
+        </li>
+        <li class="divider"></li>
+        <li>
+            <a ng-click="logout()">Logout</a>
+        </li>
+    </ul>
+    <!-- / dropdown -->
+</li>

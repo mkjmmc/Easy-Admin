@@ -9,7 +9,26 @@ body {
     font-family: "Helvetica Neue", "PingFang SC", "Microsoft Yahei", 微软雅黑, STXihei, 华文细黑, sans-serif;
     background-color: #F5F5F5;
 }
+.app:before, .dropdown-submenu:focus>.dropdown-menu, .dropdown-submenu:hover>.dropdown-menu {
+    display: block;
+}
 
+.app {
+    position: relative;
+    width: 100%;
+    height: auto;
+    min-height: 100%
+}
+
+.app:before {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: -1;
+    width: inherit;
+    background-color: #f0f3f4;
+    border: inherit
+}
 
 .app-header-fixed {
     padding-top: 50px;
@@ -255,10 +274,10 @@ a.list-group-item.hover {
 .table-bordered > thead > tr > th {
     border-color: #eaeff0;
 }
-.table-striped > tbody > tr:nth-child(odd) > td,
-.table-striped > tbody > tr:nth-child(odd) > th {
-    background-color: #fafbfc;
-}
+/*.table-striped > tbody > tr:nth-child(odd) > td,*/
+/*.table-striped > tbody > tr:nth-child(odd) > th {*/
+    /*background-color: #fafbfc;*/
+/*}*/
 .table-striped > thead > th {
     background-color: #fafbfc;
     border-right: 1px solid #eaeff0;
@@ -1804,7 +1823,7 @@ a.text-#000000:hover {
     -ms-flex: 1 1;
     flex: 1 1;
 }
-#navigator .nav-inner {
+.navigator .nav-inner {
     /*position: relative;*/
     z-index: 100;
     min-height: 48px;
@@ -1887,7 +1906,7 @@ a, a:focus, a:hover {
 }
 .project-view {
     position: fixed;
-    top: 98px;
+    top: 48px;
     right: 0;
     bottom: 0;
     left: 0;
@@ -2018,7 +2037,7 @@ a, a:focus, a:hover {
     padding: 15px 0;
 }
 .page-view-design .project-navigation{
-    top: 98px;
+    top: 48px;
     z-index: 30000;
 }
 
@@ -2186,4 +2205,14 @@ a, a:focus, a:hover {
 
 .border-bottom-dotted:hover{
     border-bottom: dotted 1px #000000;
+}
+
+.datatable-cell .button-edit{
+    /*display: none;*/
+    visibility: hidden;
+    cursor: pointer;
+}
+.datatable-cell:hover .button-edit{
+    display: inline;
+    visibility: visible;
 }
