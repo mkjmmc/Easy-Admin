@@ -64,8 +64,27 @@ namespace EasyAdmin.Api.Controllers
                 m.ID,
                 m.ProjectID,
                 m.Title,
-                m.IsPublic
+                m.IsPublic,
+                m.OrderBy
             }));
+        }
+
+        /// <summary>
+        /// 更新排序
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public ResponseMessage UpdateOrderBy(long ProjectID, [FromBody] List<Page> config)
+        {
+            // 判断是否有权限
+            var userproject = _UserManage.GetUserProject(_TenantManage.user.ID, ProjectID);
+            if (userproject == null)
+            {
+                return new ResponseMessage(MessageResult.Error, "项目不存在");
+            }
+            _UserManage.UpdateOrderBy( ProjectID, config);
+
+            return new ResponseMessage(MessageResult.Success, "",null);
         }
 
         /// <summary>

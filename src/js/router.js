@@ -155,6 +155,17 @@ app
                         }]
                 }
             })
+            .state('app.project.settings', {
+                //abstract: true,
+                url: '/settings',
+                templateUrl: 'admin/project/settings.html',
+                resolve: {
+                    deps: ['$ocLazyLoad',
+                        function ($ocLazyLoad) {
+                            return $ocLazyLoad.load('admin/project/ctrl.js');
+                        }]
+                }
+            })
             .state('app.project.page', {
                 //abstract: true,
                 url: '/{pageid}',
@@ -206,7 +217,6 @@ app
                 }
             })
 
-
             .state('app.dashboard', {
                 url: '/dashboard',
                 templateUrl: 'admin/dashboard/dashboard.html',
@@ -218,42 +228,6 @@ app
                 },
                 ncyBreadcrumb: {
                     label: '<i class="fa fa-home"></i> {{"工作台" | translate}}'
-                }
-            })
-
-            // 报价
-            .state('app.price', {
-                url: '/price',
-                templateUrl: 'admin/price/price.html',
-                resolve: {
-                    deps: ['$ocLazyLoad',
-                        function ($ocLazyLoad) {
-                            return $ocLazyLoad.load('admin/price/ctrl.js');
-                        }]
-                },
-                ncyBreadcrumb: {
-                    parent: 'app.dashboard',
-                    label: '{{"报价" | translate}}',
-                }
-            })
-            // 课程管理
-            .state('app.kechengs', {
-                abstract: true,
-                url: '/kechengs',
-                template: '<div ui-view class="fade-in"></div>',
-                resolve: {
-                    deps: ['$ocLazyLoad',
-                        function ($ocLazyLoad) {
-                            return $ocLazyLoad.load('admin/kechengs/ctrl.js');
-                        }]
-                }
-            })
-            .state('app.kechengs.list', {
-                url: '/list?page&search',
-                templateUrl: 'admin/kechengs/list.html',
-                ncyBreadcrumb: {
-                    parent: 'app.dashboard',
-                    label: '{{"课程管理" | translate}}',
                 }
             })
     }

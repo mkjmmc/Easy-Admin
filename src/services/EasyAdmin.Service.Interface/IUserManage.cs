@@ -21,6 +21,7 @@ namespace EasyAdmin.Service.Interface
         bool Update(User model);
         List<UserAndRole> GetListByProjectID(long ProjectID);
         UserProject GetUserProject(long UserID, long ProjectID);
+        bool UpdateOrderBy(long projectID, List<Page> pages);
     }
 
     public class UserAndRole

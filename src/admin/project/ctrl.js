@@ -50,10 +50,12 @@ app.controller('ProjectDashboardController', function ($scope, $resource, $state
                     // 显示数据
                     $scope.pages = data.data;
                     if($state.is('app.project')){
+                        console.log($stateParams.pageid)
                         if (!$stateParams.pageid && $scope.pages.length > 0) {
                             for (var i = 0; i < $scope.pages.length; i++) {
                                 if ($scope.pages[i].IsPublic == 1) {
                                     $state.go('app.project.page', {projectid: $scope.projectid, pageid: $scope.pages[i].ID});
+                                    break;
                                 }
                             }
                         }
@@ -231,3 +233,8 @@ app.controller('ProjectDashboardController', function ($scope, $resource, $state
         });
     }
 });
+
+app.controller("ProjectSettingsController", function($scope){
+
+});
+

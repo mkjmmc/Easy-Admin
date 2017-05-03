@@ -125,6 +125,9 @@ app.factory('rest_pages', function ($rootScope, rest) {
         },
         save: function (data) {
             return rest.save(app.host + "/pages/save", {}, data);
+        },
+        updateorderby:function(projectid,data){
+            return rest.save(app.host + "/pages/UpdateOrderBy",{projectid: projectid}, data);
         }
     }
 });

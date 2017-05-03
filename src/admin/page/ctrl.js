@@ -1,5 +1,42 @@
 'use strict';
 app.controller('PageListController', function ($scope, $resource, $stateParams, $state, $parse, $filter, $timeout, rest_pages) {
+
+    $scope.sortableConfig = {
+        sort: true,
+        handle: '.d-handle',
+        group: {
+            name: 'advanced',
+            pull: true,
+            put: true
+        },
+        animation: 150,
+        //onAdd: function (obj) {
+        //    if (obj && obj.model) {
+        //        if (!obj.model.id) {
+        //            obj.model.id = obj.model.key = new Date().getTime();
+        //        }
+        //        if (obj.model.type == "row") {
+        //            for (var i = 0; i < obj.model.children.length; i++) {
+        //                obj.model.children[i].id = obj.model.children[i].key = new Date().getTime();
+        //            }
+        //        }
+        //    }
+        //},
+        onUpdate: function (/**Event*/evt) {
+            console.log(evt)
+            for(var i=0;i<$scope.data.data.length;i++){
+                $scope.data.data[i].OrderBy=i;
+            }
+            // 更新排序
+            rest_pages
+                .updateorderby( $scope.projectid,  $scope.data.data)
+                .then(function(){
+
+                });
+            //var itemEl = evt.item;  // dragged HTMLElement
+            // + indexes from onEnd
+        }
+    };
     // 查询列表
     $scope.getdata = function (page, search) {
         page = !page ? 1 : parseInt(page);

@@ -59,5 +59,23 @@ namespace EasyAdmin.Service
         {
             return _CloudDbContext.UserProjects.FirstOrDefault(m => m.UserID == UserID && m.ProjectID == ProjectID);
         }
+
+        public bool UpdateOrderBy(long projectID, List<Page> pages)
+        {
+            var list = _CloudDbContext.Pages.Where(m => m.ProjectID == projectID);
+            foreach (var page in pages)
+            {
+                var dbpage = list.FirstOrDefault(m => m.ID == page.ID);
+                if(dbpage!= null)
+                {
+                    if(dbpage.OrderBy!= page.OrderBy)
+                    {
+                        dbpage.OrderBy = page.OrderBy;
+                    }
+                }
+            }
+            _CloudDbContext.SaveChanges();
+            return true;
+        }
     }
 }
