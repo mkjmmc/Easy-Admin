@@ -19,5 +19,6 @@ namespace EasyAdmin.Service.Interface
         List<Project> GetListByUserID(long UserID);
         Project GetModel(long ProjectID);
         bool AddUser(long ProjectID, long UserID);
+        bool Update(Project model);
     }
 }

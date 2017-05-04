@@ -6,11 +6,10 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#/">{{project.Name}}</a>
+        <a class="navbar-brand" href="#/projects" ng-show="configs.system_nav.display_project_name">{{project.Name}}</a>
     </div>
-
     <div class="collapse navbar-collapse nav-inner" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav">
+        <ul class="nav navbar-nav"  ng-show="configs.system_nav.display_page_nav">
             <li class="dropdown" uib-dropdown>
                 <a href class="dropdown-toggle" uib-dropdown-toggle> {{getcurrentpage().Title}} <b class="caret"></b></a>
                 <ul class="dropdown-menu animated fadeInRight">
@@ -30,7 +29,7 @@
         </ul>
         <!-- nabar right -->
         <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown" uib-dropdown>
+            <li class="dropdown" uib-dropdown   ng-show="configs.system_nav.display_users">
                 <a href class="dropdown-toggle" uib-dropdown-toggle> <i class="fa fa-users fa-fw"></i> {{users.length}} <b class="caret"></b></a>
                 <!-- dropdown -->
                 <ul class="dropdown-menu animated fadeInRight dropdown-menu-left">

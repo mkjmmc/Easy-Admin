@@ -91,6 +91,9 @@ app.factory('rest_projects', function ($rootScope, rest) {
         },
         invite: function (projectid,email) {
             return rest.save(app.host + "/projects/InviteJoin", {projectid: projectid,email:email});
+        },
+        update:function (data) {
+            return rest.save(app.host + "/projects/update",{},data);
         }
     }
 });

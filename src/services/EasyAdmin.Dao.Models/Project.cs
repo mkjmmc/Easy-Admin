@@ -17,5 +17,6 @@ namespace EasyAdmin.Dao.Models
         public string Name { get; set; }
         public long CreateTime { get; set; }
         public int IsDelete { get; set; }
+        public string Configs { get; set; }
     }
 }

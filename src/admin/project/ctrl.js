@@ -3,8 +3,13 @@ app.controller('ProjectDashboardController', function ($scope, $resource, $state
 
     $scope.projectid = $stateParams.projectid;
     $scope.pinpagelistbar = false;
-    $scope.project={};
-    $scope.users=[];
+    $scope.project = {};
+    $scope.users = [];
+    $scope.configs = {
+        project_nav: {
+            list: []
+        }
+    }
     // $scope.currentpage = null;
 
     $scope.getcurrentpage = function () {
@@ -26,6 +31,9 @@ app.controller('ProjectDashboardController', function ($scope, $resource, $state
                 switch (data.result) {
                     case 0:
                         $scope.project = data.data;
+                        if ($scope.project.Configs.length > 0) {
+                            $scope.configs = JSON.parse($scope.project.Configs);
+                        }
                         break;
                     default :
                         alert('项目不存在');
@@ -49,7 +57,7 @@ app.controller('ProjectDashboardController', function ($scope, $resource, $state
                     // alert(data);
                     // 显示数据
                     $scope.pages = data.data;
-                    if($state.is('app.project')){
+                    if ($state.is('app.project')) {
                         console.log($stateParams.pageid)
                         if (!$stateParams.pageid && $scope.pages.length > 0) {
                             for (var i = 0; i < $scope.pages.length; i++) {
@@ -234,7 +242,114 @@ app.controller('ProjectDashboardController', function ($scope, $resource, $state
     }
 });
 
-app.controller("ProjectSettingsController", function($scope){
+app.controller("ProjectSettingsController", function ($scope, $state, $stateParams, rest_projects, rest_pages) {
+    $scope.projectid = $stateParams.projectid;
+    // $scope.pinpagelistbar = false;
+    $scope.project = {};
+    $scope.users = [];
+    $scope.pages=[];
+    $scope.editingnav = {model: null};
+    $scope.configs = {
+        project_nav: {
+            list: [{
+                title: 'aaaa',
+                children: [],
+                icon: 'fa fa-fw fa-file-o'
+            }]
+        }
+    }
 
+    $scope.loadprojectinfo = function () {
+        // 获取项目列表
+        rest_projects
+            .info($scope.projectid)
+            .then(function (data) {
+                switch (data.result) {
+                    case 0:
+                        $scope.project = data.data;
+                        if ($scope.project.Configs.length > 0) {
+                            $scope.configs = JSON.parse($scope.project.Configs);
+                        }
+                        // if (project.Configs.project_nav.list)
+                        break;
+                    default :
+                        alert('项目不存在');
+                        break;
+                }
+            }, function (resp) {
+                console.log(resp);
+                alert(resp);
+            });
+    };
+    $scope.loadprojectinfo();
+
+    // 获取所有的页面列表
+    $scope.loadpages = function () {
+        rest_pages
+            .list({ProjectID: $scope.projectid})
+            .then(function (data) {
+                // alert(data);
+                // 显示数据
+                if (data.result == 0) {
+                    // alert(data);
+                    // 显示数据
+                    $scope.pages = data.data;
+                    if ($state.is('app.project')) {
+                        console.log($stateParams.pageid)
+                        if (!$stateParams.pageid && $scope.pages.length > 0) {
+                            for (var i = 0; i < $scope.pages.length; i++) {
+                                if ($scope.pages[i].IsPublic == 1) {
+                                    $state.go('app.project.page', {projectid: $scope.projectid, pageid: $scope.pages[i].ID});
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
+                }
+                else {
+                    alert(data.message);
+                }
+            });
+    };
+    $scope.loadpages();
+
+    // 获取项目所有成员
+    $scope.loadusers = function () {
+        rest_projects
+            .users($scope.projectid)
+            .then(function (data) {
+                // alert(data);
+                // 显示数据
+                if (data.result == 0) {
+                    // alert(data);
+                    // 显示数据
+                    $scope.users = data.data;
+                }
+                else {
+                    alert(data.message);
+                }
+            });
+    };
+    $scope.loadusers();
+
+    $scope.save = function () {
+        $scope.project.Configs = JSON.stringify($scope.configs);
+        rest_projects
+            .update($scope.project)
+            .then(function (data) {
+                if (data.result == 0) {
+                    $state.reload();
+                }
+                else {
+                    alert(data.message);
+                }
+            })
+    }
+
+
+    $scope.state2href=function (name, params) {
+        return $state.href(name,params);
+    }
 });
 

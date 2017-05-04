@@ -91,6 +91,10 @@ app.controller('PageListController', function ($scope, $resource, $stateParams, 
     $timeout(function () {
         $scope.getdata($stateParams.page, $stateParams.search);
     }, 100)
+
+    $scope.gethref=function (name, params) {
+        return $state.href(name,params);
+    }
 });
 app.controller('PageEditController', function ($scope, $resource, $stateParams, $state, $parse, $filter, $timeout, rest_pages,$localStorage) {
     // 初始数据

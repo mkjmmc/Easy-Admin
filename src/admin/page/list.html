@@ -29,6 +29,9 @@
                                 <th>
                                     Config
                                 </th>
+                                <th>
+                                    链接地址
+                                </th>
                             </tr>
                             </thead>
                             <tbody ng-sortable="sortableConfig">
@@ -40,7 +43,12 @@
                                 <td>
                                     {{item.Title}}
                                 </td>
-                                <td>{{item.IsPublic}}</td>
+                                <td>
+                                    {{item.IsPublic}}
+                                </td>
+                                <td>
+                                    {{gethref("app.project.page",{pageid:item.ID})}}
+                                </td>
                                 <td>
                                     <a ui-sref="app.project.design({pageid:item.ID})">设计</a>
                                     |

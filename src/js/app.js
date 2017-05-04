@@ -28,4 +28,5 @@ angular.module('app', [
     'ngProgress',
     'cgBusy',
     'ui.bootstrap.datetimepicker',
+    'ui.tree'
 ]);

@@ -8,6 +8,7 @@ using EasyAdmin.Api.Code;
 using EasyAdmin.Api.Models;
 using System.Net.Mail;
 using System.Net;
+using EasyAdmin.Dao.Models;
 
 namespace EasyAdmin.Api.Controllers
 {
@@ -53,6 +54,27 @@ namespace EasyAdmin.Api.Controllers
                 return new ResponseMessage(MessageResult.Success, "");
             }
             return new ResponseMessage(MessageResult.Error, "创建项目失败");
+        }
+
+        [HttpPost]
+        public ResponseMessage Update([FromBody] Project model)
+        {
+            if (model== null)
+            {
+                return new ResponseMessage(MessageResult.Error, "更新失败");
+            }
+            // 判断是否有权限
+            var userproject = _UserManage.GetUserProject(_TenantManage.user.ID, model.ID);
+            if (userproject == null)
+            {
+                return new ResponseMessage(MessageResult.Error, "项目不存在");
+            }
+            if (_ProjectManage.Update(model))
+            {
+                return new ResponseMessage(MessageResult.Success, "更新成功");
+
+            }
+                return new ResponseMessage(MessageResult.Error, "更新失败");
         }
 
         /// <summary>

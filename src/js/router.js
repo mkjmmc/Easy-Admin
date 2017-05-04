@@ -130,7 +130,7 @@ app
             // })
             .state('app.project', {
                 //abstract: true,
-                url: '/project/{projectid}',
+                url: '/{projectid}',
                 templateUrl: 'admin/project/index.html',
                 resolve: {
                     deps: ['$ocLazyLoad',

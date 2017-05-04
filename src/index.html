@@ -9,6 +9,7 @@
 
     <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css"/>
     <link rel="stylesheet" href="css/font.css" type="text/css"/>
+    <link rel="stylesheet" href="vendor/angular/angular-ui-tree/angular-ui-tree.css">
 
     <!--<link rel="stylesheet" href="css/angulr.css" type="text/css"/>-->
     <link rel="stylesheet" href="css/app.css" type="text/css"/>
@@ -28,7 +29,7 @@
     </div>
 </div>
 
-<div class="app app-header-fixed" id="app" ng-class="" ui-view></div>
+<div class="app app-header-fixed" id="app" ng-class="{'app-header-fixed':app.settings.headerFixed, 'app-aside-fixed':app.settings.asideFixed, 'app-aside-folded':app.settings.asideFolded, 'app-aside-dock':app.settings.asideDock, 'container':app.settings.container}"  ui-view></div>
 
 <!-- jQuery -->
 <script src="vendor/jquery/jquery.min.js"></script>
@@ -76,7 +77,8 @@
 <!-- angular-busy -->
 <script src="vendor/angular/angular-busy/angular-busy.js"></script>
 <link rel="stylesheet" href="vendor/angular/angular-busy/angular-busy.css">
-
+<!--tree-->
+<script src="vendor/angular/angular-ui-tree/angular-ui-tree.min.js"></script>
 
 <script src="vendor/angular/angular-bootstrap-datetimepicker/js/datetimepicker.js"></script>
 <script src="vendor/angular/angular-bootstrap-datetimepicker/js/datetimepicker.templates.js"></script>
@@ -90,6 +92,7 @@
 <script src="js/restservice.js"></script>
 
 <script src="js/directives/angular-md5.js"></script>
+<script src="js/directives/ui-nav.js"></script>
 
 <!--<script src="js/directives/ui-butterbar.js"></script>-->
 

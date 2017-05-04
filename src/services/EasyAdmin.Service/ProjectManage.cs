@@ -67,5 +67,10 @@ namespace EasyAdmin.Service
         {
             return base.Get(m => m.ID == ProjectID);
         }
+
+        public bool Update(Project model)
+        {
+            return base.Update(model);
+        }
     }
 }
