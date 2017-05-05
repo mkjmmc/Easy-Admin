@@ -1,61 +1,69 @@
-<div ng-controller="ProjectDashboardController">
+<div ng-controller="ProjectDashboardController" class="app" ng-class="{'app-header-fixed':app.settings.headerFixed, 'app-aside-fixed':app.settings.asideFixed, 'app-aside-folded':app.settings.asideFolded, 'app-aside-dock':app.settings.asideDock, 'container':app.settings.container}">
     <div ng-include="'admin/project/header.html'" include-replace></div>
     <!--<div data-ng-include=" 'tpl/blocks/aside.html' " class="app-aside hidden-xs {{app.settings.asideColor}}">-->
     <!--</div>-->
-
-    <div class="project-view " ng-class="{'project-aside-display':configs.project_nav.display}">
-        <div class="project-aside bg-black">
-            <div ui-nav class="navi" >
-                <ul class="nav">
-                    <li class="hidden-folded padder m-t m-b-sm text-muted text-xs" ng-repeat-start="item in configs.project_nav.list">
-                        <span>{{item.title}}</span>
-                    </li>
-                    <li ng-repeat="item in item.children">
-                        <a class="auto" ng-href="{{item.url}}">
-                        <span class="pull-right text-muted" ng-if="item.children.length>0">
-                            <i class="fa fa-fw fa-angle-right text"></i>
-                            <i class="fa fa-fw fa-angle-down text-active"></i>
-                          </span>
-                            <i class="{{item.icon}}"></i>
-                            <span class="font-bold">{{item.title}}</span>
-                        </a>
-                        <ul class="nav nav-sub dk" ng-if="item.children.length>0">
-                            <li class="nav-sub-header">
-                                <a class="auto" ng-href="{{item.url}}">
-                                    <i class="{{item.icon}}"></i>
-                                    <span>{{item.title}}</span>
-                                </a>
-                            </li>
-                            <li ng-repeat="item in item.children">
-                                <a class="auto" ng-href="{{item.url}}">
-                                    <i class="{{item.icon}}"></i>
-                                    <span>{{item.title}}</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <!--<li class="line dk"></li>-->
-                    <li ng-repeat-end ng-show="0"></li>
-                </ul>
-            </div>
-        </div>
-        <!--<div class="pagelist-view" ng-show="pinpagelistbar">-->
-            <!--<div class="panel-layer">-->
-                <!--<div class="list-group">-->
-                    <!--<a class="list-group-item" ng-repeat="page in pages | filter:{IsPublic:1}" ui-sref="app.project.page({projectid:page.ProjectID, pageid:page.ID})">{{page.Title}}</a>-->
-                <!--</div>-->
-                <!--<a ng-click="pinpagelistbar=false">取消固定</a>-->
-            <!--</div>-->
-        <!--</div>-->
-
-        <div class="page-view" ui-view>
-        </div>
-        <!-- content -->
-        <!--<div class="app-content clearfix">-->
-            <!--<div class="app-content-body fade-in-up">-->
-                <!--<div class="page-view" ui-view>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
+    <!-- menu -->
+    <div data-ng-include=" 'admin/project/aside.html' " class="app-aside hidden-xs {{app.settings.asideColor}}" ng-class="{'hide': app.hideAside|| !configs.project_nav.display }">
     </div>
+    <!-- / menu -->
+    <div class="app-content" ng-class="{'m-n': app.hideAside || !configs.project_nav.display, 'h-full': app.hideFooter }">
+        <!--<div ui-butterbar></div>-->
+        <a href class="off-screen-toggle hide" ui-toggle-class="off-screen" data-target=".app-aside" ></a>
+        <div class="app-content-body fade-in-up " ui-view></div>
+    </div>
+    <!--<div class="project-view " ng-class="{'project-aside-display':configs.project_nav.display}">-->
+        <!--<div class="project-aside {{app.settings.asideColor}}">-->
+            <!--<div ui-nav class="navi" >-->
+                <!--<ul class="nav">-->
+                    <!--<li class="hidden-folded padder m-t m-b-sm text-muted text-xs" ng-repeat-start="item in configs.project_nav.list">-->
+                        <!--<span>{{item.title}}</span>-->
+                    <!--</li>-->
+                    <!--<li ng-repeat="item in item.children">-->
+                        <!--<a class="auto" ng-href="{{item.url}}">-->
+                        <!--<span class="pull-right text-muted" ng-if="item.children.length>0">-->
+                            <!--<i class="fa fa-fw fa-angle-right text"></i>-->
+                            <!--<i class="fa fa-fw fa-angle-down text-active"></i>-->
+                          <!--</span>-->
+                            <!--<i class="{{item.icon}}"></i>-->
+                            <!--<span class="font-bold">{{item.title}}</span>-->
+                        <!--</a>-->
+                        <!--<ul class="nav nav-sub dk" ng-if="item.children.length>0">-->
+                            <!--<li class="nav-sub-header">-->
+                                <!--<a class="auto" ng-href="{{item.url}}">-->
+                                    <!--<i class="{{item.icon}}"></i>-->
+                                    <!--<span>{{item.title}}</span>-->
+                                <!--</a>-->
+                            <!--</li>-->
+                            <!--<li ng-repeat="item in item.children">-->
+                                <!--<a class="auto" ng-href="{{item.url}}">-->
+                                    <!--<i class="{{item.icon}}"></i>-->
+                                    <!--<span>{{item.title}}</span>-->
+                                <!--</a>-->
+                            <!--</li>-->
+                        <!--</ul>-->
+                    <!--</li>-->
+                    <!--&lt;!&ndash;<li class="line dk"></li>&ndash;&gt;-->
+                    <!--<li ng-repeat-end ng-show="0"></li>-->
+                <!--</ul>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--&lt;!&ndash;<div class="pagelist-view" ng-show="pinpagelistbar">&ndash;&gt;-->
+            <!--&lt;!&ndash;<div class="panel-layer">&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="list-group">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<a class="list-group-item" ng-repeat="page in pages | filter:{IsPublic:1}" ui-sref="app.project.page({projectid:page.ProjectID, pageid:page.ID})">{{page.Title}}</a>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;<a ng-click="pinpagelistbar=false">取消固定</a>&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+        <!--<div class="page-view" ui-view>-->
+        <!--</div>-->
+        <!--&lt;!&ndash; content &ndash;&gt;-->
+        <!--&lt;!&ndash;<div class="app-content clearfix">&ndash;&gt;-->
+            <!--&lt;!&ndash;<div class="app-content-body fade-in-up">&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="page-view" ui-view>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+    <!--</div>-->
 </div>

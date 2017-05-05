@@ -162,7 +162,11 @@ app
                 resolve: {
                     deps: ['$ocLazyLoad',
                         function ($ocLazyLoad) {
-                            return $ocLazyLoad.load('admin/project/ctrl.js');
+                            return $ocLazyLoad.load([
+                                'admin/project/ctrl.js',
+                                'admin/connects/ctrl.js',
+                                'admin/page/ctrl.js'
+                            ]);
                         }]
                 }
             })

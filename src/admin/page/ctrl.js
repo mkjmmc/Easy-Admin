@@ -206,6 +206,12 @@ app.controller('PageEditController', function ($scope, $resource, $stateParams, 
     } else {
 //            $scope.initdatabase();
     }
+
+
+    $scope.$on("$destroy", function() {
+        $scope.app.hideAside = false;
+        //清除配置,不然scroll会重复请求
+    })
 });
 
 
