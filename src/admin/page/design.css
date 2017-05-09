@@ -22,7 +22,7 @@
     bottom: 0;
     width: 240px;
     z-index: 20000;
-    overflow: scroll;
+    overflow: auto;
     background-color: #ffffff;
     padding: 10px;
 }

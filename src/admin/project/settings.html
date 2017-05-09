@@ -405,13 +405,16 @@
                                     </style>
                                     <!-- Nested node template -->
                                     <script type="text/ng-template" id="nodes_renderer.html">
-                                        <a ui-tree-handle>
+                                        <a ng-click="editingnav.model=node">
                                             <span class="btn btn-link btn-xs"><i class="fa fa-fw " ng-class="{'fa-plus':collapsed && node.children.length>0, 'fa-minus':!collapsed && node.children.length>0  }" data-nodrag ng-click="toggle()"></i></span>
-                                            <i class="{{node.icon}}" ng-show="node.icon"></i>
+                                            <i class="{{node.icon}}" ng-show="node.icon"  ui-tree-handle></i>
                                             {{node.title}}
                                             <span ng-click="node.children.push({title:'subitem', icon:'fa fa-fw fa-file-o',children:[]})" data-nodrag class="pull-right btn btn-link btn-xs" ng-show="depth()<=2"><i class="fa fa-fw fa-plus"></i></span>
-                                            <span ng-click="editingnav.model=node" data-nodrag class="pull-right btn btn-link btn-xs"><i class="fa fa-fw fa-pencil"></i></span>
+                                            <!--<span ng-click="editingnav.model=node" data-nodrag class="pull-right btn btn-link btn-xs"><i class="fa fa-fw fa-pencil"></i></span>-->
                                             <span ng-click="remove()" data-nodrag class="pull-right btn btn-link btn-xs" ng-show="depth()>1"><i class="fa fa-fw fa-trash"></i></span>
+
+                                            <span  ui-tree-handle class="pull-right btn btn-link btn-xs"><i class="fa fa-fw fa-arrows"></i></span>
+
                                         </a>
                                         <ul ui-tree-nodes="" ng-model="node.children" class="nav nav-list nav-pills nav-stacked" ng-class="{hidden: collapsed}">
                                             <li ng-repeat="node in node.children" ui-tree-node ng-include="'nodes_renderer.html'" ng-class="{active:editingnav.model==node}">
