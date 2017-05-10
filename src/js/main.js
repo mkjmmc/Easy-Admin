@@ -11,7 +11,7 @@ angular.module('app')
             isSmartDevice($window) && angular.element($window.document.body).addClass('smart');
 
             // config
-            app.host = "http://localhost:3595/api";// "http://adminapi.yys.ren:8011/api";// "http://localhost:65030/api"; //"http://adminapi.yys.ren/api";
+            app.host = "http://api.admin.htmlid.cn/api" ;// "http://localhost:3595/api";// "http://adminapi.yys.ren:8011/api";// "http://localhost:65030/api"; //"http://adminapi.yys.ren/api";
             app.debug = true;
             $scope.app = {
                 host: app.host,
