@@ -166,7 +166,7 @@ namespace EasyAdmin.Api.Controllers
             }
             if (result)
             {
-                var acitveurl = string.Format(@"http://localhost:63342/Easy-Admin/src/index.html#/invite?code={0}&email={1}&t={2}", model.Code, model.Email, model.CreateTime); // Url.Action("invite", "Access", new { code = "", email = Email, t = DateTimeUtility.GetTimeMilliseconds(DateTime.Now) });
+                var acitveurl = string.Format(@"http://admin.htmlid.cn/#/invite?code={0}&email={1}&t={2}", model.Code, model.Email, model.CreateTime); // Url.Action("invite", "Access", new { code = "", email = Email, t = DateTimeUtility.GetTimeMilliseconds(DateTime.Now) });
                 var title = string.Format("{0}邀请您加入{1}项目", _TenantManage.user.Nickname, project.Name);
                 var content = string.Format(@"<div class=""easyadmin-email"" style=""background: #F2F2F2; font-family: Helvetica Neue, Microsoft Yahei, Hiragino Sans GB, WenQuanYi Micro Hei, sans-serif; font-size: 14px; font-weight: normal; margin: 0; padding: 40px 0; text-align: center"">
     <div style=""font-size: 36px; font-weight: bold;margin: 30px auto; "">Easy Admin</div>
