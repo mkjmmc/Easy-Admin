@@ -1,0 +1,158 @@
+<div ng-controller="QuickBuildController">
+    <div class="bg-light lter b-b wrapper-md">
+        <div class="row">
+            <div class="col-sm-6 col-xs-12">
+                <h1 class="m-n font-thin h3 text-black">一键生成页面</h1>
+            </div>
+            <!--<div class="col-sm-6 text-right hidden-xs">-->
+            <!--<div class="inline m-r text-left">-->
+            <!--<div class="m-b-xs">1290 <span class="text-muted">items</span></div>-->
+            <!--</div>-->
+            <!--<div class="inline text-left">-->
+            <!--<div class="m-b-xs">$30,000 <span class="text-muted">revenue</span></div>-->
+            <!--</div>-->
+            <!--</div>-->
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-3">
+            <div>
+
+                <div>
+                    <div>
+                        <select ng-model="config.connectid"
+                                ng-options="val.ID as val.Name for (key,val) in connects"
+                                ng-change="getdatabases(config.connectid)"
+                                class="form-control">
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <select ng-model="config.database"
+                                ng-options="key as key for (key,val) in connects[config.connectid].databases"
+                                ng-change="gettablelist(config.connectid,config.database)"
+                                class="form-control">
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <div class="list-group">
+                        <a ng-repeat="(key,val) in connects[config.connectid].databases[config.database]"
+                           ng-click="addtable(key)"
+                           class="list-group-item">
+                            {{key}}
+                            <i class="fa fa-plus pull-right"></i>
+                        </a>
+                    </div>
+                </div>
+        <textarea>
+            {{connects}}
+        </textarea>
+            </div>
+        </div>
+        <div class="col-xs-9">
+            <div style="">
+                <div class="" style=" display: -webkit-flex; /* Safari */  display: flex;flex-wrap: nowrap; overflow: auto">
+                    <div ng-repeat="(tablename,tableconfig) in config.tables" class="panel panel-default w m" style="flex-shrink:0;">
+                        <div class="panel-heading">{{tablename}}<i class="fa fa-remove" ng-click="removetable(tablename)"></i></div>
+                        <div class="list-group" style="height: 200px; overflow: auto">
+                            <div ng-repeat="(columnname, columnconfig) in tableconfig" class="list-group-item wrapper-xs padder">
+                                <span class="badge bg-info" style="width: 30px; overflow: hidden" title="{{columnconfig.datatype}}">{{columnconfig.datatype}}</span>
+                                <input type="checkbox" ng-model="columnconfig.display" />{{columnname}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+
+                </div>
+                <div class="col-sm-6">
+                    <h3>关联信息 <a href class="btn btn-link btn-sm pull-right" ng-click="addlink()"><i class="fa fa-plus"></i></a></h3>
+                    <table class="table table-bordered bg-white">
+                        <thead>
+                        <tr>
+                            <th colspan="2">
+                                关联字段
+                            </th>
+                            <th colspan="3">
+                                参考字段
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>
+                                表
+                            </th>
+                            <th>
+                                字段
+                            </th>
+                            <th>
+                                表
+                            </th>
+                            <th>
+                                参考字段
+                            </th>
+                            <th>
+                                显示字段
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in config.links">
+                            <td>
+                                <select ng-model="item.table"
+                                        ng-options="key as key for (key,val) in config.tables"
+                                        class="form-control">
+                                </select>
+                            </td>
+                            <td>
+                                <select ng-model="item.columnname"
+                                        ng-options="key as key for (key,val) in config.tables[item.table]"
+                                        class="form-control">
+                                </select>
+                            </td>
+                            <td>
+                                <select ng-model="item.table2"
+                                        ng-options="key as key for (key,val) in config.tables"
+                                        class="form-control">
+                                </select>
+                            </td>
+                            <td>
+                                <select ng-model="item.columnname2"
+                                        ng-options="key as key for (key,val) in config.tables[item.table2]"
+                                        class="form-control">
+                                </select>
+                            </td>
+                            <td>
+                                <select ng-model="item.columnname3"
+                                        ng-options="key as key for (key,val) in config.tables[item.table2]"
+                                        class="form-control">
+                                </select>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        <textarea>
+            {{config}}
+        </textarea>
+
+            <div>
+                <h1>确定表关联</h1>
+            </div>
+            <div>
+                <h1>定义字段类型</h1>
+            </div>
+            <div>
+                <h1>选择模板（暂时忽略）</h1>
+            </div>
+            <div>
+                <h1>生成相关页面</h1>
+            </div>
+        </div>
+    </div>
+</div>

@@ -14,6 +14,7 @@ using Newtonsoft.Json.Linq;
 using System.Data;
 using EasyAdmin.Dao.Models;
 using System.Data.SqlClient;
+using System.Text.RegularExpressions;
 
 namespace EasyAdmin.Api.Controllers
 {
@@ -82,9 +83,9 @@ namespace EasyAdmin.Api.Controllers
             {
                 return new ResponseMessage(MessageResult.Error, "项目不存在");
             }
-            _UserManage.UpdateOrderBy( ProjectID, config);
+            _UserManage.UpdateOrderBy(ProjectID, config);
 
-            return new ResponseMessage(MessageResult.Success, "",null);
+            return new ResponseMessage(MessageResult.Success, "", null);
         }
 
         /// <summary>
@@ -225,7 +226,8 @@ namespace EasyAdmin.Api.Controllers
             {
                 case "sqlserver":
                     {
-                        DbHelperSqlServer dbHelperMySql = new DbHelperSqlServer(connect.ConnectString);
+                        var connectstring = Regex.Replace(connect.ConnectString, @"initial catalog=([^;]*)", "initial catalog=" + databasename);
+                        DbHelperSqlServer dbHelperMySql = new DbHelperSqlServer(connectstring);
                         var sql = "SELECT name FROM sysobjects WHERE type = 'U';";
                         var ds = dbHelperMySql.Query(sql);
                         foreach (DataRow _row in ds.Tables[0].Rows)
@@ -281,16 +283,17 @@ namespace EasyAdmin.Api.Controllers
             {
                 case "sqlserver":
                     {
-                        var sql =
-                   string.Format("Select name FROM SysColumns Where id=Object_Id('{0}');", tablename, databasename);
-                        var dbHelperMySql = new DbHelperSqlServer(connect.ConnectString);
+                        var connectstring = Regex.Replace(connect.ConnectString, @"initial catalog=([^;]*)", "initial catalog=" + databasename);
+                        var sql = string.Format("select sc.name,st.name type from syscolumns sc,systypes st where sc.xusertype=st.xusertype and sc.id in(select id from sysobjects where xtype='U' and name='{0}');", tablename);
+                        // var sql = string.Format("Select name FROM SysColumns Where id=Object_Id('{0}');", tablename, databasename);
+                        var dbHelperMySql = new DbHelperSqlServer(connectstring);
                         var ds = dbHelperMySql.Query(sql);
                         foreach (DataRow _row in ds.Tables[0].Rows)
                         {
                             list.Add(new
                             {
                                 column_name = _row["name"].ToString(),
-                                data_type = "",
+                                data_type = _row["type"].ToString(),
                                 display = true
                             });
                         }

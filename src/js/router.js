@@ -170,6 +170,19 @@ app
                         }]
                 }
             })
+            .state('app.project.quickbuild', {
+                //abstract: true,
+                url: '/quickbuild',
+                templateUrl: 'admin/quickbuild/index.html',
+                resolve: {
+                    deps: ['$ocLazyLoad',
+                        function ($ocLazyLoad) {
+                            return $ocLazyLoad.load([
+                                'admin/quickbuild/ctrl.js',
+                            ]);
+                        }]
+                }
+            })
             .state('app.project.page', {
                 //abstract: true,
                 url: '/{pageid}',
