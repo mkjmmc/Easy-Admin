@@ -10,6 +10,7 @@ app.controller('QuickBuildController', function ($scope, $q, rest_connects, $sta
 
     $scope.config = {};
     $scope.connects = null;
+    $scope.editing = {column: null};
 
     // 获取连接字符串
     $scope.getconnects = function () {
@@ -193,31 +194,77 @@ app.controller('QuickBuildController', function ($scope, $q, rest_connects, $sta
         if (!$scope.config.tables) {
             $scope.config.tables = {};
         }
-        $scope.config.tables[tablename] = {};
-        // 获取列信息
-        $scope.getcolumnlist($scope.config.connectid, $scope.config.database, tablename)
-            .then(function (data) {
-                for(var i=0;i<data.length;i++){
-                    var name = data[i].column_name;
-                    $scope.config.tables[tablename][name] = {
-                        display: true,
-                        datatype: data[i].data_type
+        if (!$scope.config.tables[tablename]) {
+            $scope.config.tables[tablename] = {};
+            // 获取列信息
+            $scope.getcolumnlist($scope.config.connectid, $scope.config.database, tablename)
+                .then(function (data) {
+                    for (var i = 0; i < data.length; i++) {
+                        var name = data[i].column_name;
+                        var type = getdatatype(data[i].data_type);
+                        $scope.config.tables[tablename][name] = {
+                            display: true,
+                            displayname: name,
+                            datatype: data[i].data_type,
+                            primary_key: data[i].primary_key,
+                            type: type,
+                            options:[],
+                            link:{}
+                        };
+                        if (type == 'number') {
+                            $scope.config.tables[tablename][name].fractionSize = 0
+                        }
+                        if(name.toLowerCase().indexOf('time') > 0 && data[i].data_type == 'bigint' ){
+                            $scope.config.tables[tablename][name].type='timestamp';
+                        }
                     }
-                }
-                //$scope.config.tables[tablename] = data;
-            })
+                    //$scope.config.tables[tablename] = data;
+                })
+        }
+    };
+    var getcolumnconfig = function(data){
+
     }
-    $scope.removetable=function(tablename){
+
+    // 数据库类型转换为显示格式类型
+    var getdatatype = function (datatype) {
+        if (["int", "bigint", "long", "tinyint"].indexOf(datatype) >= 0) {
+            return "number";
+        }
+        if (["varchar", "nvarchar", "char", "nchar", "uniqueidentifier"].indexOf(datatype) >= 0) {
+            return "text";
+        }
+        if (["longtext"].indexOf(datatype) >= 0) {
+            return "textarea";
+        }
+        if (["datetime", "datetime2"].indexOf(datatype) >= 0) {
+            return "datetime";
+        }
+    };
+    $scope.removetable = function (tablename) {
         if (!$scope.config.tables) {
             $scope.config.tables = {};
         }
         delete $scope.config.tables[tablename];
-    }
-    $scope.addlink=function(){
+    };
+    $scope.addlink = function () {
         if (!$scope.config.links) {
             $scope.config.links = [];
         }
         $scope.config.links.push({});
+    };
+
+    // 生成页面
+    $scope.createpages = function(){
+
     }
+
+
+    $scope.$on("$destroy", function() {
+        //$scope.app.hideAside = false;
+        //清除配置,不然scroll会重复请求
+       $scope. app.appcontentfull = false;
+       $scope. app.hideFooter=false;
+    })
 });
 

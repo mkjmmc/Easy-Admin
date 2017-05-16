@@ -228,7 +228,7 @@ namespace EasyAdmin.Api.Controllers
                     {
                         var connectstring = Regex.Replace(connect.ConnectString, @"initial catalog=([^;]*)", "initial catalog=" + databasename);
                         DbHelperSqlServer dbHelperMySql = new DbHelperSqlServer(connectstring);
-                        var sql = "SELECT name FROM sysobjects WHERE type = 'U';";
+                        var sql = "SELECT name FROM sysobjects WHERE type = 'U' ORDER BY name;";
                         var ds = dbHelperMySql.Query(sql);
                         foreach (DataRow _row in ds.Tables[0].Rows)
                         {
@@ -284,16 +284,28 @@ namespace EasyAdmin.Api.Controllers
                 case "sqlserver":
                     {
                         var connectstring = Regex.Replace(connect.ConnectString, @"initial catalog=([^;]*)", "initial catalog=" + databasename);
-                        var sql = string.Format("select sc.name,st.name type from syscolumns sc,systypes st where sc.xusertype=st.xusertype and sc.id in(select id from sysobjects where xtype='U' and name='{0}');", tablename);
+                        var sql = string.Format(@"
+select sc.name,st.name type from syscolumns sc,systypes st where sc.xusertype=st.xusertype and sc.id in(select id from sysobjects where xtype='U' and name='{0}');
+EXEC sp_pkeys @table_name='{0}';
+", tablename);
                         // var sql = string.Format("Select name FROM SysColumns Where id=Object_Id('{0}');", tablename, databasename);
                         var dbHelperMySql = new DbHelperSqlServer(connectstring);
                         var ds = dbHelperMySql.Query(sql);
                         foreach (DataRow _row in ds.Tables[0].Rows)
                         {
+                            var ispk = false;
+                            foreach (DataRow pkrow in ds.Tables[1].Rows)
+                            {
+                                if(pkrow["column_name"].ToString() == _row["name"].ToString())
+                                {
+                                    ispk = true;
+                                }
+                            }
                             list.Add(new
                             {
                                 column_name = _row["name"].ToString(),
                                 data_type = _row["type"].ToString(),
+                                primary_key = ispk,
                                 display = true
                             });
                         }
@@ -311,6 +323,7 @@ namespace EasyAdmin.Api.Controllers
                             {
                                 column_name = _row["column_name"].ToString(),
                                 data_type = _row["data_type"].ToString(),
+                                primary_key = _row["column_key"].ToString().ToUpper() == "PRI",
                                 display = true
                             });
                         }

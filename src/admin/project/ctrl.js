@@ -247,7 +247,7 @@ app.controller("ProjectSettingsController", function ($scope, $state, $statePara
     // $scope.pinpagelistbar = false;
     $scope.project = {};
     $scope.users = [];
-    $scope.pages=[];
+    $scope.pages = [];
     $scope.editingnav = {model: null};
     $scope.configs = {
         project_nav: {
@@ -348,8 +348,17 @@ app.controller("ProjectSettingsController", function ($scope, $state, $statePara
     }
 
 
-    $scope.state2href=function (name, params) {
-        return $state.href(name,params);
+    $scope.state2href = function (name, params) {
+        return $state.href(name, params);
     }
+
+    $scope.app.appcontentfull = true;
+    $scope.app.hideFooter = true;
+    $scope.$on("$destroy", function () {
+        //$scope.app.hideAside = false;
+        //清除配置,不然scroll会重复请求
+        $scope.app.appcontentfull = false;
+        $scope.app.hideFooter = false;
+    })
 });
 

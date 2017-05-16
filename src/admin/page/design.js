@@ -787,7 +787,8 @@ angular.module('app')
                 $scope.utility = {
                     datasource: {
                         data: {}
-                    }
+                    },
+                    view:{}
                 };
                 // 获取数据
                 $scope.utility.datasource.getdata = function (name, config, reflash) {
@@ -960,6 +961,45 @@ angular.module('app')
                     }
                     return delay.promise;
                 }
+                // 显示视图
+                $scope.utility.view.show=function(name){
+                    //var delay = $q.defer();
+                    var view = getobjinarray($scope.config.views, 'name', name);
+                    if (!view) {
+                        return;
+                    }
+                    var $ctrl = this;
+                    var modalInstance = $uibModal.open({
+                        animation: true,
+                        ariaLabelledBy: 'modal-title',
+                        ariaDescribedBy: 'modal-body',
+                        // templateUrl: '/areas/enter/content/query/datasource/edit.html',
+                        template: '<div>\n    <div class="modal-header">\n        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>\n        <h4 class="modal-title">{{currentview.title}}</h4>\n    </div>\n    <div class="modal-body">\n        <div ng-repeat="component in config.views | filter:{name:currentview.name}" ng-init="editable=false" ng-include="\'list.html\'"></div>\n    </div>\n    <div class="modal-footer">\n        <div ng-repeat="component in currentview.buttons" ng-include="\'button.html\'" include-replace>\n        </div>\n    </div>\n</div><!-- /.modal-content -->',
+                        controller: function ($scope, data) {
+                            $scope.currentview = getobjinarray($scope.config.views, "name", data.name);
+                            $scope.currentviewname = data.name;
+                        },
+                        scope: $scope,
+                        //controllerAs: '$ctrl',
+                        resolve: {
+                            data: function () {
+                                return {
+                                    name: name
+                                };
+                            },
+                            // deps: [
+                            //     // '$ocLazyLoad',
+                            //     // function ($ocLazyLoad) {
+                            //     //     return $ocLazyLoad.load('/areas/enter/content/query/datasource/ctrl.js');
+                            //     // }
+                            // ]
+                        }
+                    });
+                    return modalInstance;
+                };
+                $scope.utility.view.hide=function(name){
+
+                };
             },
             link: function ($scope, $element, $attrs, pCtrl) {
 

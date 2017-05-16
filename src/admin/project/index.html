@@ -9,7 +9,8 @@
     <div class="app-content" ng-class="{'m-n': app.hideAside || !configs.project_nav.display, 'h-full': app.hideFooter }">
         <!--<div ui-butterbar></div>-->
         <a href class="off-screen-toggle hide" ui-toggle-class="off-screen" data-target=".app-aside" ></a>
-        <div class="app-content-body fade-in-up " ui-view></div>
+
+        <div class="app-content-body fade-in-up " ng-class="{'app-content-full':app.appcontentfull, 'h-full': app.hideFooter}" ui-view></div>
 
     </div>
     <!--<div class="project-view " ng-class="{'project-aside-display':configs.project_nav.display}">-->
