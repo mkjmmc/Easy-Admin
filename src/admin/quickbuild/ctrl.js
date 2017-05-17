@@ -192,37 +192,58 @@ app.controller('QuickBuildController', function ($scope, $q, rest_connects, $sta
 
     $scope.addtable = function (tablename) {
         if (!$scope.config.tables) {
-            $scope.config.tables = {};
+            $scope.config.tables = [];
         }
-        if (!$scope.config.tables[tablename]) {
-            $scope.config.tables[tablename] = {};
+        // 判断原先是否存在
+        var tb = getobjinarray($scope.config.tables, "table_name", tablename);
+        if (!tb) {
+            tb = {
+                table_name: tablename,
+                columns: []
+            };
+            $scope.config.tables.push(tb);
             // 获取列信息
             $scope.getcolumnlist($scope.config.connectid, $scope.config.database, tablename)
                 .then(function (data) {
                     for (var i = 0; i < data.length; i++) {
                         var name = data[i].column_name;
                         var type = getdatatype(data[i].data_type);
-                        $scope.config.tables[tablename][name] = {
+
+                        var column = {
+                            column_name: name,
                             display: true,
                             displayname: name,
                             datatype: data[i].data_type,
                             primary_key: data[i].primary_key,
                             type: type,
-                            options:[],
-                            link:{}
+                            options: [],
+                            isedit: !data[i].primary_key,
+                            link: {}
                         };
+                        tb.columns.push(column)
+
+                        // $scope.config.tables[tablename][name] = {
+                        //     display: true,
+                        //     displayname: name,
+                        //     datatype: data[i].data_type,
+                        //     primary_key: data[i].primary_key,
+                        //     type: type,
+                        //     options: [],
+                        //     isedit: !data[i].primary_key,
+                        //     link: {}
+                        // };
                         if (type == 'number') {
-                            $scope.config.tables[tablename][name].fractionSize = 0
+                            column.fractionSize = 0
                         }
-                        if(name.toLowerCase().indexOf('time') > 0 && data[i].data_type == 'bigint' ){
-                            $scope.config.tables[tablename][name].type='timestamp';
+                        if (name.toLowerCase().indexOf('time') > 0 && data[i].data_type == 'bigint') {
+                            column.type = 'timestamp';
                         }
                     }
                     //$scope.config.tables[tablename] = data;
                 })
         }
     };
-    var getcolumnconfig = function(data){
+    var getcolumnconfig = function (data) {
 
     }
 
@@ -255,16 +276,175 @@ app.controller('QuickBuildController', function ($scope, $q, rest_connects, $sta
     };
 
     // 生成页面
-    $scope.createpages = function(){
+    $scope.createpages = function () {
 
-    }
+        for (var i = 0; i < $scope.config.tables.length; i++) {
+            var tb = $scope.config.tables[i];
+            console.log(tb);
+            var cfg = {
+                "type": "page",
+                "name": tb.table_name,
+                "datasources": [],
+                "views": [],
+                "screenwidth": 1280,
+                "lockscreenwidth": true,
+                "selected": false,
+                "key": 1494922346575,
+                "id": 1494922346575,
+            };
+            // 添加数据源
+            {
+                // 字段
+                var fields = {};
+
+                // 排序
+                var sort = [];
+                for (var j = 0; j < tb.columns.length; j++) {
+                    fields[tb.columns[j].column_name] = true;
+                    if (tb.columns[j].primary_key) {
+                        sort.push({
+                            "name": tb.columns[j].column_name,
+                            "sort": "-1"
+                        })
+                    }
+                }
+
+                // 基本查询
+                var dsconfigs = [{
+                    "type": "select",
+                    "database": $scope.config.database,
+                    "table": tb.table_name,
+                    "fields": fields,
+                    "condition": [],
+                    "sort": sort,
+                    "limit": [],
+                    "modifier": [],
+                    "values": [],
+                    "name": "list"
+                }];
+
+                // 关联查询
+                for (var j = 0; j < tb.columns.length; j++) {
+                    var col = tb.columns[j];
+                    var fields = {};
+                    fields[col.link.columnname] = true;
+                    fields[col.link.columnname_display] = true;
+                    if (col.link.table) {
+                        dsconfigs.push({
+                            "type": "select",
+                            "database": $scope.config.database,
+                            "table": col.link.table,
+                            "fields": fields,
+                            "condition": [{
+                                "opt": "in dataset",
+                                "value": "",
+                                "name": col.link.columnname,
+                                "dataset": "list",
+                                "datasetcolumn": col.column_name
+                            }],
+                            "sort": [],
+                            "limit": [],
+                            "modifier": [],
+                            "values": [],
+                            "name": col.link.table
+                        })
+                    }
+                }
+
+                // 列表，关联查询
+                cfg.datasources.push({
+                    "name": "lists",
+                    "configs": dsconfigs,
+                    "connectid": $scope.config.connectid
+                });
+
+                //TODO 插入
+                //TODO 更新
+            }
+            // 添加view
+            {
+                var datatablecolumns = [];
+                for(var j=0;j<tb.columns.length;j++){
+                    datatablecolumns.push(tb.columns[j])
+                }
+                cfg.views.push({
+                    "type": "view",
+                    "name": tb.table_name,
+                    "children": [{
+                        "name": tb.table_name,
+                        "type": "panel",
+                        "children": [{
+                            "name": "DataTable",
+                            "type": "datatable",
+                            "config": {
+                                "title": "查询",
+                                "table": "list",
+                                "columns": datatablecolumns,
+                                "condition": [],
+                                "orderby": [],
+                                "page": 1,
+                                "pagesize": "10",
+                                "datasource": "lists",
+                                "type": "list"
+                            },
+                            "children": [],
+                            "key": 1494922425912,
+                            "id": 1494922425912,
+                            "selected": false
+                        }],
+                        "key": 1494922346218,
+                        "id": 1494922346218,
+                        "selected": false
+                    }],
+                    "buttons": [],
+                    "selected": false,
+                    "key": 1495012625504,
+                    "id": 1495012625504,
+                    "viewtype": "view"
+                })
+            }
+
+            // 保存至服务器
+            var params = {
+                config: JSON.stringify(cfg),
+                id: 0,
+                projectid: $scope.projectid,
+                IsPublic: 1
+            };
+            console.log(params)
+
+        $scope.savePromise = rest_pages
+            .save(params)
+            .then(function (data) {
+                if (data.result == 0) {
+                    // 保存成功
+                    $state.reload('app.project.design', {projectid: data.data.ProjectID, pageid: data.data.ID});
+//                alert('保存成功');
+                } else {
+                    // 保存失败
+                    alert('保存失败');
+                }
+            }, function (resp) {
+                alert(resp);
+            });
+        }
+    };
 
 
-    $scope.$on("$destroy", function() {
+    $scope.$on("$destroy", function () {
         //$scope.app.hideAside = false;
         //清除配置,不然scroll会重复请求
-       $scope. app.appcontentfull = false;
-       $scope. app.hideFooter=false;
+        $scope.app.appcontentfull = false;
+        $scope.app.hideFooter = false;
     })
 });
 
+
+function getobjinarray(arr, key, value) {
+    for (var i = 0; i < arr.length; i++) {
+        if (arr[i][key] == value) {
+            return arr[i];
+        }
+    }
+    return null;
+}

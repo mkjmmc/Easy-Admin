@@ -1,0 +1,11 @@
+<div class="app-content-body fade-in-up " ng-show="connects.length==0">
+    <div class="text-center m-t-xxl" ng-if="project.UserID==getsession_user().ID">
+        <div style="width: 500px; margin: 0 auto;">当前项目还没有设置数据库连接，请点击下面按钮进入设置</div>
+        <div class="m-t-lg">
+            <a href  ui-sref="app.project.settings" class="btn btn-primary btn-lg">项目设置</a>
+        </div>
+    </div>
+    <div class="text-center m-t-xxl" ng-if="project.UserID!=getsession_user().ID">
+        <div style="width: 500px; margin: 0 auto;">当前项目还没有设置数据库连接，请联系项目管理员设置！</div>
+    </div>
+</div>

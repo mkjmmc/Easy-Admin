@@ -35,7 +35,7 @@ namespace EasyAdmin.Service
 
         public List<Page> GetListByProjectID(long ProjectID)
         {
-            return base.LoadAll(m => m.ProjectID == ProjectID).OrderBy(m=>m.OrderBy).ToList();
+            return base.LoadAll(m => m.ProjectID == ProjectID && m.IsDelete == 0).OrderBy(m=>m.OrderBy).ToList();
         }
 
         public Page GetModel(long ID)

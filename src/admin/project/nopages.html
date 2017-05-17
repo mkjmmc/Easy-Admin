@@ -1,0 +1,12 @@
+
+<div class="app-content-body fade-in-up " ng-show="pages.length==0">
+    <div class="text-center m-t-xxl" ng-if="project.UserID==getsession_user().ID">
+        <div style="width: 500px; margin: 0 auto;">当前项目还没有创建任何页面，使用"一键生成页面"功能可以直接将数据库表转换成可操作的界面</div>
+        <div class="m-t-lg">
+            <a href  ui-sref="app.project.quickbuild" class="btn btn-primary btn-lg">一键生成页面</a>
+        </div>
+    </div>
+    <div class="text-center m-t-xxl" ng-if="project.UserID!=getsession_user().ID">
+        <div style="width: 500px; margin: 0 auto;">当前项目还没有创建任何页面，请联系项目管理员创建管理页面！</div>
+    </div>
+</div>

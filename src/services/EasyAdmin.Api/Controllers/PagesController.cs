@@ -562,6 +562,36 @@ EXEC sp_pkeys @table_name='{0}';
                 }
             }
         }
+
+        [HttpPost]
+        public ResponseMessage Delete(long PageID)
+        {
+            // 获取
+            var model = _PageManage.GetModel(PageID);
+            if (model != null)
+            {
+                // 判断是否有权限
+                var userproject = _UserManage.GetUserProject(_TenantManage.user.ID, model.ProjectID);
+                if (userproject == null)
+                {
+                    return new ResponseMessage(MessageResult.Error, "项目不存在");
+                }
+                else
+                {
+                    model.IsDelete = 1;
+                    if (_PageManage.Update(model))
+                    {
+                        return new ResponseMessage(MessageResult.Success, "", model);
+                    }
+                    else
+                    {
+                        return new ResponseMessage(MessageResult.Error, "删除失败", model);
+                    }
+                }
+            }
+            //return new string[] { "value1", "value2" };
+            return new ResponseMessage(MessageResult.Error, "");
+        }
     }
 
     /// <summary>

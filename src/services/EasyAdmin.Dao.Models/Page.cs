@@ -18,5 +18,6 @@ namespace EasyAdmin.Dao.Models
         public string Config { get; set; }
         public int IsPublic { get; set; }
         public int OrderBy { get; set; }
+        public int IsDelete { get; set; }
     }
 }

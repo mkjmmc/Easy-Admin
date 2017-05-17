@@ -3,7 +3,7 @@ angular.module('app')
     .directive('design', function () {
         return {
             restrict: 'E',
-            template: "<div class=\"design-container\" ng-init=\"\" ng-class=\"{\'editable\':editable}\">\n    <!--design panels-->\n    <div class=\"design-panels\" ng-show=\"editable\">\n        <div class=\"\" ng-if=\"editable\"><input type=\"text\" ng-model=\"config.name\" class=\"form-control\"/></div>\n        <div class=\" \" ng-if=\"editable\">\n           \n            <div class=\"panel panel-default\">\n                <div class=\"panel-heading\">数据源\n\n                    <div class=\"pull-right\"><a ng-click=\"config.datasources.push({name:\'数据源\', configs:[]})\">添加</a></div>\n                </div>\n                <div class=\"list-group\">\n                    <a ng-repeat=\"ds in config.datasources\" class=\"list-group-item\" ng-click=\"editdatasource(ds)\"> {{ds.name}} <span class=\"badge\">{{ds.configs.length}}</span> </a>\n                </div>\n            </div>\n            <div class=\"panel panel-default\">\n                <div class=\"panel-heading\">子视图\n\n                    <div class=\"pull-right\"><a ng-click=\"config.views.push({type:\'view\',name:\'子视图\', children:[],buttons:[]})\">添加</a></div>\n                </div>\n                <div class=\"list-group\">\n                    <a class=\"list-group-item\" ng-click=\"editviews(config)\">主视图</a>\n                    <a ng-repeat=\"view in config.views\" class=\"list-group-item\" ng-click=\"editviews(view)\">{{view.name}}</a>\n                </div>\n            </div>\n            <div class=\"panel panel-default\">\n                <div class=\"panel-heading\">\n                    <span>组件库</span>\n                </div>\n                <div ng-sortable=\"sortableConfigtoolbox\" class=\" list-group no-radius no-border  m-b-none\">\n                    <div ng-repeat=\"item in toolbox\" class=\" list-group-item hover-anchor b-a no-select ng-scope  m-l-none\"><span ng-bind=\"item.name\"></span></div>\n                </div>\n            </div>\n        </div>\n\n\n    </div>\n    <div class=\"design-toolbar-topcenter\">\n        <div class=\"btn-group\" role=\"group\" aria-label=\"\">\n            <button type=\"button\" class=\"btn btn-default\" ng-click=\"scale=scale+0.25\"><i class=\'fa fa-plus\'></i></button>\n            <button type=\"button\" class=\"btn btn-default\">{{scale*100}}%</button>\n            <button type=\"button\" class=\"btn btn-default\" ng-click=\"scale=scale>0.25?scale-0.25:scale\"><i class=\'fa fa-minus\'></i></button>\n        </div>\n        <div class=\"btn-group\" role=\"group\" aria-label=\"\">\n            <select ng-model=\'config.screenwidth\'\n                    ng-options=\'screen for screen in screens\'\n                    ng-disabled=\'config.lockscreenwidth\'\n                    class=\'form-control\'></select>\n        </div>\n        <div class=\"btn-group\" role=\"group\" aria-label=\"\">\n            <button type=\"button\" class=\"btn btn-default\"\n                    ng-click=\'config.lockscreenwidth=!config.lockscreenwidth\'\n                    uib-tooltip=\"{{config.lockscreenwidth?\'unlock the screen width\':\'lock the screen width to \' + config.screenwidth + \'px\'}}\"\n                    tooltip-append-to-body=\"true\">\n                <i class=\"fa fa-fw\" ng-class=\"{\'fa-lock\':config.lockscreenwidth,\'fa-unlock\':!config.lockscreenwidth}\"></i>\n            </button>\n        </div>\n        <!--{{app.debug}}-->\n    </div>\n    <!--<div style=\'position: absolute; bottom: 0; left: 0; right: 240px; height: 200px; overflow: scroll; z-index: 30003; background-color: #ffffff\' ng-if=\"debug\">-->\n        <!--<div><br><br>{{config}}</div>-->\n    <!--</div>-->\n    <!--design-body-->\n    <div class=\"design-body\">\n        <div class=\"design-page\"\n             ng-show=\"editable\"\n             ng-style=\"{\n        \'background-image\':\'linear-gradient(transparent 0px, transparent \'+scale*2+\'px, rgb(255, 255, 255) \'+scale*2+\'px, rgb(255, 255, 255) \'+scale*20+\'px), linear-gradient(to right, rgb(200, 195, 199) 0px, rgb(200, 195, 199) \'+scale*2+\'px, rgb(255, 255, 255) \'+scale*2+\'px, rgb(255, 255, 255) \'+scale*20+\'px)\'\n        ,\'background-size\':\'\'+scale*20+\'px \'+scale*20+\'px\'\n        }\">\n            <div class=\"layout-container\"\n                 ng-style=\"{\'transform\':\'scale(\'+scale+\',\'+scale+\')\',\'max-width\':config.screenwidth}\"\n                 ng-include=\"\'component.html\'\"></div>\n        </div>\n        <div class=\"design-page\"\n             ng-show=\"!editable\">\n            <div class=\"layout-container wrapper\"\n                 \n                 ng-style=\"{\'max-width\':config.lockscreenwidth ? config.screenwidth : \'\'}\"\n                 ng-include=\"\'component.html\'\"></div>\n        </div>\n    </div>\n\n</div>",
+            template: "<div class=\"design-container\" ng-init=\"\" ng-class=\"{\'editable\':editable}\">\n    <!--design panels-->\n    <div class=\"design-panels\" ng-show=\"editable\">\n        <div class=\"\" ng-if=\"editable\"><input type=\"text\" ng-model=\"config.name\" class=\"form-control\"/></div>\n        <div class=\" \" ng-if=\"editable\">\n           \n            <div class=\"panel panel-default\">\n                <div class=\"panel-heading\">数据源\n\n                    <div class=\"pull-right\"><a ng-click=\"config.datasources.push({name:\'数据源\', configs:[]})\">添加</a></div>\n                </div>\n                <div class=\"list-group\">\n                    <a ng-repeat=\"ds in config.datasources\" class=\"list-group-item\" ng-click=\"editdatasource(ds)\"> {{ds.name}} <span class=\"badge\">{{ds.configs.length}}</span> </a>\n                </div>\n            </div>\n            <div class=\"panel panel-default\">\n                <div class=\"panel-heading\">子视图\n\n                    <div class=\"pull-right\"><a ng-click=\"config.views.push({type:\'view\',name:\'子视图\', children:[],buttons:[]})\">添加</a></div>\n                </div>\n                <div class=\"list-group\" ng-sortable>\n                    <!--<a class=\"list-group-item\" ng-click=\"editviews(config)\">主视图</a>-->\n                    <a ng-repeat=\"view in config.views\" class=\"list-group-item\" ng-click=\"editviews(view)\">{{view.name}}</a>\n                </div>\n            </div>\n            <div class=\"panel panel-default\">\n                <div class=\"panel-heading\">\n                    <span>组件库</span>\n                </div>\n                <div ng-sortable=\"sortableConfigtoolbox\" class=\" list-group no-radius no-border  m-b-none\">\n                    <div ng-repeat=\"item in toolbox\" class=\" list-group-item hover-anchor b-a no-select ng-scope  m-l-none\"><span ng-bind=\"item.name\"></span></div>\n                </div>\n            </div>\n        </div>\n\n\n    </div>\n    <div class=\"design-toolbar-topcenter\">\n        <div class=\"btn-group\" role=\"group\" aria-label=\"\">\n            <button type=\"button\" class=\"btn btn-default\" ng-click=\"scale=scale+0.25\"><i class=\'fa fa-plus\'></i></button>\n            <button type=\"button\" class=\"btn btn-default\">{{scale*100}}%</button>\n            <button type=\"button\" class=\"btn btn-default\" ng-click=\"scale=scale>0.25?scale-0.25:scale\"><i class=\'fa fa-minus\'></i></button>\n        </div>\n        <div class=\"btn-group\" role=\"group\" aria-label=\"\">\n            <select ng-model=\'config.screenwidth\'\n                    ng-options=\'screen for screen in screens\'\n                    ng-disabled=\'config.lockscreenwidth\'\n                    class=\'form-control\'></select>\n        </div>\n        <div class=\"btn-group\" role=\"group\" aria-label=\"\">\n            <button type=\"button\" class=\"btn btn-default\"\n                    ng-click=\'config.lockscreenwidth=!config.lockscreenwidth\'\n                    uib-tooltip=\"{{config.lockscreenwidth?\'unlock the screen width\':\'lock the screen width to \' + config.screenwidth + \'px\'}}\"\n                    tooltip-append-to-body=\"true\">\n                <i class=\"fa fa-fw\" ng-class=\"{\'fa-lock\':config.lockscreenwidth,\'fa-unlock\':!config.lockscreenwidth}\"></i>\n            </button>\n        </div>\n        <!--{{app.debug}}-->\n    </div>\n    <!--<div style=\'position: absolute; bottom: 0; left: 0; right: 240px; height: 200px; overflow: scroll; z-index: 30003; background-color: #ffffff\' ng-if=\"debug\">-->\n        <!--<div><br><br>{{config}}</div>-->\n    <!--</div>-->\n    <!--design-body-->\n    <div class=\"design-body\">\n        <div class=\"design-page\"\n             ng-show=\"editable\"\n             ng-style=\"{\n        \'background-image\':\'linear-gradient(transparent 0px, transparent \'+scale*2+\'px, rgb(255, 255, 255) \'+scale*2+\'px, rgb(255, 255, 255) \'+scale*20+\'px), linear-gradient(to right, rgb(200, 195, 199) 0px, rgb(200, 195, 199) \'+scale*2+\'px, rgb(255, 255, 255) \'+scale*2+\'px, rgb(255, 255, 255) \'+scale*20+\'px)\'\n        ,\'background-size\':\'\'+scale*20+\'px \'+scale*20+\'px\'\n        }\">\n            <div class=\"layout-container\"\n                 ng-style=\"{\'transform\':\'scale(\'+scale+\',\'+scale+\')\',\'max-width\':config.screenwidth}\"\n                 ng-include=\"\'component.html\'\"></div>\n        </div>\n        <div class=\"design-page\"\n             ng-show=\"!editable\">\n            <div class=\"layout-container wrapper\"\n                 \n                 ng-style=\"{\'max-width\':config.lockscreenwidth ? config.screenwidth : \'\'}\"\n                 ng-include=\"\'component.html\'\"></div>\n        </div>\n    </div>\n\n</div>",
             replace: true,
             scope: {
                 config: "=",
@@ -42,19 +42,22 @@ angular.module('app')
                     '</div>'
                 );
                 // 容器
+                $templateCache.put('viewlist.html',
+                    '<div ng-repeat="component in component.views" ng-include="\'component.html\'"></div>'
+                );
                 $templateCache.put('view.html',
-                    '<div class="modal" style="display: block;position: relative;" tabindex="-1" role="dialog">\n    <div class="modal-dialog" role="document">\n        <div class="modal-content">\n            <div class="modal-header">\n                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>\n                <h4 class="modal-title">{{component.title}}</h4>\n            </div>\n            <div class="modal-body" ng-include="\'list.html\'">\n            </div>\n            <div class="modal-footer">\n                <div ng-repeat="component in component.buttons" ng-include="\'button.html\'" include-replace>\n                </div>\n                <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->\n                <!--<button type="button" class="btn btn-primary">Save changes</button>-->\n            </div>\n        </div>\n        <!-- /.modal-content -->\n    </div>\n    <!-- /.modal-dialog -->\n</div><!-- /.modal -->'
+                    '<div class="modal" style="display: block;position: relative;" tabindex="-1" role="dialog" ng-if="component.viewtype==\'dialog\'">\n    <div class="modal-dialog" role="document">\n        <div class="modal-content">\n            <div class="modal-header">\n                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>\n                <h4 class="modal-title">{{component.title}}</h4>\n            </div>\n            <div class="modal-body" ng-include="\'list.html\'">\n            </div>\n            <div class="modal-footer">\n                <div ng-repeat="component in component.buttons" ng-include="\'button.html\'" include-replace>\n                </div>\n                <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->\n                <!--<button type="button" class="btn btn-primary">Save changes</button>-->\n            </div>\n        </div>\n        <!-- /.modal-content -->\n    </div>\n    <!-- /.modal-dialog -->\n</div><!-- /.modal -->\n<div ng-if="component.viewtype==\'view\'" ng-include="\'list.html\'">\n</div>'
                 );
                 $templateCache.put('view.config.html',
-                    '<div class="form-horizontal ">\n    <div class="form-group">\n        <label class="col-sm-2 control-label">名称</label>\n\n        <div class="col-sm-10">\n            <input type="text" ng-model="component.name" class="form-control">\n        </div>\n    </div>\n    <div class="form-group">\n        <label class="col-sm-2 control-label">标题</label>\n\n        <div class="col-sm-10">\n            <input type="text" ng-model="component.title" class="form-control">\n        </div>\n    </div>\n    <div class="form-group">\n        <label class="col-sm-2 control-label">按钮</label>\n\n        <div class="col-sm-10">\n            <div ng-repeat="component in component.buttons" ng-include="\'button.config.html\'">\n                \n            </div>\n            <a class="btn btn-default" ng-click="component.buttons.push( {\n                        name: \'按钮\',\n                        type: \'button\',\n                        class: \'\',\n                        onclick: \'\'\n                    })"><i class="fa fa-plus"></i></a>\n            <!--<input type="text" ng-model="component.title" class="form-control">-->\n        </div>\n    </div>\n    <!--<input type="text" ng-model="component.title">-->\n</div>\n                    '
+                    '<div class="form-horizontal ">\n    <div class="form-group">\n        <label class="col-sm-2 control-label">名称</label>\n\n        <div class="col-sm-10">\n            <input type="text" ng-model="component.name" class="form-control">\n        </div>\n    </div>\n    <div class="form-group">\n        <label class="col-sm-2 control-label">类型</label>\n\n        <div class="col-sm-10">\n            <select ng-model="component.viewtype" class="form-control">\n                <option value="view">View</option>\n                <option value="dialog">Dialog</option>\n            </select>\n        </div>\n    </div>\n\n    <div class="form-group" ng-show="component.viewtype==\'dialog\'">\n        <label class="col-sm-2 control-label">标题</label>\n\n        <div class="col-sm-10">\n            <input type="text" ng-model="component.title" class="form-control">\n        </div>\n    </div>\n    <div class="form-group" ng-show="component.viewtype==\'dialog\'">\n        <label class="col-sm-2 control-label">按钮</label>\n\n        <div class="col-sm-10">\n            <div ng-repeat="component in component.buttons" ng-include="\'button.config.html\'">\n\n            </div>\n            <a class="btn btn-default" ng-click="component.buttons.push( {\n                        name: \'按钮\',\n                        type: \'button\',\n                        class: \'\',\n                        onclick: \'\'\n                    })"><i class="fa fa-plus"></i></a>\n            <!--<input type="text" ng-model="component.title" class="form-control">-->\n        </div>\n    </div>\n    <!--<input type="text" ng-model="component.title">-->\n</div>\n                    '
                 );
 
                 // 列表
                 $templateCache.put('list.html',
                     '<div ng-sortable="sortableConfig" class="layout">' +
-                        //'<div>' +
-                        //'           <div class="btn btn-default btn-xs" ng-click="paste(component.children)" ng-if="1==1"><i class="fa fa-copy"></i> 黏贴</div>' +
-                        //'</div>' +
+                    //'<div>' +
+                    //'           <div class="btn btn-default btn-xs" ng-click="paste(component.children)" ng-if="1==1"><i class="fa fa-copy"></i> 黏贴</div>' +
+                    //'</div>' +
                     '   <div ng-repeat="component in component.children"' +
 //                    '       ng-class="{selected: selecteditem === component}"' +
 //                    '       ng-click="selectcomponent(component,$event)"' +
@@ -72,7 +75,7 @@ angular.module('app')
                     '       <div class="pull-left label label-default">{{component.type}}</div>' +
                     '       <div class="pull-right toolbar">' +
                     '           <div class="btn btn-default btn-xs" ng-click="showconfig(component)"><i class="fa fa-cog"></i> 配置</div>' +
-                        //'           <div class="btn btn-default btn-xs" ng-click="copy(component)"><i class="fa fa-copy"></i> 复制</div>' +
+                    //'           <div class="btn btn-default btn-xs" ng-click="copy(component)"><i class="fa fa-copy"></i> 复制</div>' +
                     '           <div class="btn btn-default btn-xs d-handle" ng-if="component.type!=\'page\' && component.type!=\'view\'"><i class="fa fa-arrows"></i> 移动</div>' +
                     '           <div class="btn btn-default btn-xs" ng-click="deletecomponent(component,$event)" ng-if="component.type!=\'page\' && component.type!=\'view\'"><i class="fa fa-close"></i> 删除</div>' +
                     '       </div>' +
@@ -377,29 +380,46 @@ angular.module('app')
                         type: 'list-group',
                         config: {},
                         children: []
-                    },{
-                        name:'select',
-                        type:'select',
-                        config:{}
+                    }, {
+                        name: 'select',
+                        type: 'select',
+                        config: {}
                     }
                 ];
 
-                //this.scope = $scope;
+                // 变量
                 $scope.variables = angular.extend({}, $location.search());//{};
 
-                //$scope.component = $scope.component;
-//                $scope.children = $scope.component.children;
                 $scope.defaultconfig = {
                     datasources: [],
                     views: [],
                     screenwidth: 1280,
                     lockscreenwidth: true
                 };
-                //$timeout(function(){
-                //
-                //})
+                // 初始化配置
                 $scope.config = angular.extend($scope.config, angular.extend($scope.defaultconfig, $scope.config));
-                $scope.component = $scope.config;
+
+                if ($scope.config.children.length > 0) {
+                    // 兼容老版本处理，将page的数据转移至view
+                    $scope.config.views.push({
+                        "type": "view",
+                        "name": $scope.config.name,
+                        "children": $scope.config.children,
+                        "viewtype" : "view"
+                    })
+                    $scope.config.children = [];
+                }
+                // 视图如果为空，添加一个默认视图
+                if ($scope.config.views.length == 0) {
+
+                    $scope.config.views.push({
+                        "type": "view",
+                        "name": "视图",
+                        "children": []
+                    })
+                }
+                // 定义初始视图
+                $scope.component = $scope.config.views[0];
                 $scope.currentview = $scope.component;
 
                 $scope.scale = 1;
@@ -474,7 +494,7 @@ angular.module('app')
                                     datasources: $scope.config.datasources,
                                     execdatasource: $scope.execdatasource,
                                     views: $scope.config.views,
-                                    utility:$scope.utility
+                                    utility: $scope.utility
                                 };
                             }
                         }
@@ -539,64 +559,6 @@ angular.module('app')
                     return parseFunc($scope.variables);
                 }
 
-
-                //$scope.dataupdate = function (params) {
-                //    var delay = $q.defer();
-                //    rest_pages
-                //        .executedatasource($stateParams.projectid, params)
-                //        .then(function (data) {
-                //            if (data && data.result == 0) {
-                //                // 更新成功，刷新数据
-                //                //$scope.getdata($scope.page);
-                //                delay.resolve(data.data);
-                //            }
-                //            else {
-                //                delay.reject(data);
-                //            }
-                //            console.log(data)
-                //        }, function (resp) {
-                //            delay.reject(resp);
-                //        })
-                //    //var $com = $resource('/enter/query/Update');
-                //    //$com.save({}, params, function (data) {
-                //    //    if (data && data.result == 0) {
-                //    //        // 更新成功，刷新数据
-                //    //        delay.resolve(data.data);
-                //    //    } else {
-                //    //        delay.reject(data);
-                //    //    }
-                //    //    console.log(data)
-                //    //}, function (resp) {
-                //    //    delay.reject(resp);
-                //    //    console.log(resp)
-                //    //});
-                //    return delay.promise;
-                //}
-                //
-                //// 更新数据
-                //$scope.updatedata = function (connectid, database, table, condition, modifier) {
-                //    var params = {
-                //        connectid: connectid,
-                //        configs: [
-                //            {
-                //                "type": "update",
-                //                "database": database,
-                //                "table": table,
-                //                "condition": condition,
-                //                "modifier": modifier,
-                //            }
-                //        ]
-                //    };
-                //    var $com = $resource('/enter/query/Update');
-                //    $com.save({}, params, function (data) {
-                //        if (data && data.rows > 0) {
-                //            // 更新成功，刷新数据
-                //            $scope.getdata($scope.page);
-                //        }
-                //        console.log(data)
-                //    });
-                //}
-
                 $scope.execevent = function (funs) {
                     // 执行指令
                     //eval.call($scope, cmd   );
@@ -617,10 +579,8 @@ angular.module('app')
                                         });
                                         break;
                                     case "showdialog":
-                                        var modalInstance = $scope.showdialog(funs[i].params.name);
-                                        // 保存instance
-                                        $scope.modalInstance = $scope.modalInstance ? $scope.modalInstance : {};
-                                        $scope.modalInstance[funs[i].params.name] = modalInstance;
+                                        var modalInstance = $scope.utility.view.show(funs[i].params.name);
+
                                         modalInstance.result.then(function (data) {
                                             //delay.resolve(data);
                                             $scope.execevent(funs[i].thens);
@@ -666,73 +626,6 @@ angular.module('app')
                     }
                     //$scope.$eval(cmd);
                 }
-                {
-                    //$scope.$eval("execdatasource('添加模板').then(function(data){ console.log('添加返回',data); });");
-                    //var fun = $parse("{{execdatasource('添加模板').then(function (data) {                    console.log('添加返回', data);                });}}");
-                    //var result = new Function('this',"execdatasource('添加模板').then(function(data){ console.log('添加返回',data); });");
-                    //var r = result($scope);
-                    //var result = $compile("{{execdatasource('添加模板').then(function(data){ console.log('添加返回',data); })}}")($scope);
-                    //$scope.execcommend();
-                }
-
-                // 显示对话框
-                $scope.showdialog = function (name) {
-                    //var delay = $q.defer();
-                    var view = getobjinarray($scope.config.views, 'name', name);
-                    if (!view) {
-                        return;
-                    }
-                    var $ctrl = this;
-                    var modalInstance = $uibModal.open({
-                        animation: true,
-                        ariaLabelledBy: 'modal-title',
-                        ariaDescribedBy: 'modal-body',
-                        // templateUrl: '/areas/enter/content/query/datasource/edit.html',
-                        template: '<div>\n    <div class="modal-header">\n        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>\n        <h4 class="modal-title">{{currentview.title}}</h4>\n    </div>\n    <div class="modal-body">\n        <div ng-repeat="component in config.views | filter:{name:currentview.name}" ng-init="editable=false" ng-include="\'list.html\'"></div>\n    </div>\n    <div class="modal-footer">\n        <div ng-repeat="component in currentview.buttons" ng-include="\'button.html\'" include-replace>\n        </div>\n    </div>\n</div><!-- /.modal-content -->',
-                        controller: function ($scope, data) {
-                            $scope.currentview = getobjinarray($scope.config.views, "name", data.name);
-                            $scope.currentviewname = data.name;
-                        },
-                        scope: $scope,
-                        //controllerAs: '$ctrl',
-                        resolve: {
-                            data: function () {
-                                return {
-                                    name: name
-                                };
-                            },
-                            // deps: [
-                            //     // '$ocLazyLoad',
-                            //     // function ($ocLazyLoad) {
-                            //     //     return $ocLazyLoad.load('/areas/enter/content/query/datasource/ctrl.js');
-                            //     // }
-                            // ]
-                        }
-                    });
-                    return modalInstance;
-
-                    //modalInstance.result.then(function (data) {
-                    //    delay.resolve(data);
-                    //
-                    //}, function (resp) {
-                    //    delay.reject(resp);
-                    //});
-
-                    //return delay.promise;
-                };
-
-                $scope.hidedialog = function (name) {
-
-                };
-                //$scope.select = function (item) {
-                //    this.select(item)
-                //    //if ($scope.selecteditem) {
-                //    //    $scope.selecteditem.selected = false;
-                //    //}
-                //    //$scope.component.selected = true;
-                //    //$scope.selecteditem = $scope.component;
-                //    //console.log('选中了' + $scope.component.name);
-                //};
 
                 // 删除
                 $scope.deletecomponent = function (item, $event) {
@@ -786,220 +679,229 @@ angular.module('app')
                 // 系统工具类
                 $scope.utility = {
                     datasource: {
-                        data: {}
-                    },
-                    view:{}
-                };
-                // 获取数据
-                $scope.utility.datasource.getdata = function (name, config, reflash) {
-                    // 判断是否已有数据
-                    if (!reflash && $scope.utility.datasource.data[name]) {
-                        return $scope.utility.datasource.data[name];
-                    }
-                    else {
-                        if (!$scope.utility.datasource.data[name]) {
-                            $scope.utility.datasource.data[name] = [];
-                        }
-                        $scope.utility.datasource.execute(name,config)
-                            .then(function (data) {
-                                //$scope.utility.datasource.data[name] = data.data;
-                            });
-                        return $scope.utility.datasource.data[name];
-                    }
-                };
-                // 执行数据源
-                $scope.utility.datasource.execute = function (name, config) {
-                    // alert(name)
-                    var delay = $q.defer();
-                    // 获取配置
-                    var ds = getobjinarray($scope.component.datasources, 'name', name);
-                    if (!ds) {
-                        console.log('数据源不存在')
-                        delay.reject('数据源不存在');
-                        return delay.promise;
-                    }
-                    var params = angular.copy(ds);
-                    // 对数据源变量进行处理
-                    for (var i = 0; i < params.configs.length; i++) {
-                        if (config && config[params.configs[i].name]) {
-                            if (config[params.configs[i].name].limit) {
-                                params.configs[i].limit = config[params.configs[i].name].limit;
-                            }
-                            if (config[params.configs[i].name].sort && config[params.configs[i].name].sort.length > 0) {
-                                params.configs[i].sort = config[params.configs[i].name].sort;
-                            }
-                            if (config[params.configs[i].name].condition) {
-                                for (var k = 0; k < config[params.configs[i].name].condition.length; k++) {
-                                    var obj = getobjinarray(params.configs[i].condition, 'name', config[params.configs[i].name].condition[k].name);
-                                    if (!obj) {
-                                        params.configs[i].condition.push(config[params.configs[i].name].condition[k]);
-                                    }
-                                    else {
-                                        obj.opt = config[params.configs[i].name].condition[k].opt;
-                                        obj.value = config[params.configs[i].name].condition[k].value;
-                                    }
-                                    // for (var j = 0; j < params.configs[i].condition.length; j++) {
-                                    //     if (params.configs[i].condition[j].name == config[params.configs[i].name].condition[k].name) {
-                                    //         params.configs[i].condition[j].opt = config[params.configs[i].name].condition[k].opt;
-                                    //         params.configs[i].condition[j].value = config[params.configs[i].name].condition[k].value;
-                                    //     }
-                                    // }
-                                }
-                            }
-                            if (config[params.configs[i].name].condition) {
-                            }
-                        }
-                        for (var j = 0; j < params.configs[i].values.length; j++) {
-                            var parseFunc = $interpolate(params.configs[i].values[j].value);
-                            params.configs[i].values[j].value = parseFunc($scope.variables);
-                            console.log(params.configs[i].values[j].value)
-                        }
-                        for (var j = 0; j < params.configs[i].condition.length; j++) {
-                            var parseFunc = $interpolate(params.configs[i].condition[j].value);
-                            params.configs[i].condition[j].value = parseFunc($scope.variables);
-                            //console.log(params.configs[i].condition[j].value)
-                        }
-                        params.configs[i].condition = params.configs[i].condition.filter(function (element, index, array) {
-                            if (element.opt != 'is null' && element.opt != 'is not null' && element.opt != 'in dataset') {
-                                if (element.value.length == 0) {
-                                    return false;
-                                }
-                            }
-                            return true;
-                        });
-                    }
-                    // for (var i = 0; i < params.configs.length; i++) {
-                    //     for (var j = 0; j < params.configs[i].condition.length; j++) {
-                    //         var parseFunc = $interpolate(params.configs[i].condition[j].value);
-                    //         params.configs[i].condition[j].value = parseFunc($scope.variables);
-                    //         console.log(params.configs[i].condition[j].value)
-                    //     }
-                    // }
-                    // if(config){
-                    //     params.configs[i].limit = limit
-                    // }
-                    //console.log(params)
-                    rest_pages
-                        .executedatasource($stateParams.projectid, params)
-                        .then(function (data) {
-                            if (data && data.result == 0) {
-                                // 更新成功，刷新数据
-                                //$scope.getdata($scope.page);
-                                $scope.utility.datasource.data[name] = data.data.data;
-                                delay.resolve(data.data);
+                        data: {},
+                        // 获取数据
+                        getdata: function (name, config, reflash) {
+                            // 判断是否已有数据
+                            if (!reflash && $scope.utility.datasource.data[name]) {
+                                return $scope.utility.datasource.data[name];
                             }
                             else {
-                                delay.reject(data);
+                                if (!$scope.utility.datasource.data[name]) {
+                                    $scope.utility.datasource.data[name] = [];
+                                }
+                                $scope.utility.datasource.execute(name, config)
+                                    .then(function (data) {
+                                        //$scope.utility.datasource.data[name] = data.data;
+                                    });
+                                return $scope.utility.datasource.data[name];
                             }
-                            //console.log(data)
-                        }, function (resp) {
-                            delay.reject(resp);
-                        })
-                    // var $com = $resource('/enter/query/Update');
-                    // $com.save({}, params, function (data) {
-                    //     if (data && data.result == 0) {
-                    //         // 更新成功，刷新数据
-                    //         //$scope.getdata($scope.page);
-                    //         delay.resolve(data.data);
-                    //     }
-                    //     else {
-                    //         delay.reject(data);
-                    //     }
-                    //     console.log(data)
-                    // }, function (resp) {
-                    //     delay.reject(resp);
-                    // });
-                    return delay.promise;
-                };
-                // 更新数据
-                $scope.utility.updatedata = function (datasourcename, collectionname, condition, modifier) {
-                    var delay = $q.defer();
-
-                    var tableinfo = $scope.utility.datasource.getdata(datasourcename)[collectionname];
-                    var md = [];
-                    var cd = [];
-                    for (var p in modifier) {
-                        md.push({name: p, value: modifier[p]});
-                    }
-
-                    for (var p in condition) {
-                        cd.push({name: p, opt: '=', value: condition[p]});
-                    }
-                    if (cd.length == 0) {
-                        alert('未设置该表的主键，不建议更新');
-                        delay.reject('未设置该表的主键，不建议更新');
-                    }
-                    else{
-                        var params = {
-                            connectid: tableinfo.connectid,
-                            configs: [
-                                {
-                                    "type": "update",
-                                    "database": tableinfo.database,
-                                    "table": tableinfo.table,
-                                    "condition": cd,
-                                    "modifier": md,
-                                }
-                            ]
-                        };
-                        rest_pages
-                            .executedatasource($stateParams.projectid, params)
-                            .then(function (data) {
-                                if (data && data.result == 0) {
-                                    // 更新成功，刷新数据
-                                    //$scope.getdata($scope.page);
-                                    $scope.utility.datasource.getdata(datasourcename, null, true);
-                                    delay.resolve(data.data);
-                                }
-                                else {
-                                    delay.reject(data);
-                                }
-                                console.log(data)
-                            }, function (resp) {
-                                delay.reject(resp);
-                            })
-                    }
-                    return delay.promise;
-                }
-                // 显示视图
-                $scope.utility.view.show=function(name){
-                    //var delay = $q.defer();
-                    var view = getobjinarray($scope.config.views, 'name', name);
-                    if (!view) {
-                        return;
-                    }
-                    var $ctrl = this;
-                    var modalInstance = $uibModal.open({
-                        animation: true,
-                        ariaLabelledBy: 'modal-title',
-                        ariaDescribedBy: 'modal-body',
-                        // templateUrl: '/areas/enter/content/query/datasource/edit.html',
-                        template: '<div>\n    <div class="modal-header">\n        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>\n        <h4 class="modal-title">{{currentview.title}}</h4>\n    </div>\n    <div class="modal-body">\n        <div ng-repeat="component in config.views | filter:{name:currentview.name}" ng-init="editable=false" ng-include="\'list.html\'"></div>\n    </div>\n    <div class="modal-footer">\n        <div ng-repeat="component in currentview.buttons" ng-include="\'button.html\'" include-replace>\n        </div>\n    </div>\n</div><!-- /.modal-content -->',
-                        controller: function ($scope, data) {
-                            $scope.currentview = getobjinarray($scope.config.views, "name", data.name);
-                            $scope.currentviewname = data.name;
                         },
-                        scope: $scope,
-                        //controllerAs: '$ctrl',
-                        resolve: {
-                            data: function () {
-                                return {
-                                    name: name
-                                };
-                            },
-                            // deps: [
-                            //     // '$ocLazyLoad',
-                            //     // function ($ocLazyLoad) {
-                            //     //     return $ocLazyLoad.load('/areas/enter/content/query/datasource/ctrl.js');
-                            //     // }
-                            // ]
+                        // 执行数据源
+                        execute: function (name, config) {
+                            // alert(name)
+                            var delay = $q.defer();
+                            // 获取配置
+                            var ds = getobjinarray($scope.config.datasources, 'name', name);
+                            if (!ds) {
+                                console.log('数据源不存在')
+                                delay.reject('数据源不存在');
+                                return delay.promise;
+                            }
+                            var params = angular.copy(ds);
+                            // 对数据源变量进行处理
+                            for (var i = 0; i < params.configs.length; i++) {
+                                if (config && config[params.configs[i].name]) {
+                                    if (config[params.configs[i].name].limit) {
+                                        params.configs[i].limit = config[params.configs[i].name].limit;
+                                    }
+                                    if (config[params.configs[i].name].sort && config[params.configs[i].name].sort.length > 0) {
+                                        params.configs[i].sort = config[params.configs[i].name].sort;
+                                    }
+                                    if (config[params.configs[i].name].condition) {
+                                        for (var k = 0; k < config[params.configs[i].name].condition.length; k++) {
+                                            var obj = getobjinarray(params.configs[i].condition, 'name', config[params.configs[i].name].condition[k].name);
+                                            if (!obj) {
+                                                params.configs[i].condition.push(config[params.configs[i].name].condition[k]);
+                                            }
+                                            else {
+                                                obj.opt = config[params.configs[i].name].condition[k].opt;
+                                                obj.value = config[params.configs[i].name].condition[k].value;
+                                            }
+                                            // for (var j = 0; j < params.configs[i].condition.length; j++) {
+                                            //     if (params.configs[i].condition[j].name == config[params.configs[i].name].condition[k].name) {
+                                            //         params.configs[i].condition[j].opt = config[params.configs[i].name].condition[k].opt;
+                                            //         params.configs[i].condition[j].value = config[params.configs[i].name].condition[k].value;
+                                            //     }
+                                            // }
+                                        }
+                                    }
+                                    if (config[params.configs[i].name].condition) {
+                                    }
+                                }
+                                for (var j = 0; j < params.configs[i].values.length; j++) {
+                                    var parseFunc = $interpolate(params.configs[i].values[j].value);
+                                    params.configs[i].values[j].value = parseFunc($scope.variables);
+                                    console.log(params.configs[i].values[j].value)
+                                }
+                                for (var j = 0; j < params.configs[i].condition.length; j++) {
+                                    var parseFunc = $interpolate(params.configs[i].condition[j].value);
+                                    params.configs[i].condition[j].value = parseFunc($scope.variables);
+                                    //console.log(params.configs[i].condition[j].value)
+                                }
+                                params.configs[i].condition = params.configs[i].condition.filter(function (element, index, array) {
+                                    if (element.opt != 'is null' && element.opt != 'is not null' && element.opt != 'in dataset') {
+                                        if (element.value.length == 0) {
+                                            return false;
+                                        }
+                                    }
+                                    return true;
+                                });
+                            }
+                            // for (var i = 0; i < params.configs.length; i++) {
+                            //     for (var j = 0; j < params.configs[i].condition.length; j++) {
+                            //         var parseFunc = $interpolate(params.configs[i].condition[j].value);
+                            //         params.configs[i].condition[j].value = parseFunc($scope.variables);
+                            //         console.log(params.configs[i].condition[j].value)
+                            //     }
+                            // }
+                            // if(config){
+                            //     params.configs[i].limit = limit
+                            // }
+                            //console.log(params)
+                            rest_pages
+                                .executedatasource($stateParams.projectid, params)
+                                .then(function (data) {
+                                    if (data && data.result == 0) {
+                                        // 更新成功，刷新数据
+                                        //$scope.getdata($scope.page);
+                                        $scope.utility.datasource.data[name] = data.data.data;
+                                        delay.resolve(data.data);
+                                    }
+                                    else {
+                                        delay.reject(data);
+                                    }
+                                    //console.log(data)
+                                }, function (resp) {
+                                    delay.reject(resp);
+                                })
+                            // var $com = $resource('/enter/query/Update');
+                            // $com.save({}, params, function (data) {
+                            //     if (data && data.result == 0) {
+                            //         // 更新成功，刷新数据
+                            //         //$scope.getdata($scope.page);
+                            //         delay.resolve(data.data);
+                            //     }
+                            //     else {
+                            //         delay.reject(data);
+                            //     }
+                            //     console.log(data)
+                            // }, function (resp) {
+                            //     delay.reject(resp);
+                            // });
+                            return delay.promise;
                         }
-                    });
-                    return modalInstance;
-                };
-                $scope.utility.view.hide=function(name){
+                    },
+                    // 更新数据
+                    updatedata: function (datasourcename, collectionname, condition, modifier) {
+                        var delay = $q.defer();
 
+                        var tableinfo = $scope.utility.datasource.getdata(datasourcename)[collectionname];
+                        var md = [];
+                        var cd = [];
+                        for (var p in modifier) {
+                            md.push({name: p, value: modifier[p]});
+                        }
+
+                        for (var p in condition) {
+                            cd.push({name: p, opt: '=', value: condition[p]});
+                        }
+                        if (cd.length == 0) {
+                            alert('未设置该表的主键，不建议更新');
+                            delay.reject('未设置该表的主键，不建议更新');
+                        }
+                        else {
+                            var params = {
+                                connectid: tableinfo.connectid,
+                                configs: [
+                                    {
+                                        "type": "update",
+                                        "database": tableinfo.database,
+                                        "table": tableinfo.table,
+                                        "condition": cd,
+                                        "modifier": md,
+                                    }
+                                ]
+                            };
+                            rest_pages
+                                .executedatasource($stateParams.projectid, params)
+                                .then(function (data) {
+                                    if (data && data.result == 0) {
+                                        // 更新成功，刷新数据
+                                        //$scope.getdata($scope.page);
+                                        $scope.utility.datasource.getdata(datasourcename, null, true);
+                                        delay.resolve(data.data);
+                                    }
+                                    else {
+                                        delay.reject(data);
+                                    }
+                                    console.log(data)
+                                }, function (resp) {
+                                    delay.reject(resp);
+                                })
+                        }
+                        return delay.promise;
+                    },
+                    view: {
+                        show: function (name, data) {
+                            //var delay = $q.defer();
+                            var view = getobjinarray($scope.config.views, 'name', name);
+                            if (!view) {
+                                return;
+                            }
+                            var $ctrl = this;
+                            var modalInstance = $uibModal.open({
+                                animation: true,
+                                ariaLabelledBy: 'modal-title',
+                                ariaDescribedBy: 'modal-body',
+                                // templateUrl: '/areas/enter/content/query/datasource/edit.html',
+                                template: '<div>\n    <div class="modal-header">\n        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>\n        <h4 class="modal-title">{{currentview.title}}</h4>\n    </div>\n    <div class="modal-body">\n        <div ng-repeat="component in config.views | filter:{name:currentview.name}" ng-init="editable=false" ng-include="\'list.html\'"></div>\n    </div>\n    <div class="modal-footer">\n        <div ng-repeat="component in currentview.buttons" ng-include="\'button.html\'" include-replace>\n        </div>\n    </div>\n</div><!-- /.modal-content -->',
+                                controller: function ($scope, data) {
+                                    $scope.currentview = getobjinarray($scope.config.views, "name", data.name);
+                                    $scope.currentviewname = data.name;
+                                    if(data.data)
+                                    {
+                                        $scope.variables = angular.copy(data.data);
+                                    }
+                                },
+                                scope: $scope,
+                                //controllerAs: '$ctrl',
+                                resolve: {
+                                    data: function () {
+                                        return {
+                                            name: name,
+                                            data:data
+                                        };
+                                    },
+                                    // deps: [
+                                    //     // '$ocLazyLoad',
+                                    //     // function ($ocLazyLoad) {
+                                    //     //     return $ocLazyLoad.load('/areas/enter/content/query/datasource/ctrl.js');
+                                    //     // }
+                                    // ]
+                                }
+                            });
+                            // 保存instance
+                            $scope.modalInstance = $scope.modalInstance ? $scope.modalInstance : {};
+                            $scope.modalInstance[name] = modalInstance;
+                            return modalInstance;
+                        },
+                        hide: function (name) {
+
+                        }
+                    }
                 };
+
             },
             link: function ($scope, $element, $attrs, pCtrl) {
 

@@ -1,5 +1,5 @@
 ﻿// 加载
-app.controller('ProjectDashboardController', function ($scope, $resource, $state, $stateParams, $localStorage, rest_projects, rest_modules, rest_pages, $uibModal) {
+app.controller('ProjectDashboardController', function ($scope, $resource, $state, $stateParams, $localStorage, rest_projects, rest_modules, rest_pages, rest_connects, $uibModal) {
 
     $scope.projectid = $stateParams.projectid;
     $scope.pinpagelistbar = false;
@@ -58,6 +58,9 @@ app.controller('ProjectDashboardController', function ($scope, $resource, $state
                     // 显示数据
                     $scope.pages = data.data;
                     if ($state.is('app.project')) {
+                        if ($scope.pages.length == 0) {
+                            $state.go('app.project.nopages')
+                        }
                         console.log($stateParams.pageid)
                         if (!$stateParams.pageid && $scope.pages.length > 0) {
                             for (var i = 0; i < $scope.pages.length; i++) {
@@ -75,7 +78,7 @@ app.controller('ProjectDashboardController', function ($scope, $resource, $state
                 }
             });
     };
-    $scope.loadpages();
+    // $scope.loadpages();
 
     // 获取项目所有成员
     $scope.loadusers = function () {
@@ -96,6 +99,30 @@ app.controller('ProjectDashboardController', function ($scope, $resource, $state
     };
     $scope.loadusers();
 
+    // 获取所有的数据库连接
+    $scope.loadconnects = function () {
+        rest_connects
+            .list($scope.projectid)
+            .then(function (data) {
+                // alert(data);
+                // 显示数据
+                if (data.result == 0) {
+                    // alert(data);
+                    // 显示数据
+                    $scope.connects = data.data;
+                    if ($state.is('app.project')) {
+                        if ($scope.connects.length == 0) {
+                            $state.go('app.project.noconnects')
+                        }
+                    }
+                }
+                else {
+                    alert(data.message);
+                }
+                $scope.loadpages();
+            });
+    };
+    $scope.loadconnects();
 
     // 读取模块
     $scope.loadmodules = function () {

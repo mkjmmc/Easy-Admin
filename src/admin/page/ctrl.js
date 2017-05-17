@@ -24,13 +24,13 @@ app.controller('PageListController', function ($scope, $resource, $stateParams, 
         //},
         onUpdate: function (/**Event*/evt) {
             console.log(evt)
-            for(var i=0;i<$scope.data.data.length;i++){
-                $scope.data.data[i].OrderBy=i;
+            for (var i = 0; i < $scope.data.data.length; i++) {
+                $scope.data.data[i].OrderBy = i;
             }
             // 更新排序
             rest_pages
-                .updateorderby( $scope.projectid,  $scope.data.data)
-                .then(function(){
+                .updateorderby($scope.projectid, $scope.data.data)
+                .then(function () {
 
                 });
             //var itemEl = evt.item;  // dragged HTMLElement
@@ -92,34 +92,51 @@ app.controller('PageListController', function ($scope, $resource, $stateParams, 
         $scope.getdata($stateParams.page, $stateParams.search);
     }, 100)
 
-    $scope.gethref=function (name, params) {
-        return $state.href(name,params);
+    $scope.gethref = function (name, params) {
+        return $state.href(name, params);
     }
+    $scope.deletepage = function (item) {
+        if(confirm('是否删除该页面？')) {
+            rest_pages
+                .delete(item.ID)
+                .then(function (data) {
+                    if (data.result == 0) {
+                        // 删除成功刷新列表
+                        $scope.getdata($stateParams.page);
+                    }
+                    else {
+                        alert(data.message);
+                    }
+                });
+        }
+    }
+
 });
-app.controller('PageEditController', function ($scope, $resource, $stateParams, $state, $parse, $filter, $timeout, rest_pages,$localStorage) {
+app.controller('PageEditController', function ($scope, $resource, $stateParams, $state, $parse, $filter, $timeout, rest_pages, $localStorage) {
     // 初始数据
-    $scope.Component = {
-        type: 'page',
-        name: '页面',
-        children: []
-    };
+    // $scope.Component = {
+    //     type: 'page',
+    //     name: '页面',
+    //     children: []
+    // };
+    $scope.Component = null;
     $scope.editable = true;
     $scope.pageid = $stateParams.pageid;
     $scope.projectid = $stateParams.projectid;
-    $scope.pageinfo={IsPublic:false};
+    $scope.pageinfo = {IsPublic: false};
 
     // 判断是否是创建者，只有创建者才能进入这个页面
     console.log($scope.users)
-    if($scope.users){
+    if ($scope.users) {
 
     }
 
-    $scope.$watch(function(){
+    $scope.$watch(function () {
         return $scope.users;
-    }, function(newvalue){
-        if(newvalue.length > 0){
-            for(var i=0;i<newvalue.length;i++){
-                if(newvalue[i].ID == $localStorage.user.ID && newvalue[i].Role==1){
+    }, function (newvalue) {
+        if (newvalue.length > 0) {
+            for (var i = 0; i < newvalue.length; i++) {
+                if (newvalue[i].ID == $localStorage.user.ID && newvalue[i].Role == 1) {
                     return;
                 }
             }
@@ -134,20 +151,20 @@ app.controller('PageEditController', function ($scope, $resource, $stateParams, 
             config: JSON.stringify($scope.Component),
             id: $scope.pageid,
             projectid: $scope.projectid,
-            IsPublic:$scope.pageinfo.IsPublic
+            IsPublic: $scope.pageinfo.IsPublic
         };
         $scope.savePromise = rest_pages
             .save(params)
-            .then(function(data){
+            .then(function (data) {
                 if (data.result == 0) {
                     // 保存成功
-                    $state.reload('app.project.design', {projectid:data.data.ProjectID, pageid:data.data.ID});
+                    $state.reload('app.project.design', {projectid: data.data.ProjectID, pageid: data.data.ID});
 //                alert('保存成功');
                 } else {
                     // 保存失败
                     alert('保存失败');
                 }
-            },function(resp){
+            }, function (resp) {
                 alert(resp);
             });
 //        var $com = $resource('/enter/query/save');
@@ -178,50 +195,27 @@ app.controller('PageEditController', function ($scope, $resource, $stateParams, 
                 // 显示数据
                 if (data.result == 0) {
                     $scope.pageinfo = data.data;
-                    $scope.Component = angular.extend($scope.Component, JSON.parse(data.data.Config));
-
-
-//                $scope.getdata($stateParams.page, $stateParams.search);
-//                     $scope.$parent.$parent.selectedpage = $scope.Component.name;
+                    $scope.Component = angular.extend({type: 'page', name: '页面', children: []}, JSON.parse(data.data.Config));
                 }
                 else {
                     alert(data.message);
                 }
             });
-//         var $com = $resource('/enter/query/GetQueryConfig');
-//         $com.save(null, params, function (data) {
-//             // alert(data);
-//             // 显示数据
-//             if (data.result == 0) {
-//                 $scope.Component = angular.extend($scope.Component, JSON.parse(data.data.Config));
-// //                $scope.getdata($stateParams.page, $stateParams.search);
-//             }
-//             else {
-//                 alert(data.message);
-//             }
-// //            $scope.initdatabase();
-//         }, function (resp) {
-//             alert(resp);
-//         });
     } else {
 //            $scope.initdatabase();
     }
 
 
-    $scope.$on("$destroy", function() {
+    $scope.$on("$destroy", function () {
         $scope.app.hideAside = false;
         //清除配置,不然scroll会重复请求
     })
 });
 
 
-app.controller('PagePageController', function ($scope, $resource, $stateParams,rest_pages, $state, $parse, $filter, $timeout, $location) {
+app.controller('PagePageController', function ($scope, $resource, $stateParams, rest_pages, $state, $parse, $filter, $timeout, $location) {
     // 初始数据
-    $scope.Component = {
-        type: 'page',
-        name: '页面',
-        children: []
-    };
+    $scope.Component = null;
 
     if ($stateParams.pageid && $stateParams.pageid > 0) {
         // 获取配置
@@ -232,7 +226,11 @@ app.controller('PagePageController', function ($scope, $resource, $stateParams,r
                 // alert(data);
                 // 显示数据
                 if (data.result == 0) {
-                    $scope.Component = angular.extend($scope.Component, JSON.parse(data.data.Config));
+                    $scope.Component = angular.extend({
+                        type: 'page',
+                        name: '页面',
+                        children: []
+                    }, JSON.parse(data.data.Config));
 //                $scope.getdata($stateParams.page, $stateParams.search);
 //                     $scope.$parent.$parent.selectedpage = $scope.Component.name;
                 }

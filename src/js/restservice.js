@@ -131,6 +131,10 @@ app.factory('rest_pages', function ($rootScope, rest) {
         },
         updateorderby:function(projectid,data){
             return rest.save(app.host + "/pages/UpdateOrderBy",{projectid: projectid}, data);
+        },
+        delete:function (PageID) {
+            return rest.save(app.host + "/pages/delete", {PageID:PageID});
+
         }
     }
 });
