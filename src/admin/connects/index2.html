@@ -1,5 +1,9 @@
-<div ng-controller="ConnectListController">
-        <div class="list-group">
+<div ng-controller="ConnectListController" class="padder-md">
+    <h3 class="text-info m-t-xl font-thin m-b-none">数据库连接 </h3>
+
+    <div class="line b-b"></div>
+
+    <div class="list-group">
             <div ng-repeat="connect in connects" class="list-group-item" ng-init="editable=false">
                 <div ng-show="editable==false"
                      ng-click="editable=true;connect.NameNew = connect.Name;connect.ConnectStringNew = connect.ConnectString;connect.TypeNew = connect.Type">

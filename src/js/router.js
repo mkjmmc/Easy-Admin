@@ -170,6 +170,26 @@ app
                             }]
                     }
                 })
+                .state('app.project.settings.base', {
+                    //abstract: true,
+                    url: '/base',
+                    templateUrl: 'admin/project/settings/base.html'
+                })
+                .state('app.project.settings.uiconfig', {
+                    //abstract: true,
+                    url: '/uiconfig',
+                    templateUrl: 'admin/project/settings/uiconfig.html'
+                })
+                .state('app.project.settings.connects', {
+                    //abstract: true,
+                    url: '/connects',
+                    templateUrl: 'admin/connects/index2.html'
+                })
+                .state('app.project.settings.pages', {
+                    //abstract: true,
+                    url: '/pages',
+                    templateUrl: 'admin/page/list.html'
+                })
                 .state('app.project.quickbuild', {
                     //abstract: true,
                     url: '/quickbuild',
